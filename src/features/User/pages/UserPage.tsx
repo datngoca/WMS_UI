@@ -2,18 +2,24 @@ import classNames from "classnames/bind";
 import styles from "./UserPage.module.scss";
 import Filter from "../components/Filter";
 import Table, { type TableColumn } from "@/components/Common/Table";
-import type { Role } from "@/features/Role/types/role.interface";
-import { useRoles } from "@/features/Role/hooks/useRoles";
+import type { User } from "../types/user.interface";
+import { useUsers } from "../hooks/useUsers";
 
 const cx = classNames.bind(styles);
 
 const UserPage = () => {
-  const { data: roles } = useRoles();
+  const { data: users } = useUsers();
   // 1. Khai báo cấu hình các cột
-  const columns: TableColumn<Role>[] = [
+  const columns: TableColumn<User>[] = [
     { header: "ID", key: "id" },
-    { header: "TÊN VAI TRÒ", key: "name" },
-    { header: "MÔ TẢ", key: "description" },
+    { header: "Full Name", key: "fullName" },
+    { header: "Username", key: "username" },
+    { header: "Email", key: "email" },
+    {
+      header: "Roles",
+      key: "roles",
+      render: (user: User) => <>{user.roles?.map((role) => role.name).join(", ")}</>,
+    },
     {
       header: "THAO TÁC",
       key: "actions",
@@ -30,7 +36,7 @@ const UserPage = () => {
       </div>
 
       <div className={cx("user__table")}>
-        <Table columns={columns} data={roles || []} />
+        <Table columns={columns} data={users || []} />
       </div>
     </div>
   );

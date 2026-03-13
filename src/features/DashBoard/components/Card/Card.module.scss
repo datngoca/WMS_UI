@@ -1,0 +1,23 @@
+.card {
+  flex: 1;
+
+  background-color: var(--color-surface);
+
+  border-radius: 14px;
+  padding: 16px;
+
+  .main-info {
+    display: flex;
+    justify-content: space-between;
+    .card-info {
+      .card-title {
+        margin: 0;
+        opacity: 0.6;
+      }
+    }
+    .card-icon {
+      height: 60px;
+      border-radius: 23px;
+    }
+  }
+}

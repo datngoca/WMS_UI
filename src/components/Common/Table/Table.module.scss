@@ -1,0 +1,28 @@
+.table-container {
+  border-radius: 14px;
+  border: 1px solid var(--color-border);
+  overflow: hidden;
+}
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: $font-size-sm;
+
+  &__head {
+    background-color: #fcfdfd;
+  }
+  &__header {
+    padding: 15px 32px;
+    text-transform: uppercase;
+  }
+  &__body {
+    background-color: var(--color-surface);
+    &__row {
+      border-top: 1px solid var(--color-border);
+    }
+  }
+  &__data {
+    padding: 28px 32px;
+  }
+}

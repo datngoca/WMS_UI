@@ -1,0 +1,44 @@
+.nav {
+  text-decoration: none;
+  color: var(--color-text-main);
+
+  &__item {
+    list-style: none;
+    display: flex;
+    align-items: center; 
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    position: relative; // Gốc tọa độ cho cái "bo góc nhỏ" bên trái
+
+    &--active {
+      background-color: var(--color-primary);
+      display: block;
+      color: white;
+      border-radius: 6px;
+
+      // --- CÁI BO GÓC NHỎ BÊN TRÁI ---
+      &::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0; 
+        width: 4px; 
+        height: 100%; 
+        background-color: var(
+          --color-primary
+        ); 
+        border-radius: 0 4px 4px 0; 
+      }
+    }
+  }
+
+  &__details {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 80%;
+    padding: 16px 0;
+  }
+}

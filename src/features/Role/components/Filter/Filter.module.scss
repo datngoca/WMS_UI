@@ -1,0 +1,67 @@
+.filter {
+  display: flex;
+  margin-bottom: 20px;
+
+  &__group {
+    display: flex;
+    align-items: center; // Căn giữa nội dung theo chiều dọc
+    border: 1px solid var(--color-border);
+    border-radius: 14px;
+    overflow: hidden; // Đảm bảo các item không chèn lên border-radius
+  }
+
+  &__item {
+    padding: 25px; // Giảm padding dọc cho cân đối
+    display: flex;
+    align-items: center;
+    cursor: default;
+    font-size: 14px;
+    background-color: var(--color-surface-variant);
+
+    &__icon {
+      margin-left: 10px;
+    }
+
+    // Đường gạch giữa các item
+    &:not(:last-child) {
+      border-right: 1px solid var(--color-border);
+    }
+
+    &--label {
+      font-weight: 600;
+    }
+
+    &--clickable {
+      cursor: pointer;
+      transition: background 0.2s;
+
+      &:hover {
+        background-color: #f5f5f5;
+      }
+    }
+
+    &--reset {
+      color: #ff4d4f;
+      &:hover {
+        background-color: #fff1f0;
+      }
+    }
+
+    &--active {
+      color: var(--color-text-muted);
+    }
+  }
+
+  &__date-wrapper {
+    position: relative;
+    width: 0;
+    height: 0;
+
+    .filter__date-input {
+      position: absolute;
+      top: 0;
+      right: 0;
+      visibility: hidden;
+    }
+  }
+}

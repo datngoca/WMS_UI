@@ -1,0 +1,96 @@
+.header {
+  margin: 0;
+  background-color: var(--color-surface);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 31px;
+
+  &__search {
+    margin-left: 38px;
+    display: flex;
+    align-items: center;
+    padding: 10px 16px;
+    border-radius: 28px;
+    background-color: var(--color-bg-main);
+    width: 388px;
+    color: var(--color-text-main);
+    opacity: 0.5;
+    border: 1px solid var(--color-border);
+
+    transition: opacity 0.3s ease;
+
+    &:focus-within {
+      opacity: 1; /* Hiện rõ 100% để icon và chữ đạt màu đen chuẩn */
+    }
+  }
+  &__search-input {
+    width: 100%;
+    margin-left: 14px;
+    outline: none;
+    border: none;
+    background: transparent;
+    color: black;
+  }
+
+  &__actions {
+    display: flex;
+    gap: 25px;
+    align-items: center;
+  }
+  &__notification {
+    position: relative;
+  }
+  &__notification-icon {
+    font-size: 25px;
+    color: #3d42df;
+  }
+  &__notification-badge {
+    width: 18px;
+    height: 18px;
+    font-size: 14px;
+    position: absolute;
+    bottom: 15px;
+    left: 15px;
+    border-radius: 50%;
+    background-color: #ff4f4f;
+    color: #ffffff;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  &__language {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  &__language-flag {
+    width: 40px;
+  }
+  &__language-name,
+  &__dropdown-icon {
+    color: var(--color-text-muted);
+  }
+
+  &__profile {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  &__avatar {
+    width: 50px;
+    height: 52px;
+    border-radius: 50%;
+  }
+
+  &__infor {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  &__user-role {
+    font-size: $font-size-sm;
+    color: var(--color-text-muted);
+  }
+}

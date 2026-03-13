@@ -1,0 +1,18 @@
+.toast-container {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 999999;
+
+  display: flex;
+  flex-direction: column;
+  gap: 16px; // Khoảng cách giữa các cái Toast khi hiện nhiều cái cùng lúc
+
+  // Tránh việc click xuyên qua các khoảng trống của container
+  pointer-events: none;
+
+  // Nhưng vẫn cho phép click vào từng cái Toast bên trong
+  & > * {
+    pointer-events: auto;
+  }
+}

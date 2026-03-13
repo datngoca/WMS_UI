@@ -1,0 +1,148 @@
+// Sử dụng biến để dễ quản lý màu sắc (thay vì viết cứng mã màu)
+$success-color: #47f764;
+$error-color: #ff4d4f;
+$info-color: #1890ff;
+$text-secondary: #656565;
+
+.toast {
+  // 1. Định vị & Kích thước
+  position: fixed; // Thay absolute bằng fixed để toast luôn nổi trên màn hình khi scroll
+  top: 90px;
+  right: 0px;
+  width: 380px;
+  min-height: 80px; // Dùng min-height thay vì height để không bị tràn chữ nếu message dài
+  padding: 12px 16px;
+
+  // 2. Hiển thị & Layout
+  display: grid;
+  // Tối ưu grid: Icon và Close có chiều rộng cố định, Info chiếm phần còn lại
+  grid-template-columns: 40px 1fr 24px;
+  gap: 12px;
+  align-items: center;
+
+  // 3. Trang trí
+  background-color: var(--color-surface);
+  border-radius: 8px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+  border-left: 6px solid transparent; // Dự phòng cho border màu
+  overflow: hidden;
+
+  animation: slideIn 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.35) forwards;
+
+  &--hiding {
+    animation: slideOut 0.5s ease forwards;
+  }
+
+  &__icon {
+    font-size: 28px;
+    display: flex;
+    justify-content: center;
+  }
+  &__type {
+    margin: 0 0 4px 0; // Reset margin mặc định của thẻ p/h4
+    font-weight: 600;
+    text-transform: capitalize; // Cách này sạch hơn ::first-letter
+    color: var(--color-text-main);
+  }
+
+  &__message {
+    margin: 0;
+    font-size: $font-size-sm;
+    font-weight: 400;
+    color: $text-secondary;
+    line-height: 1.4;
+  }
+
+  &__close {
+    cursor: pointer;
+    font-size: $font-size-lg;
+    color: #ccc;
+    transition: color 0.2s ease;
+    display: flex;
+    justify-content: flex-end;
+
+    &:hover {
+      color: #333;
+    }
+  }
+
+  // 4. Các trạng thái (Modifiers)
+  &--success {
+    border-left-color: $success-color;
+    .toast__icon {
+      color: $success-color;
+    }
+  }
+
+  &--error {
+    border-left-color: $error-color;
+    .toast__icon {
+      color: $error-color;
+    }
+  }
+
+  &--info {
+    border-left-color: $info-color;
+    .toast__icon {
+      color: $info-color;
+    }
+  }
+
+  &__progress {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 3px;
+    width: 100%;
+
+    &::before {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      height: 100%;
+      width: 100%;
+      animation: progress 5s linear forwards;
+    }
+    &--success::before {
+      background-color: $success-color;
+    }
+    &--error::before {
+      background-color: $error-color;
+    }
+    &--info::before {
+      background-color: $info-color;
+    }
+  }
+}
+
+// 1. Hiệu ứng đi vào (Trượt từ phải sang trái)
+@keyframes slideIn {
+  from {
+    transform: translateX(calc(100% + 20px));
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+// 2. Hiệu ứng đi ra (Trượt ngược lại và mờ dần)
+@keyframes slideOut {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(calc(100% + 20px));
+    opacity: 0;
+  }
+}
+
+// 3. Hiệu ứng thanh Progress
+@keyframes progress {
+  100% {
+    right: 100%;
+  }
+}

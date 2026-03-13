@@ -1,0 +1,33 @@
+:root {
+  // Màu mặc định (Light Mode)
+
+  /* 1. Background - Màu nền tảng dưới cùng */
+  --color-bg-main: #f5f6fa;
+
+  /* 2. Surface - Màu của các thành phần nổi trên nền (Header, Sidebar, Card) */
+  --color-surface: #ffffff; /* Màu trắng cho Header, Sidebar */
+  --color-surface-variant: #F9F9FB; /* Màu nền cho các item bên trong content */
+
+  /* 3. Text - Màu chữ */
+  --color-text-main: #202224;
+  --color-text-muted: #666666; /* Chữ mờ hơn cho label, sub-text */
+
+  /* 4. Action/Primary - Màu hành động, điểm nhấn */
+  --color-primary: #4880ff;
+  --color-primary-soft: rgba(72, 128, 255, 0.1);
+
+  /* 5. Border */
+  --color-border: #D5D5D5;
+}
+
+[data-theme="dark"] {
+  // Màu khi ở Dark Mode
+  --color-bg-main: #1b2431;
+  --color-surface: #273142;
+  --color-text-main: #ffffff;
+}
+
+$font-size-sm: 0.875rem; // 14px
+$font-size-md: 1rem; // 16px
+$font-size-lg: 1.25rem; // 20px
+$font-size-xl: 2rem; // 32px

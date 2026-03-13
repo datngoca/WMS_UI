@@ -1,0 +1,14 @@
+.dashboard-page {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  .title {
+    margin: 0;
+  }
+
+  .cards {
+    display: flex;
+    gap: 24px;
+    width: 100%;
+  }
+}

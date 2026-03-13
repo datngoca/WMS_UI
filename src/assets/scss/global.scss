@@ -1,0 +1,21 @@
+html {
+  font-size: 16px;
+}
+body {
+  font-family: "Nunito", sans-serif;
+  background-color: var(--color-bg-main);
+  color: var(--color-text-main);
+}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  outline: none;
+  border: none;
+  text-decoration: none;
+  list-style: none;
+}
+
+h1 {
+  margin: 0;
+}

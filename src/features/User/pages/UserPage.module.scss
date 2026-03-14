@@ -1,5 +1,12 @@
-.user{
+.user {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+
+  &__features {
     display: flex;
-    flex-direction: column;
-    gap: 30px;
+    justify-content: space-between;
+  }
+
+  
 }

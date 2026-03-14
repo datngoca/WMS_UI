@@ -18,7 +18,9 @@ const UserPage = () => {
     {
       header: "Roles",
       key: "roles",
-      render: (user: User) => <>{user.roles?.map((role) => role.name).join(", ")}</>,
+      render: (user: User) => (
+        <>{user.roles?.map((role) => role.name).join(", ")}</>
+      ),
     },
     {
       header: "THAO TÁC",
@@ -31,10 +33,12 @@ const UserPage = () => {
       <h1 className={cx("user__title")}>Users</h1>
 
       {/* Phần này sẽ chứa các bộ lọc để lọc danh sách người dùng */}
-      <div className={cx("user__filter")}>
-        <Filter />
+      <div className={cx("user__features")}>
+        <div className={cx("user__filter")}>
+          <Filter />
+        </div>
+        <button className={cx("user__btn-add")}>Add new User</button>
       </div>
-
       <div className={cx("user__table")}>
         <Table columns={columns} data={users || []} />
       </div>

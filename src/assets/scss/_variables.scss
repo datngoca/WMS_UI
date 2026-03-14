@@ -6,7 +6,7 @@
 
   /* 2. Surface - Màu của các thành phần nổi trên nền (Header, Sidebar, Card) */
   --color-surface: #ffffff; /* Màu trắng cho Header, Sidebar */
-  --color-surface-variant: #F9F9FB; /* Màu nền cho các item bên trong content */
+  --color-surface-variant: #f9f9fb; /* Màu nền cho các item bên trong content */
 
   /* 3. Text - Màu chữ */
   --color-text-main: #202224;
@@ -17,7 +17,29 @@
   --color-primary-soft: rgba(72, 128, 255, 0.1);
 
   /* 5. Border */
-  --color-border: #D5D5D5;
+  --color-border: #d5d5d5;
+
+  /* 6. Feedback - Trạng thái hệ thống */
+  --color-success: #47f764; /* Xanh lá - Hoàn thành, nhập kho xong */
+  --color-success-soft: #d9f7f1;
+
+  --color-destructive: #ff4d4f; /* Đỏ - Xóa, lỗi, hết hàng */
+  --color-destructive-soft: #feeceb;
+
+  --color-warning: #ff9f43; /* Cam - Cảnh báo sắp hết hàng */
+  --color-warning-soft: #fff3e8;
+
+  --color-info: #1890ff; /* Xanh biển nhạt - Thông tin hướng dẫn */
+
+  /* 7. Shadow - Độ đổ bóng (Tạo chiều sâu cho Modal) */
+  --shadow-sm: 0px 1px 2px rgba(16, 24, 40, 0.05);
+  --shadow-md: 0px 4px 12px rgba(16, 24, 40, 0.1);
+
+  /* 8. Interaction - Tương tác người dùng */
+  --color-primary-hover: #3667e6; /* Đậm hơn màu chính một chút */
+  --color-primary-active: #2b52b8; /* Đậm nhất khi nhấn giữ */
+  --color-disabled: #e0e2e7; /* Nút bị vô hiệu hóa */
+  --color-text-disabled: #a0a3bd;
 }
 
 [data-theme="dark"] {
@@ -26,6 +48,17 @@
   --color-surface: #273142;
   --color-text-main: #ffffff;
 }
+/* 9. Radius - Độ bo góc */
+$radius-sm: 4px;
+$radius-md: 8px;
+$radius-lg: 12px;
+$radius-full: 9999px;
+
+$spacing-xs: 4px;
+$spacing-sm: 8px;
+$spacing-md: 16px;
+$spacing-lg: 24px;
+$spacing-xl: 32px;
 
 $font-size-sm: 0.875rem; // 14px
 $font-size-md: 1rem; // 16px

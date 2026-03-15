@@ -12,13 +12,15 @@ export interface TableColumn<T> {
 interface TableProps<T> {
   columns: TableColumn<T>[];
   data: T[];
+  className?: string;
 }
 const Table = <T extends { id: number}>({
   columns,
   data,
+  className,
 }: TableProps<T>) => {
   return (
-    <div className={cx("table-container")}>
+    <div className={cx("table-container", className)}>
       <table className={cx("table")}>
         <thead className={cx("table__head")}>
           <tr className={cx("table__head__row")}>

@@ -1,112 +1,55 @@
 import classNames from "classnames/bind";
 import styles from "./UserTable.module.scss";
 
-import type { TableProps } from "antd";
-import { Flex, Space, Tag, Table } from "antd";
+import type { User, UserTableProps } from "../../types/user.interface";
+import Table, { type TableColumn } from "@/components/Common/Table";
+import Button from "@/components/Common/Button";
 
 const cx = classNames.bind(styles);
 
-interface DataType {
-  key: string;
-  fullName: string;
-  email: string;
-  age: number;
-  address: string;
-  roles: string[];
-}
 
-const color_role = {
-  ADMIN: "geekblue",
-  USER: "green",
-};
+const UserTable = ({ data, onEdit }: UserTableProps) => {
 
-const data: DataType[] = [
-  {
-    key: "1",
-    fullName: "John Brown",
-    email: "john.brown@example.com",
-    age: 32,
-    address: "New York No. 1 Lake Park",
-    roles: ["ADMIN", "USER"],
-  },
-  {
-    key: "2",
-    fullName: "Jim Green",
-    email: "jim.green@example.com",
-    age: 42,
-    address: "London No. 1 Lake Park",
-    roles: ["USER"],
-  },
-  {
-    key: "3",
-    fullName: "Joe Black",
-    email: "joe.black@example.com",
-    age: 32,
-    address: "Sydney No. 1 Lake Park",
-    roles: ["USER", "ADMIN"],
-  },
-];
-
-const UserTable = () => {
-  const columns: TableProps<DataType>["columns"] = [
+  // 1. Khai báo cấu hình các cột
+  const columns: TableColumn<User>[] = [
+    { header: "ID", key: "id" },
+    { header: "Full Name", key: "fullName" },
+    { header: "Username", key: "username" },
+    { header: "Email", key: "email" },
     {
-      title: "Full Name",
-      dataIndex: "fullName",
-      key: "fullName",
-      render: (text) => <a>{text}</a>,
-    },
-    {
-      title: "Email",
-      dataIndex: "email",
-      key: "email",
-    },
-    {
-      title: "Age",
-      dataIndex: "age",
-      key: "age",
-    },
-    {
-      title: "Address",
-      dataIndex: "address",
-      key: "address",
-    },
-    {
-      title: "Roles",
+      header: "Roles",
       key: "roles",
-      dataIndex: "roles",
-      render: (_, { roles }) => (
-        <Flex gap="small" align="center" wrap>
-          {roles.map((role) => {
-            const color =
-              color_role[role as keyof typeof color_role] || "default";
-            return (
-              <Tag color={color} key={role}>
-                {role.toUpperCase()}
-              </Tag>
-            );
-          })}
-        </Flex>
+      render: (user: User) => (
+        <>{user.roles?.map((role) => role.name).join(", ")}</>
       ),
     },
     {
-      title: "Action",
-      key: "action",
-      render: (_, record) => (
-        <Space size="middle">
-          <a>Invite {record.fullName}</a>
-          <a>Delete</a>
-        </Space>
+      header: "THAO TÁC",
+      key: "actions",
+      render: (user: User) => (
+        <div className={cx("table__actions")}>
+          <Button
+            size="sm"
+            variant="outline"
+            color="secondary"
+            onClick={() => onEdit && onEdit(user)}
+          >
+            Sửa
+          </Button>
+          <Button
+            size="sm"
+            variant="outline"
+            color="destructive"
+            onClick={() => console.log("Delete")}
+          >
+            Xóa
+          </Button>
+        </div>
       ),
     },
   ];
 
-  return (
-    <Table<DataType>
-      columns={columns}
-      dataSource={data}
-      className={cx("table")}
-    />
-  );
+  return <Table columns={columns} data={data} className={cx("table")} />;
 };
 
 export default UserTable;

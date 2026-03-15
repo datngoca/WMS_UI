@@ -1,0 +1,83 @@
+.input {
+  width: 100%;
+  &__outline {
+    position: relative;
+    display: flex;
+    &__field {
+      width: 100%;
+      padding: $spacing-sm;
+      border: 1px solid var(--color-border);
+      border-radius: $radius-sm;
+      background: transparent;
+      transition: border-color 0.2s;
+      outline: none;
+
+      &::placeholder {
+        color: transparent; // Ẩn placeholder thật để dùng label thay thế
+      }
+
+      &:focus {
+        border-color: var(--color-primary);
+        border-width: 1.5px;
+      }
+
+      &--error {
+        border-color: var(--color-destructive);
+      }
+    }
+
+    // Khi focus hoặc khi đã nhập text: Label bay lên và Icon đổi màu đậm
+    &__field:focus ~ &__label,
+    &__field:not(:placeholder-shown) ~ &__label {
+      top: 0;
+      color: var(--color-text-main);
+      font-weight: 500;
+      font-size: 12px; // Có thể nhỏ lại một chút khi bay lên
+    }
+
+    &__field:focus ~ &__icon,
+    &__field:not(:placeholder-shown) ~ &__icon {
+      color: var(--color-text-main);
+    }
+
+    // --- LOGIC KHI CÓ LỖI (Đè lên các màu trên) ---
+    &__field--error ~ &__label,
+    &__field--error ~ &__icon {
+      color: var(--color-destructive) !important;
+    }
+    &__label {
+      position: absolute;
+      top: 50%;
+      left: $spacing-sm;
+      transform: translateY(-50%);
+      background-color: var(--color-surface);
+      padding: 0 4px;
+      pointer-events: none;
+      transition: all 0.2s ease;
+      z-index: 1;
+      color: var(--color-text-muted);
+      font-size: $font-size-sm;
+    }
+
+    &__icon {
+      position: absolute;
+      top: 50%;
+      right: $spacing-sm;
+      transform: translateY(-50%);
+      pointer-events: none;
+      color: var(--color-text-muted);
+      transition: color 0.2s ease;
+      display: flex;
+      align-items: center;
+    }
+  }
+
+  // Giữ ưu tiên màu error nếu có lỗi (tùy chọn)
+
+  &__error {
+    display: block;
+    margin-top: $spacing-sm;
+    color: var(--color-destructive);
+    font-size: $font-size-sm;
+  }
+}

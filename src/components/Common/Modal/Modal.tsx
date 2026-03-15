@@ -1,16 +1,11 @@
 import classNames from "classnames/bind";
 import styles from "./Modal.module.scss";
 import { useEffect } from "react";
+import type { ModalProps } from "./modal.interface";
 
 const cx = classNames.bind(styles);
 
-interface ModalProps {
-  isOpen: boolean;
-  onClose: () => void;
-  title?: string;
-  children: React.ReactNode;
-  footer?: React.ReactNode | string;
-}
+
 
 const Modal = ({ isOpen, onClose, title, children, footer }: ModalProps) => {
   // Đóng modal khi nhấn Esc
@@ -31,7 +26,7 @@ const Modal = ({ isOpen, onClose, title, children, footer }: ModalProps) => {
       >
         <div className={cx("modal__header")}>
           <h3 className={cx("modal__header__title")}>{title}</h3>
-          <button className={cx("modal__header_close")} onClick={onClose}>
+          <button className={cx("modal__header__close")} onClick={onClose}>
             &times;
           </button>
         </div>

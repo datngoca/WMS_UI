@@ -6,9 +6,6 @@
   align-items: center;
   justify-content: center;
   z-index: 1000;
-  padding: $spacing-md;
-  color: var(--color-text-white);
-
   &__content {
     background-color: var(--color-surface);
     width: 100%;
@@ -17,5 +14,44 @@
     border: 1px solid var(--color-border);
     display: flex;
     flex-direction: column;
+    padding: $spacing-md;
+    animation: modalFadeIn 0.3s ease-out;
+  }
+  &__header {
+    border-bottom: 1px solid var(--color-border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    &__title {
+      margin: 0;
+      font-size: $font-size-lg;
+    }
+
+    &__close {
+      padding: $spacing-xs;
+      background: none;
+      border: none;
+      font-size: $font-size-lg;
+      cursor: pointer;
+      &:hover {
+        color: var(--color-destructive);
+      }
+    }
+  }
+
+  &__body {
+    padding: $spacing-lg;
+    overflow-y: auto;
+  }
+}
+@keyframes modalFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }

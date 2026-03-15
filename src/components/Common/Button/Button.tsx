@@ -1,32 +1,55 @@
 import classNames from "classnames/bind";
 import styles from "./Button.module.scss";
-
 import type { ButtonProps } from "./type.interface";
 
 const cx = classNames.bind(styles);
-// 1. Định nghĩa "Thẻ nhãn" (Props)
 
-// 2. Tạo Compnent "Khuôn đúc"
 const Button = ({
   children,
-  variant = "primary",
+  variant = "solid",
+  color = "primary",
   size = "md",
-  isLoading,
+  isLoading = false,
   leftIcon,
   rightIcon,
   className,
+  disabled,
   ...props
 }: ButtonProps) => {
+  
+  // Tạo class động dựa trên props
+  const classes = cx(
+    "btn",
+    `btn--${variant}`, // Đồng bộ dùng -- cho modifier
+    `btn--${color}`,
+    `btn--${size}`,
+    {
+      "btn--loading": isLoading,
+    },
+    className
+  );
+
   return (
     <button
-      className={cx("btn", `btn__${variant}`, `btn__${size}`, className)}
-      disabled={isLoading || props.disabled}
+      className={classes}
+      disabled={isLoading || disabled}
       {...props}
     >
-      {isLoading && <span className={cx("spiner")}></span>}
-      {isLoading && leftIcon && <span className={cx("btn__icon-left")}>{leftIcon}</span>}
+      {/* 1. Hiện Spinner khi đang load */}
+      {isLoading && <span className={cx("spinner")}></span>}
+
+      {/* 2. Hiện Left Icon khi KHÔNG load */}
+      {!isLoading && leftIcon && (
+        <span className={cx("btn__icon-left")}>{leftIcon}</span>
+      )}
+
+      {/* 3. Nội dung chữ */}
       <span className={cx("btn__text")}>{children}</span>
-      {isLoading && rightIcon && <span className={cx("btn__icon-left")}>{rightIcon}</span>}
+
+      {/* 4. Hiện Right Icon khi KHÔNG load */}
+      {!isLoading && rightIcon && (
+        <span className={cx("btn__icon-right")}>{rightIcon}</span>
+      )}
     </button>
   );
 };

@@ -1,4 +1,4 @@
-.modal-user {
+.modal-role {
   flex: 1;
 
   &__content {
@@ -17,6 +17,7 @@
   }
 
   &__actions{
+    margin-top: $spacing-md;
     display: flex;
     justify-content: end;
     gap: $spacing-sm;

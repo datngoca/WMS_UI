@@ -16,7 +16,7 @@ export interface ButtonProps {
   isLoading?: boolean;
   leftIcon?: React.ReactNode;
   rightIcon?: React.ReactNode;
-  classNames?: string;
+  className?: string;
   type?: ButtonType;
   disabled?: boolean;
   onClick?: () => void;

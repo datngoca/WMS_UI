@@ -11,10 +11,24 @@
   /* 3. Text - Màu chữ */
   --color-text-main: #202224;
   --color-text-muted: #666666; /* Chữ mờ hơn cho label, sub-text */
-
+  --color-text-white: #ffffff;
   /* 4. Action/Primary - Màu hành động, điểm nhấn */
+  /* Primary */
   --color-primary: #4880ff;
-  --color-primary-soft: rgba(72, 128, 255, 0.1);
+  --color-primary-hover: #3366ff;
+  --color-primary-active: #2952cc;
+  --color-primary-soft: #ebf2ff;
+
+  /* Secondary */
+  --color-secondary: #7952b3;
+  --color-secondary-hover: #664299;
+  --color-secondary-active: #52357a;
+
+  /* Destructive (Red/Error) */
+  --color-destructive: #f1416c;
+  --color-destructive-hover: #d6305a;
+  --color-destructive-active: #b8264d;
+  --color-destructive-soft: #fff1f3;
 
   /* 5. Border */
   --color-border: #d5d5d5;
@@ -29,17 +43,14 @@
   --color-warning: #ff9f43; /* Cam - Cảnh báo sắp hết hàng */
   --color-warning-soft: #fff3e8;
 
-  --color-info: #1890ff; /* Xanh biển nhạt - Thông tin hướng dẫn */
+  --color-info: #00a3ff; /* Xanh biển nhạt - Thông tin hướng dẫn */
 
   /* 7. Shadow - Độ đổ bóng (Tạo chiều sâu cho Modal) */
   --shadow-sm: 0px 1px 2px rgba(16, 24, 40, 0.05);
   --shadow-md: 0px 4px 12px rgba(16, 24, 40, 0.1);
 
-  /* 8. Interaction - Tương tác người dùng */
-  --color-primary-hover: #3667e6; /* Đậm hơn màu chính một chút */
-  --color-primary-active: #2b52b8; /* Đậm nhất khi nhấn giữ */
-  --color-disabled: #e0e2e7; /* Nút bị vô hiệu hóa */
-  --color-text-disabled: #a0a3bd;
+  /* 8. Modal */
+  --color-modal-overplay: rgba(0, 0, 0, 0.7);
 }
 
 [data-theme="dark"] {

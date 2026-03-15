@@ -4,11 +4,15 @@ import Filter from "../components/Filter";
 import Table, { type TableColumn } from "@/components/Common/Table";
 import type { User } from "../types/user.interface";
 import { useUsers } from "../hooks/useUsers";
+import Button from "@/components/Common/Button";
+import { useState } from "react";
+import ModalUser from "../components/ModalUser";
 
 const cx = classNames.bind(styles);
 
 const UserPage = () => {
   const { data: users } = useUsers();
+  const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
   // 1. Khai báo cấu hình các cột
   const columns: TableColumn<User>[] = [
     { header: "ID", key: "id" },
@@ -37,11 +41,18 @@ const UserPage = () => {
         <div className={cx("user__filter")}>
           <Filter />
         </div>
-        <button className={cx("user__btn-add")}>Add new User</button>
+        <Button
+          size="md"
+          className={cx("user__button")}
+          onClick={() => setIsOpenModal(true)}
+        >
+          Add new User
+        </Button>
       </div>
       <div className={cx("user__table")}>
         <Table columns={columns} data={users || []} />
       </div>
+      {isOpenModal && <ModalUser onClose={() => setIsOpenModal(false)} />}
     </div>
   );
 };

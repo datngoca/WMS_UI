@@ -1,0 +1,21 @@
+.modal {
+  position: fixed;
+  inset: 0;
+  background-color: var(--color-modal-overplay);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: $spacing-md;
+  color: var(--color-text-white);
+
+  &__content {
+    background-color: var(--color-surface);
+    width: 100%;
+    max-width: 500px;
+    border-radius: $radius-lg;
+    border: 1px solid var(--color-border);
+    display: flex;
+    flex-direction: column;
+  }
+}

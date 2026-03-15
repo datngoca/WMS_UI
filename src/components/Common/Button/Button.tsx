@@ -14,12 +14,12 @@ const Button = ({
   isLoading,
   leftIcon,
   rightIcon,
-  classNames,
+  className,
   ...props
 }: ButtonProps) => {
   return (
     <button
-      className={cx("btn", `btn__${variant}`, `btn__${size}`, classNames)}
+      className={cx("btn", `btn__${variant}`, `btn__${size}`, className)}
       disabled={isLoading || props.disabled}
       {...props}
     >

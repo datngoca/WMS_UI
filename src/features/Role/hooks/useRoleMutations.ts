@@ -1,14 +1,17 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { createRole, deleteRole, updateRole } from "../services/roleService";
 import type { RoleRequest } from "../types/role.interface";
+import { useToast } from "@/hooks/ToastContext/useToast";
 
 export const useRoleMutations = () => {
+  const { showToast } = useToast();
   const queryClient = useQueryClient();
 
   // Thêm Role
   const addMutation = useMutation({
     mutationFn: createRole,
-    onSuccess: () => {
+    onSuccess: (res) => {
+      showToast(res?.message, "success");
       queryClient.invalidateQueries({ queryKey: ["roles"] });
     },
   });
@@ -17,7 +20,8 @@ export const useRoleMutations = () => {
   const editMutation = useMutation({
     mutationFn: ({ id, data }: { id: number; data: RoleRequest }) =>
       updateRole({ id, data }),
-    onSuccess: (_, variables) => {
+    onSuccess: (data, variables) => {
+      showToast(data?.message, "success");
       queryClient.invalidateQueries({ queryKey: ["roles"] });
       queryClient.invalidateQueries({ queryKey: ["roles", variables.id] });
     },
@@ -26,7 +30,8 @@ export const useRoleMutations = () => {
   // Xoá Role
   const removeMutation = useMutation({
     mutationFn: deleteRole,
-    onSuccess: () => {
+    onSuccess: (res) => {
+      showToast(res?.message, "success");
       queryClient.invalidateQueries({ queryKey: ["roles"] });
     },
   });
@@ -34,10 +39,12 @@ export const useRoleMutations = () => {
   //
 
   return {
-    ...queryClient,
     addRole: addMutation.mutate,
     updateRole: editMutation.mutate,
     deleteRole: removeMutation.mutate,
-    isMutating:addMutation.isPending || editMutation.isPending ||removeMutation.isPending
+    isMutating:
+      addMutation.isPending ||
+      editMutation.isPending ||
+      removeMutation.isPending,
   };
 };

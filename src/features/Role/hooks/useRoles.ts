@@ -6,6 +6,7 @@ export const useRoles = () => {
     queryKey: ["roles"],
     queryFn: fetchRoles,
     staleTime: 5 * 60 * 1000,
+    select: (res) => res.data ?? [],
   });
 };
 
@@ -16,5 +17,6 @@ export const useRoleDetail = (id: number) => {
     queryFn: () => fetchRoleById(id),
     enabled: !!id, // Chỉ chạy khi có id (tránh lỗi khi id là undefined)
     staleTime: 5 * 60 * 1000,
+    select: (res) => res.data
   });
 };

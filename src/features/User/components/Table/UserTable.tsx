@@ -7,9 +7,7 @@ import Button from "@/components/Common/Button";
 
 const cx = classNames.bind(styles);
 
-
-const UserTable = ({ data, onEdit }: UserTableProps) => {
-
+const UserTable = ({ data, onEdit, onDelete }: UserTableProps) => {
   // 1. Khai báo cấu hình các cột
   const columns: TableColumn<User>[] = [
     { header: "ID", key: "id" },
@@ -40,7 +38,7 @@ const UserTable = ({ data, onEdit }: UserTableProps) => {
             size="sm"
             variant="outline"
             color="destructive"
-            onClick={() => console.log("Delete")}
+            onClick={() => onDelete && onDelete(user)}
           >
             Xóa
           </Button>

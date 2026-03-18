@@ -6,7 +6,7 @@ import { Skeleton } from "antd";
 
 import { useRoles } from "../hooks/useRoles";
 import Button from "@/components/Common/Button";
-import type { Role } from "../types/role.interface";
+import type { ModalRoleAction, Role } from "../types/role.interface";
 import ModalRole from "../components/ModalRole";
 import { useState } from "react";
 const cx = classNames.bind(styles);
@@ -14,13 +14,26 @@ const cx = classNames.bind(styles);
 const RolePage = () => {
   const { data: roles, isLoading, isError } = useRoles();
   const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
-  const [type, setType] = useState<"add" | "edit">("add");
-  const [role, setRole] = useState<Role>();
+  const [modalAction, setModalAction] = useState<ModalRoleAction | null>(null);
 
-  const handleOpenEdit = (role: Role) => {
-    setType("edit");
-    setRole(role);
+  const handleEdit = (role: Role) => {
+    setModalAction({ type: "edit", role });
     setIsOpenModal(true);
+  };
+
+  const handleAdd = () => {
+    setModalAction({ type: "add" });
+    setIsOpenModal(true);
+  };
+
+  const handleDelete = (role: Role) => {
+    setModalAction({ type: "delete", role });
+    setIsOpenModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsOpenModal(false);
+    setModalAction(null);
   };
 
   if (isLoading) {
@@ -39,27 +52,26 @@ const RolePage = () => {
         <div className={cx("role__filter")}>
           <Filter />
         </div>
-        <Button
-          size="md"
-          className={cx("user__button")}
-          onClick={() => setIsOpenModal(true)}
-        >
+        <Button size="md" className={cx("user__button")} onClick={handleAdd}>
           Add new User
         </Button>
       </div>
 
       <div className={cx("role__table")}>
         <TableRole
-          onEdit={handleOpenEdit}
+          onDelete={handleDelete}
+          onEdit={handleEdit}
           isOpenModal={isOpenModal}
-          data={roles || []}
+          data={roles ?? []}
         />
       </div>
       <ModalRole
-        action={{ type: type, role: role }}
+        key={`${isOpenModal}-${modalAction?.type ?? "closed"}-${modalAction?.type !== "add" && modalAction?.role ? modalAction.role.id : "new"}`}
+        action={modalAction}
         isOpen={isOpenModal}
-        onClose={() => setIsOpenModal(false)}
+        onClose={handleCloseModal}
       />
+    
     </div>
   );
 };

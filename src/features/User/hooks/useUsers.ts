@@ -6,5 +6,6 @@ export const useUsers = () => {
     queryKey: ["users"],
     queryFn: fetchUsers,
     staleTime: 5 * 60 * 1000,
+    select: (res)=> res.data ?? [],
   });
 };

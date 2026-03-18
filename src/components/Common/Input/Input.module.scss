@@ -1,9 +1,12 @@
 .input {
   width: 100%;
+
   &__outline {
     position: relative;
     display: flex;
+
     &__field {
+      position: relative;
       width: 100%;
       padding: $spacing-sm;
       border: 1px solid var(--color-border);
@@ -24,27 +27,127 @@
       &--error {
         border-color: var(--color-destructive);
       }
+
+      &__select {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        &__multiple {
+          display: flex;
+          flex-wrap: wrap;
+          gap: $spacing-sm;
+        }
+
+        &__icon-down {
+          cursor: pointer;
+          color: var(--color-text-muted);
+          transition: color 0.2s ease;
+
+          &:hover {
+            color: var(--color-primary);
+          }
+
+          &--active {
+            transform: rotate(180deg);
+          }
+        }
+
+
+
+        &__value {
+          font-size: $font-size-sm;
+          color: var(--color-text-main);
+        }
+
+        &__tag {
+          font-size: $font-size-xs;
+          padding: $spacing-sm;
+          border: 1px solid var(--color-border);
+          border-radius: $radius-sm;
+          background: transparent;
+          transition: border-color 0.2s;
+          outline: none;
+          display: flex;
+          align-items: center;
+          gap: $spacing-sm;
+
+          &__icon {
+            cursor: pointer;
+            transition: color 0.2s ease;
+            color: var(--color-destructive);
+
+            &:hover {
+              color: var(--color-text-muted);
+            }
+          }
+        }
+
+        &__dropdown {
+          font-size: $font-size-sm;
+          position: absolute;
+          top: 100%;
+          left: 0;
+          right: 0;
+          background-color: var(--color-surface);
+          border: 1px solid var(--color-border);
+          border-radius: $radius-sm;
+          z-index: 1;
+          padding: $spacing-xs;
+
+          &__item {
+            border-radius: $radius-sm;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: $spacing-sm $spacing-xs;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+
+            margin: $spacing-xs 0;
+
+            &:hover {
+              background-color: var(--color-primary-hover);
+              color: var(--color-text-main);
+            }
+
+            &__icon {
+              color: var(--color-primary);
+              transition: color 0.2s ease;
+            }
+
+            &--active {
+              background-color: var(--color-primary-soft);
+            }
+          }
+        }
+
+      }
+
+
     }
 
     // Khi focus hoặc khi đã nhập text: Label bay lên và Icon đổi màu đậm
-    &__field:focus ~ &__label,
-    &__field:not(:placeholder-shown) ~ &__label {
+    &__field:focus~&__label,
+    &__field:not(:placeholder-shown)~&__label {
       top: 0;
       color: var(--color-text-main);
       font-weight: 500;
-      font-size: 12px; // Có thể nhỏ lại một chút khi bay lên
+      font-size: $font-size-xs; // Có thể nhỏ lại một chút khi bay lên
     }
 
-    &__field:focus ~ &__icon,
-    &__field:not(:placeholder-shown) ~ &__icon {
+    &__field:focus~&__icon,
+    &__field:not(:placeholder-shown)~&__icon {
       color: var(--color-text-main);
     }
 
     // --- LOGIC KHI CÓ LỖI (Đè lên các màu trên) ---
-    &__field--error ~ &__label,
-    &__field--error ~ &__icon {
+    &__field--error~&__label,
+    &__field--error~&__icon {
       color: var(--color-destructive) !important;
     }
+
     &__label {
       position: absolute;
       top: 50%;

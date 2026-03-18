@@ -6,7 +6,7 @@ import Button from "@/components/Common/Button";
 
 const cx = classNames.bind(styles);
 
-const RoleTable = ({data, onEdit}: RoleTableProps) => {
+const RoleTable = ({ data, onEdit, onDelete }: RoleTableProps) => {
   const columns: TableColumn<Role>[] = [
     {
       header: "Name",
@@ -20,7 +20,7 @@ const RoleTable = ({data, onEdit}: RoleTableProps) => {
     {
       header: "Action",
       key: "action",
-            render: (role: Role) => (
+      render: (role: Role) => (
         <div className={cx("table__actions")}>
           <Button
             size="sm"
@@ -34,7 +34,7 @@ const RoleTable = ({data, onEdit}: RoleTableProps) => {
             size="sm"
             variant="outline"
             color="destructive"
-            onClick={() => console.log("Delete")}
+            onClick={() => onDelete && onDelete(role)}
           >
             Xóa
           </Button>

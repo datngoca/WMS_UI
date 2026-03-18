@@ -6,22 +6,29 @@ import Button from "@/components/Common/Button";
 import { useState } from "react";
 import ModalUser from "../components/ModalUser";
 import TableUser from "../components/Table/UserTable";
-import type { User } from "../types/user.interface";
+import type { ModalAction, User } from "../types/user.interface";
 
 const cx = classNames.bind(styles);
 
 const UserPage = () => {
   const { data: users } = useUsers();
   const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
-  const [type, setType] = useState<"add" | "edit">("add");
-  const [user, setUser] = useState<User>();
+  const [action, setAction] = useState<ModalAction>({
+    type: "add",
+  });
 
-
-  const handleOpenEdit = (user: User) => {
-    setType("edit");
-    setUser(user);
+  const handleEdit = (user: User) => {
+    setAction({ type: "edit", user });
     setIsOpenModal(true);
-    console.log("Edit user", user);
+  };
+
+  const handleAdd = () => {
+    setAction({ type: "add" });
+    setIsOpenModal(true);
+  };
+  const handleDelete = (user: User) => {
+    setAction({ type: "delete", user });
+    setIsOpenModal(true);
   };
 
   return (
@@ -33,18 +40,24 @@ const UserPage = () => {
         <div className={cx("user__filter")}>
           <Filter />
         </div>
-        <Button
-          size="md"
-          className={cx("user__button")}
-          onClick={() => setIsOpenModal(true)}
-        >
+        <Button size="md" className={cx("user__button")} onClick={handleAdd}>
           Add new User
         </Button>
       </div>
       <div className={cx("user__table")}>
-        <TableUser onEdit={handleOpenEdit} isOpenModal={isOpenModal} data={users || []} />
+        <TableUser
+          onEdit={handleEdit}
+          onDelete={handleDelete}
+          isOpenModal={isOpenModal}
+          data={users || []}
+        />
       </div>
-      <ModalUser action={{ type: type , user: user}} isOpen={isOpenModal} onClose={() => setIsOpenModal(false)} />
+      <ModalUser
+        key={`${isOpenModal}-${action?.type ?? "closed"}-${action?.type !== "add" && action?.user ? action.user.id : "new"}`}
+        action={action}
+        isOpen={isOpenModal}
+        onClose={() => setIsOpenModal(false)}
+      />
     </div>
   );
 };

@@ -7,13 +7,21 @@ export interface RoleTableProps {
   isOpenModal?: boolean;
   data: Role[];
   onEdit?: (role: Role) => void;
+  onDelete?: (role: Role) => void;
 }
 
+export type ModalRoleAction =
+  | {
+      type: "add";
+      role?: undefined;
+    }
+  | {
+      type: "edit" | "delete";
+      role: Role;
+    };
+
 export interface ModalRoleProps {
-  action?: {
-    type: "add" | "edit";
-    role?: Role;
-  };
+  action?: ModalRoleAction | null;
   isOpen: boolean;
   onClose: () => void;
 }

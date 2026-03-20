@@ -4,7 +4,6 @@ export interface Role {
   description: string;
 }
 export interface RoleTableProps {
-  isOpenModal?: boolean;
   data: Role[];
   onEdit?: (role: Role) => void;
   onDelete?: (role: Role) => void;

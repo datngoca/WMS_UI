@@ -1,0 +1,25 @@
+.modal-warehouse {
+  flex: 1;
+
+  &__content {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: $spacing-md $spacing-lg;
+    align-items: flex-start;
+
+    & > * {
+      grid-column: span 1;
+    }
+
+    &--full-width {
+      grid-column: span 2;
+    }
+  }
+
+  &__actions {
+    margin-top: $spacing-md;
+    display: flex;
+    justify-content: end;
+    gap: $spacing-sm;
+  }
+}

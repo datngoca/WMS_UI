@@ -1,12 +1,16 @@
 import classNames from "classnames/bind";
 import styles from "./ModalUser.module.scss";
 import Modal from "@/components/Common/Modal/Modal";
-import type { ModalAction, ModalUserProps, User, UserRequest } from "../../types/user.interface";
+import type {
+  ModalAction,
+  ModalUserProps,
+  UserRequest,
+} from "../../types/user.interface";
 import Input from "@/components/Common/Input/Input";
 import Button from "@/components/Common/Button";
 import { FaUser } from "react-icons/fa";
 import { useRoles } from "@/features/Role/hooks/useRoles";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useUserMutations } from "../../hooks/userUserMutations";
 import { hasFormChanged, normalizeFormValues } from "@/utils/form";
 
@@ -22,7 +26,7 @@ const EMPTY_FORM: UserRequest = {
 
 const getFormDataFromAction = (action?: ModalAction): UserRequest => {
   if (action?.type === "edit") {
-    return action.user;
+    return structuredClone(action.user);
   }
   return EMPTY_FORM;
 };
@@ -32,9 +36,22 @@ const ModalUser = ({ action, isOpen, onClose }: ModalUserProps) => {
   const initialFormData = getFormDataFromAction(action);
   const [formData, setFormData] = useState<UserRequest>(() => initialFormData);
   const { data: roles } = useRoles();
-  const handleFormChange = <K extends keyof UserRequest>(field: K, value: UserRequest[K]) => {
+  const handleFormChange = <K extends keyof UserRequest>(
+    field: K,
+    value: UserRequest[K],
+  ) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
   };
+
+  const TITLES = {
+    add: "Create New User",
+    edit: "Edit User",
+    delete: "Confirm Delete",
+  };
+
+  useEffect(() => {
+    setFormData(getFormDataFromAction(action));
+  }, [action]);
 
   const resetForm = () => {
     setFormData(EMPTY_FORM);
@@ -56,21 +73,16 @@ const ModalUser = ({ action, isOpen, onClose }: ModalUserProps) => {
       edit: () =>
         action?.type === "edit" &&
         updateUser({ id: action.user?.id, data: payload }, options),
-      delete: () => action?.type === "delete" && deleteUser(action.user.id, options),
+      delete: () =>
+        action?.type === "delete" && deleteUser(action.user.id, options),
     };
 
     handlers[action.type]?.();
   };
 
-  const TITLES = {
-    add: "Create New User",
-    edit: "Edit User",
-    delete: "Confirm Delete",
-  };
   const isDeleteMode = action?.type === "delete";
   const hasChanged = hasFormChanged(formData, initialFormData);
   const isSubmitDisabled = !isDeleteMode && (!hasChanged || isMutating);
-
 
   return (
     <div className={cx("modal-user")}>
@@ -108,7 +120,9 @@ const ModalUser = ({ action, isOpen, onClose }: ModalUserProps) => {
                 value={formData.fullName}
                 type="text"
                 placeholder="Full Name"
-                onChange={(value) => handleFormChange("fullName", value as string)}
+                onChange={(value) =>
+                  handleFormChange("fullName", value as string)
+                }
               />
               <Input
                 icon={<FaUser />}
@@ -116,7 +130,9 @@ const ModalUser = ({ action, isOpen, onClose }: ModalUserProps) => {
                 value={formData.username}
                 type="text"
                 placeholder="Username"
-                onChange={(value) => handleFormChange("username", value as string)}
+                onChange={(value) =>
+                  handleFormChange("username", value as string)
+                }
               />
               <Input
                 label="Email"
@@ -125,13 +141,18 @@ const ModalUser = ({ action, isOpen, onClose }: ModalUserProps) => {
                 placeholder="Email"
                 onChange={(value) => handleFormChange("email", value as string)}
               />
-              <Input
-                label="Password"
-                type="password"
-                value={formData.password}
-                placeholder="Password"
-                onChange={(value) => handleFormChange("password", value as string)}
-              />
+
+              {action?.type === "add" && (
+                <Input
+                  label="Password"
+                  type="password"
+                  placeholder="Password"
+                  onChange={(value) =>
+                    handleFormChange("password", value as string)
+                  }
+                />
+              )}
+
               <Input
                 type="select"
                 isMultiple={true}
@@ -144,7 +165,7 @@ const ModalUser = ({ action, isOpen, onClose }: ModalUserProps) => {
                 placeholder="Roles"
                 onChange={(selectedRoleNames) => {
                   const selectedRoles = roles?.filter((role) =>
-                    selectedRoleNames.includes(role.name)
+                    selectedRoleNames.includes(role.name),
                   );
                   handleFormChange("roles", selectedRoles || []);
                 }}
@@ -153,8 +174,6 @@ const ModalUser = ({ action, isOpen, onClose }: ModalUserProps) => {
             </>
           )}
         </div>
-
-
       </Modal>
     </div>
   );

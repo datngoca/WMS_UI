@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import classNames from "classnames/bind";
 import styles from "./RoleModal.module.scss";
 import Modal from "@/components/Common/Modal/Modal";
@@ -19,7 +19,7 @@ const getFormDataFromAction = (
   action: ModalRoleProps["action"],
 ): RoleRequest => {
   if (action?.type === "edit") {
-    return action.role;
+    return structuredClone(action.role);
   }
 
   return EMPTY_FORM;
@@ -33,6 +33,10 @@ const ModalRole = ({ action, isOpen, onClose }: ModalRoleProps) => {
   const handleFormChange = (field: keyof RoleRequest, value: string) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
   };
+
+  useEffect(() => {
+    setFormData(getFormDataFromAction(action));
+  }, [action]);
 
   const resetForm = () => {
     setFormData(EMPTY_FORM);
@@ -92,14 +96,16 @@ const ModalRole = ({ action, isOpen, onClose }: ModalRoleProps) => {
                 type="text"
                 value={formData.name}
                 placeholder="Enter role name"
-                onChange={(value) => handleFormChange("name", value)}
+                onChange={(value) => handleFormChange("name", value as string)}
               />
               <Input
                 label="Description"
                 type="text"
                 value={formData.description}
                 placeholder="Enter description"
-                onChange={(value) => handleFormChange("description", value)}
+                onChange={(value) =>
+                  handleFormChange("description", value as string)
+                }
               />
             </>
           )}

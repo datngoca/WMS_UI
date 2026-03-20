@@ -3,7 +3,7 @@ import styles from "./UserPage.module.scss";
 import Filter from "../components/Filter";
 import { useUsers } from "../hooks/useUsers";
 import Button from "@/components/Common/Button";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import ModalUser from "../components/ModalUser";
 import TableUser from "../components/Table/UserTable";
 import type { ModalAction, User } from "../types/user.interface";
@@ -13,9 +13,7 @@ const cx = classNames.bind(styles);
 const UserPage = () => {
   const { data: users } = useUsers();
   const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
-  const [action, setAction] = useState<ModalAction>({
-    type: "add",
-  });
+  const [action, setAction] = useState<ModalAction>();
 
   const handleEdit = (user: User) => {
     setAction({ type: "edit", user });
@@ -30,6 +28,10 @@ const UserPage = () => {
     setAction({ type: "delete", user });
     setIsOpenModal(true);
   };
+
+  const handleCloseModal = useCallback(() => {
+    setIsOpenModal(false);
+  }, []);
 
   return (
     <div className={cx("user")}>
@@ -53,10 +55,9 @@ const UserPage = () => {
         />
       </div>
       <ModalUser
-        key={`${isOpenModal}-${action?.type ?? "closed"}-${action?.type !== "add" && action?.user ? action.user.id : "new"}`}
         action={action}
         isOpen={isOpenModal}
-        onClose={() => setIsOpenModal(false)}
+        onClose={handleCloseModal}
       />
     </div>
   );

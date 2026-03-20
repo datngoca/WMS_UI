@@ -52,8 +52,8 @@ const RolePage = () => {
         <div className={cx("role__filter")}>
           <Filter />
         </div>
-        <Button size="md" className={cx("user__button")} onClick={handleAdd}>
-          Add new User
+        <Button size="md" className={cx("role__button")} onClick={handleAdd}>
+          Add new Role
         </Button>
       </div>
 
@@ -61,17 +61,14 @@ const RolePage = () => {
         <TableRole
           onDelete={handleDelete}
           onEdit={handleEdit}
-          isOpenModal={isOpenModal}
           data={roles ?? []}
         />
       </div>
       <ModalRole
-        key={`${isOpenModal}-${modalAction?.type ?? "closed"}-${modalAction?.type !== "add" && modalAction?.role ? modalAction.role.id : "new"}`}
         action={modalAction}
         isOpen={isOpenModal}
         onClose={handleCloseModal}
       />
-    
     </div>
   );
 };

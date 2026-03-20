@@ -1,24 +1,24 @@
 import classNames from "classnames/bind";
 import styles from "./Input.module.scss";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { FaWindowClose, FaCheck, FaAngleDown } from "react-icons/fa";
 
 const cx = classNames.bind(styles);
 
-interface InputProps {
+interface InputProps<T = string | number | boolean> {
   label?: string;
   type: string;
   placeholder?: string;
-  value?: string | string[];
-  onChange?: (value: string | string[]) => void;
+  value?: T | T[];
+  onChange?: (value: T | T[]) => void;
   errorMessage?: string;
   icon?: React.ReactNode;
   className?: string;
-  options?: { label: string; value: string }[];
+  options?: { label: string; value: T }[];
   isMultiple?: boolean;
 }
 
-const Input = ({
+const Input = <T = string | number | boolean,>({
   label,
   type = "text",
   placeholder,
@@ -29,78 +29,103 @@ const Input = ({
   className,
   options,
   isMultiple = false,
-}: InputProps) => {
+}: InputProps<T>) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedValues, setSelectedValues] = useState<string[]>(value as string[]);
 
-  const handleSelectValue = (value: string) => {
-    let newValues: string[];
+  const currentValues = useMemo(() => {
+    if (!value) return [];
+    return Array.isArray(value) ? value : [value];
+  }, [value]);
 
+  const handleSelectValue = (selectedValue: T) => {
+    let newValues;
     if (isMultiple) {
-      if (selectedValues.includes(value)) {
-        newValues = selectedValues.filter((v) => v !== value);
-      } else {
-        newValues = [...selectedValues, value];
-      }
+      newValues = currentValues.includes(selectedValue)
+        ? currentValues.filter((v) => v !== selectedValue)
+        : [...currentValues, selectedValue];
     } else {
-      newValues = [value];
+      newValues = selectedValue;
+      setIsOpen(false);
     }
-
-    // Vừa update state nội bộ, vừa bắn mảng mới MỚI tính được lên cha
-    setSelectedValues(newValues);
     onChange?.(newValues);
   };
 
-  const handleRemoveValue = (value: string) => {
-    const newValues = selectedValues.filter((v) => v !== value);
-    setSelectedValues(newValues);
+  const handleRemoveValue = (selectedValue: T) => {
+    const newValues = currentValues.filter((v) => v !== selectedValue);
     onChange?.(newValues);
   };
-
-
   return (
     <div className={cx("input", className)}>
       <div className={cx("input__outline")}>
-        <div className={cx("input__outline__field", {
-          "input__outline__field--error": errorMessage,
-        })}>
+        <div
+          className={cx("input__outline__field", {
+            "input__outline__field--error": errorMessage,
+          })}
+        >
           {type === "select" ? (
             <div className={cx("input__outline__field__select")}>
               {isMultiple ? (
                 <div className={cx("input__outline__field__select__multiple")}>
-                  {Array.isArray(selectedValues) && selectedValues.map((val) => (
-                    <div key={val} className={cx("input__outline__field__select__tag")}>
-                      {val}
-                      <FaWindowClose onClick={() => handleRemoveValue(val)} className={cx("input__outline__field__select__tag__icon")} />
-                    </div>
-                  ))}
+                  {Array.isArray(currentValues) &&
+                    currentValues.map((val) => (
+                      <div
+                        key={String(val)}
+                        className={cx("input__outline__field__select__tag")}
+                      >
+                        {String(val)}
+                        <FaWindowClose
+                          onClick={() => handleRemoveValue(val)}
+                          className={cx(
+                            "input__outline__field__select__tag__icon",
+                          )}
+                        />
+                      </div>
+                    ))}
                 </div>
               ) : (
                 <div className={cx("input__outline__field__select__single")}>
-                  <span className={cx("input__outline__field__select__value")}>{value}</span>
+                  <span className={cx("input__outline__field__select__value")}>
+                    {String(value)}
+                  </span>
                 </div>
               )}
-              <FaAngleDown onClick={() => { setIsOpen(!isOpen) }} className={cx("input__outline__field__select__icon-down", {
-                "input__outline__field__select__icon-down--active": isOpen,
-              })} />
+              <FaAngleDown
+                onClick={() => {
+                  setIsOpen(!isOpen);
+                }}
+                className={cx("input__outline__field__select__icon-down", {
+                  "input__outline__field__select__icon-down--active": isOpen,
+                })}
+              />
             </div>
           ) : (
             <input
               type={type}
               placeholder={placeholder}
-              value={value}
-              onChange={(e) => onChange?.(e.target.value)}
+              value={(value as string | number | readonly string[]) ?? ""}
+              onChange={(e) => onChange?.(e.target.value as unknown as T)}
             />
           )}
         </div>
         {isOpen && (
           <div className={cx("input__outline__field__select__dropdown")}>
             {options?.map((option) => (
-              <div onClick={() => handleSelectValue(option.value)} key={option.value} className={cx("input__outline__field__select__dropdown__item", {
-                "input__outline__field__select__dropdown__item--active": isMultiple && selectedValues.includes(option.value),
-              })}>
+              <div
+                onClick={() => handleSelectValue(option.value)}
+                key={String(option.value)}
+                className={cx("input__outline__field__select__dropdown__item", {
+                  "input__outline__field__select__dropdown__item--active":
+                    isMultiple && currentValues.includes(option.value),
+                })}
+              >
                 {option.label}
-                {isMultiple && selectedValues.includes(option.value) && <FaCheck className={cx("input__outline__field__select__dropdown__item__icon")} />}
+                {isMultiple && currentValues.includes(option.value) && (
+                  <FaCheck
+                    className={cx(
+                      "input__outline__field__select__dropdown__item__icon",
+                    )}
+                  />
+                )}
               </div>
             ))}
           </div>

@@ -28,6 +28,7 @@ export const useUserMutations = () => {
     mutationFn: deleteUser,
     onSuccess: (res) => {
       showToast(res.message, "success");
+      queryClient.invalidateQueries({ queryKey: ["users"] });
     },
   });
 

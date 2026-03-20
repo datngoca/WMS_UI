@@ -1,50 +1,56 @@
 import classNames from "classnames/bind";
 import styles from "./WarehouseTable.module.scss";
 
-import type { TableProps } from "antd";
-import { Space, Table } from "antd";
-
-import type { Warehouse } from "../../types/warehouse.interface";
-
+import type {
+  Warehouse,
+  WarehouseTableProps,
+} from "../../types/warehouse.interface";
+import Table, { type TableColumn } from "@/components/Common/Table";
+import Button from "@/components/Common/Button";
 
 const cx = classNames.bind(styles);
 
-const WarehouseTable = ({ data }: { data: Warehouse[] }) => {
-  const columns: TableProps<Warehouse>["columns"] = [
+const WarehouseTable = ({ data, onEdit, onDelete }: WarehouseTableProps) => {
+  const coloumns: TableColumn<Warehouse>[] = [
     {
-      title: "Name",
-      dataIndex: "name",
+      header: "Name",
       key: "name",
-      render: (text) => <a>{text}</a>,
     },
     {
-      title: "Capacity",
-      dataIndex: "capacity",
-      key: "capacity",
-    },
-    {
-      title: "Address",
-      dataIndex: "address",
+      header: "Address",
       key: "address",
     },
     {
-      title: "Action",
+      header: "Capacity",
+      key: "capacity",
+    },
+    {
+      header: "Action",
       key: "action",
-      render: () => (
-        <Space size="middle">
-          <a>Edit</a>
-          <a>Delete</a>
-        </Space>
+      render: (warehouse: Warehouse) => (
+        <div className={cx("table__actions")}>
+          <Button
+            size="sm"
+            variant="outline"
+            color="secondary"
+            onClick={() => onEdit && onEdit(warehouse)}
+          >
+            Sửa
+          </Button>
+          <Button
+            size="sm"
+            variant="outline"
+            color="destructive"
+            onClick={() => onDelete && onDelete(warehouse)}
+          >
+            Xóa
+          </Button>
+        </div>
       ),
     },
   ];
-
   return (
-    <Table<Warehouse>
-      columns={columns}
-      dataSource={data}
-      className={cx("table")}
-    />
+    <Table<Warehouse> columns={coloumns} data={data.length > 0 ? data : []} />
   );
 };
 

@@ -1,3 +1,4 @@
+import isEqual from "lodash.isequal";
 type FormValue =
   | string
   | number
@@ -38,9 +39,9 @@ export const hasFormChanged = <T extends PrimitiveObject>(
   currentData: T,
   initialData: T,
 ): boolean => {
-  return (
-    JSON.stringify(normalizeFormValues(currentData)) !==
-    JSON.stringify(normalizeFormValues(initialData))
+  return !isEqual(
+    normalizeFormValues(currentData),
+    normalizeFormValues(initialData),
   );
 };
 

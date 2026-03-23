@@ -55,6 +55,10 @@
 
   /* 8. Modal */
   --color-modal-overplay: rgba(0, 0, 0, 0.7);
+
+
+  // ------------------ User Page ----------------
+  
 }
 
 [data-theme="dark"] {
@@ -76,6 +80,9 @@ $spacing-md: 16px;
 $spacing-lg: 24px;
 $spacing-xl: 32px;
 $spacing-2xl: 40px;
+$spacing-3xl: 48px;
+$spacing-4xl: 56px;
+
 
 $font-size-xs: 0.75rem; // 12px
 $font-size-sm: 0.875rem; // 14px

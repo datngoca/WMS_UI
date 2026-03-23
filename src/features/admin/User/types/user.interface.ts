@@ -1,4 +1,4 @@
-import { type Role } from "@/features/Role/types/role.interface";
+import { type Role } from "@/features/admin/Role/types/role.interface";
 
 export interface ModalUserProps {
   action?: ModalAction;

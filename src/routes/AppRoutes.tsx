@@ -1,10 +1,12 @@
 import { Routes, Route, Navigate } from "react-router-dom";
 import MainLayout from "@/layouts/AdminLayout";
 
-import DashBoardPage from "@/features/DashBoard/pages/DashBoardPage";
-import UserPage from "@/features/User/pages/UserPage";
-import RolePage from "@/features/Role/pages/RolePage";
-import WarehousePage from "@/features/Warehouse/pages/WarehousePage";
+import DashBoardPage from "@/features/admin/DashBoard/pages/DashBoardPage";
+import UserPage from "@/features/admin/User/pages/UserPage";
+import RolePage from "@/features/admin/Role/pages/RolePage";
+import WarehousePage from "@/features/admin/Warehouse/pages/WarehousePage";
+import UserLayout from "@/layouts/UserLayout/UserLayout";
+import HomePage from "@/features/user/Home/Page/HomePage";
 
 const AppRoutes = () => {
   return (
@@ -20,7 +22,11 @@ const AppRoutes = () => {
         <Route path="/roles" element={<RolePage />} />
         <Route path="/warehouses" element={<WarehousePage />} />
       </Route>
-    </Routes>
+
+      <Route element={<UserLayout />}>
+        <Route path="/home" element={<HomePage />} />
+      </Route>
+    </Routes >
   );
 };
 

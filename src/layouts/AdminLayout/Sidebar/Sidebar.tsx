@@ -12,9 +12,9 @@ const SIDEBAR_MENU = [
   {
     groupName: "Hệ thống",
     items: [
-      { id: "dashboard", label: "DashBoard", path: "/dashboard" },
-      { id: "users", label: "Users", path: "/user" },
-      { id: "roles", label: "Roles", path: "/role" },
+      { id: "dashboard", label: "DashBoard", path: "/dashboards" },
+      { id: "users", label: "Users", path: "/users" },
+      { id: "roles", label: "Roles", path: "/roles" },
       { id: "warehouses", label: "Warehouses", path: "/warehouses" },
     ],
   },

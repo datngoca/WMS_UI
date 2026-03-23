@@ -1,0 +1,28 @@
+.notification {
+    display: flex;
+    align-items: center;
+    gap: $spacing-lg;
+    padding: $spacing-sm;
+    cursor: pointer;
+
+    &:hover {
+        background-color: var(--color-bg-main);
+    }
+
+    &__content {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+
+        &__title {
+            font-size: $font-size-md;
+            color: var(--color-text-main);
+        }
+
+        &__description {
+            font-size: $font-size-sm;
+            color: var(--color-text-muted);
+        }
+    }
+
+}

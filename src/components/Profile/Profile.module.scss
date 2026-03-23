@@ -1,0 +1,18 @@
+.profile {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    font-size: $font-size-sm;
+
+    &__item {
+        display: flex;
+        align-items: center;
+        gap: $spacing-lg;
+        padding: $spacing-sm;
+        cursor: pointer;
+
+        &:hover {
+            background-color: var(--color-bg-main);
+        }
+    }
+}

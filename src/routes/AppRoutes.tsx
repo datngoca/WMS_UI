@@ -1,5 +1,5 @@
 import { Routes, Route, Navigate } from "react-router-dom";
-import MainLayout from "@/layouts/MainLayout";
+import MainLayout from "@/layouts/AdminLayout";
 
 import DashBoardPage from "@/features/DashBoard/pages/DashBoardPage";
 import UserPage from "@/features/User/pages/UserPage";

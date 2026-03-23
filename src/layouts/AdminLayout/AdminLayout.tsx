@@ -1,12 +1,12 @@
 import classNames from "classnames/bind";
-import styles from "./MainLayout.module.scss";
+import styles from "./AdminLayout.module.scss";
 import Sidebar from "./Sidebar";
 import Header from "./Header";
 import { Outlet } from "react-router-dom";
 
 const cx = classNames.bind(styles);
 
-const MainLayout = () => {
+const AdminLayout = () => {
   return (
     <>
       <div className={cx("wrapper")}>
@@ -22,4 +22,4 @@ const MainLayout = () => {
   );
 };
 
-export default MainLayout;
+export default AdminLayout;

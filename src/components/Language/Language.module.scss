@@ -1,0 +1,31 @@
+.language {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: $spacing-sm;
+    cursor: pointer;
+
+    &:hover {
+        background-color: var(--color-bg-main);
+    }
+
+    &__content {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+
+        &__flag {
+            width: 40px;
+        }
+
+        &__name {
+            color: var(--color-text-muted);
+        }
+    }
+
+    &__language-check {
+        align-items: end;
+        color: var(--color-primary);
+    }
+
+}

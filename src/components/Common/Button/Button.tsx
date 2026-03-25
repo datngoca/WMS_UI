@@ -1,4 +1,5 @@
 import classNames from "classnames/bind";
+import type { CSSProperties } from "react";
 import styles from "./Button.module.scss";
 import type { ButtonProps } from "./type.interface";
 
@@ -9,6 +10,8 @@ const Button = ({
   variant = "solid",
   color = "primary",
   size = "md",
+  backgroundColor,
+  textColor,
   isLoading = false,
   leftIcon,
   rightIcon,
@@ -16,15 +19,24 @@ const Button = ({
   disabled,
   ...props
 }: ButtonProps) => {
-  
-  // Tạo class động dựa trên props
+  const hasCustomColors = Boolean(backgroundColor || textColor);
+
+  const customStyle = hasCustomColors
+    ? ({
+        "--btn-custom-bg": backgroundColor,
+        "--btn-custom-text": textColor,
+        "--btn-custom-border": backgroundColor,
+      } as CSSProperties)
+    : undefined;
+
   const classes = cx(
     "btn",
-    `btn--${variant}`, // Đồng bộ dùng -- cho modifier
+    `btn--${variant}`,
     `btn--${color}`,
     `btn--${size}`,
     {
       "btn--loading": isLoading,
+      "btn--custom-colors": hasCustomColors,
     },
     className
   );
@@ -32,21 +44,18 @@ const Button = ({
   return (
     <button
       className={classes}
+      style={customStyle}
       disabled={isLoading || disabled}
       {...props}
     >
-      {/* 1. Hiện Spinner khi đang load */}
       {isLoading && <span className={cx("spinner")}></span>}
 
-      {/* 2. Hiện Left Icon khi KHÔNG load */}
       {!isLoading && leftIcon && (
         <span className={cx("btn__icon-left")}>{leftIcon}</span>
       )}
 
-      {/* 3. Nội dung chữ */}
       <span className={cx("btn__text")}>{children}</span>
 
-      {/* 4. Hiện Right Icon khi KHÔNG load */}
       {!isLoading && rightIcon && (
         <span className={cx("btn__icon-right")}>{rightIcon}</span>
       )}

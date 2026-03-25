@@ -1,0 +1,172 @@
+.page-user {
+    background-color: var(--user-color-bg-main);
+
+    &__banner {
+        width: 100%;
+        height: 100%;
+        position: relative;
+
+        &__img {
+            width: 100%;
+            height: 100%;
+        }
+
+        &__content {
+            position: absolute;
+            top: 30%;
+            left: 20%;
+            color: var(--color-text-white);
+
+            &__title {
+                font-size: $font-size-3xl;
+                font-weight: $font-weight-bold;
+                margin-bottom: 1rem;
+            }
+
+            &__description {
+                font-size: $font-size-sm;
+                margin-bottom: 2rem;
+                color: var(--color-text-muted);
+                font-weight: $font-weight-medium;
+                line-height: 1.5;
+                font-style: italic;
+            }
+        }
+    }
+
+    &__category {
+        padding: $spacing-6xl 10%;
+
+        &__top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 2rem;
+
+            &__title {
+                font-size: $font-size-2xl;
+                font-weight: $font-weight-bold;
+            }
+
+            &__arrow {
+                display: flex;
+                gap: 1rem;
+                cursor: pointer;
+            }
+        }
+
+        &__bottom {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+
+            &__item {
+                flex: 1;
+                padding: $spacing-md;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                margin-right: $spacing-xl;
+                background-color: var(--user-color-bg-secondary);
+                border-radius: $radius-md;
+                transition: all 0.3s ease;
+                cursor: pointer;
+
+                &:hover {
+                    transform: translateY(-5px);
+                    opacity: 0.8;
+                }
+
+                &__icon {
+                    font-size: $font-size-2xl;
+                    margin-bottom: $spacing-md;
+                }
+
+                &__title {
+                    font-size: $font-size-md;
+                    font-weight: $font-weight-medium;
+                }
+            }
+        }
+    }
+
+    &__products {
+        padding: $spacing-6xl 10%;
+
+        &__tags {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: $spacing-xl;
+
+            &__item {
+                padding: $spacing-sm;
+                cursor: pointer;
+                font-weight: $font-weight-medium;
+                border-bottom: 2px solid var(--color-text-muted);
+
+                &:hover {
+                    border-bottom: 2px solid var(--user-color-primary);
+                }
+            }
+        }
+
+        &__list {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+
+
+            &__item {
+                position: relative;
+                flex: 1;
+                padding: $spacing-md;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                gap: $spacing-sm;
+                margin-right: $spacing-xl;
+                background-color: var(--user-color-bg-secondary);
+                border-radius: $radius-md;
+                transition: all 0.3s ease;
+                cursor: pointer;
+
+                &:hover {
+                    transform: translateY(-5px);
+                    opacity: 0.8;
+                }
+
+                &__favorite {
+                    position: absolute;
+                    top: 10px;
+                    right: 10px;
+                    font-size: $font-size-md;
+                    color: var(--color-text-muted);
+                    z-index: 1;
+                    cursor: pointer;
+
+
+                    &--active {
+                        color: red;
+                    }
+                }
+
+
+                &__img {
+                    width: 100%;
+                    height: 100%;
+                }
+
+                &__title {
+                    font-size: $font-size-md;
+                    font-weight: $font-weight-medium;
+                }
+
+                &__price {
+                    font-size: $font-size-md;
+                    font-weight: $font-weight-medium;
+                }
+            }
+        }
+    }
+}

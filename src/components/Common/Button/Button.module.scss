@@ -6,6 +6,10 @@
 }
 
 .btn {
+  --btn-custom-bg: initial;
+  --btn-custom-text: initial;
+  --btn-custom-border: initial;
+
   // --- 1. Base Styles ---
   display: inline-flex;
   align-items: center;
@@ -107,6 +111,19 @@
 
   &:active:not(:disabled) {
     transform: translateY(0);
+  }
+
+  &--custom-colors {
+    background-color: var(--btn-custom-bg, var(--btn-color));
+    color: var(--btn-custom-text, currentColor);
+    border-color: var(--btn-custom-border, transparent);
+
+    &:hover:not(:disabled) {
+      background-color: var(--btn-custom-bg, var(--btn-hover, var(--btn-color)));
+      color: var(--btn-custom-text, currentColor);
+      border-color: var(--btn-custom-border, transparent);
+      filter: brightness(0.96);
+    }
   }
 
   // --- 5. Elements & Loading ---

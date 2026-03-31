@@ -9,9 +9,9 @@ import avatar from "@/assets/img/avatar.png";
 
 import { useState } from "react";
 import DropDown from "@/components/Common/DropDown";
-import Notification from "@/components/Notification";
-import Language from "@/components/Language";
-import Profile from "@/components/Profile";
+import Notification from "@/components/admin/Notification";
+import Language from "@/components/admin/Language";
+import Profile from "@/components/admin/Profile";
 
 const cx = classNames.bind(styles);
 

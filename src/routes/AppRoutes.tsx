@@ -6,7 +6,10 @@ import UserPage from "@/features/admin/User/pages/UserPage";
 import RolePage from "@/features/admin/Role/pages/RolePage";
 import WarehousePage from "@/features/admin/Warehouse/pages/WarehousePage";
 import UserLayout from "@/layouts/UserLayout/UserLayout";
-import HomePage from "@/features/user/Home/Page/HomePage";
+import HomePage from "@/features/user/Home/pages/HomePage";
+import ProductsPage from "@/features/user/Category/pages/CategoryPage";
+import BreadCrumbs from "@/layouts/UserLayout/BreadCrumbs/BreadCrumbs";
+import ProductPage from "@/features/user/Product/pages/ProductPage";
 
 const AppRoutes = () => {
   return (
@@ -25,6 +28,10 @@ const AppRoutes = () => {
 
       <Route element={<UserLayout />}>
         <Route path="/home" element={<HomePage />} />
+        <Route element={<BreadCrumbs />} >
+          <Route path="/catalog/:category" element={<ProductsPage />} />
+          <Route path="/catalog/:category/:product" element={<ProductPage />} />
+        </Route>
       </Route>
     </Routes >
   );

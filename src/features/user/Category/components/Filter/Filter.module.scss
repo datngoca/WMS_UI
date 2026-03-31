@@ -1,0 +1,113 @@
+.filter {
+    background-color: var(--color-surface);
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-lg;
+    padding: $spacing-lg;
+    border-radius: $radius-md;
+
+    &__item {
+        display: flex;
+        flex-direction: column;
+        gap: $spacing-md;
+
+        &__dropdown {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            padding: $spacing-sm;
+            border-bottom: 1px solid var(--color-text-muted);
+
+
+            &:hover {
+                background-color: var(--color-primary-soft);
+                border-radius: $radius-sm;
+            }
+        }
+    }
+
+    &__price {
+        &__container {
+            display: flex;
+            gap: $spacing-lg;
+
+            &__min,
+            &__max {
+                display: flex;
+                flex-direction: column;
+                gap: $spacing-sm;
+
+                &__label {
+                    font-size: $font-size-sm;
+                    font-weight: 600;
+                    color: var(--color-text-muted);
+                }
+            }
+
+
+        }
+
+        &__range {
+            position: relative;
+            width: 100%;
+
+            &__track {
+                background-color: #ccc;
+                height: $spacing-sm;
+                border-radius: $radius-sm;
+            }
+
+            &__input {
+                -webkit-appearance: none;
+                -moz-appearance: none;
+                appearance: none;
+                width: 100%;
+                outline: none;
+                position: absolute;
+                margin: auto;
+                top: 0;
+                height: $spacing-sm;
+                background-color: transparent;
+                pointer-events: none;
+
+                &::-webkit-slider-thumb {
+
+                    -webkit-appearance: none;
+                    height: $spacing-md;
+                    width: $spacing-md;
+                    background-color: black;
+                    cursor: pointer;
+                    border-radius: 50%;
+                    pointer-events: auto;
+                    border: 2px solid #fff;
+                }
+            }
+        }
+    }
+
+    &__brand {
+        &__container {
+            display: flex;
+            flex-direction: column;
+            gap: $spacing-sm;
+
+            &__item {
+                display: flex;
+                align-items: center;
+                gap: $spacing-sm;
+
+                &__input {
+                    width: 16px;
+                    height: 16px;
+                }
+
+                &__label {
+                    font-size: $font-size-sm;
+                    font-weight: 600;
+                    color: var(--color-text-muted);
+                }
+            }
+        }
+    }
+}

@@ -92,7 +92,7 @@
     }
 
     &__products {
-        padding: $spacing-6xl 10%;
+        padding: $spacing-2xl 10%;
 
         &__tags {
             display: flex;
@@ -103,10 +103,9 @@
                 padding: $spacing-sm;
                 cursor: pointer;
                 font-weight: $font-weight-medium;
-                border-bottom: 2px solid var(--color-text-muted);
 
-                &:hover {
-                    border-bottom: 2px solid var(--user-color-primary);
+                &--active {
+                    border-bottom: 2px solid var(--color-text-muted);
                 }
             }
         }
@@ -114,59 +113,16 @@
         &__list {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
+        }
+    }
 
+    &__discounts {
+        padding: $spacing-2xl 10%;
+        font-size: $font-size-md;
 
-            &__item {
-                position: relative;
-                flex: 1;
-                padding: $spacing-md;
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                justify-content: center;
-                gap: $spacing-sm;
-                margin-right: $spacing-xl;
-                background-color: var(--user-color-bg-secondary);
-                border-radius: $radius-md;
-                transition: all 0.3s ease;
-                cursor: pointer;
-
-                &:hover {
-                    transform: translateY(-5px);
-                    opacity: 0.8;
-                }
-
-                &__favorite {
-                    position: absolute;
-                    top: 10px;
-                    right: 10px;
-                    font-size: $font-size-md;
-                    color: var(--color-text-muted);
-                    z-index: 1;
-                    cursor: pointer;
-
-
-                    &--active {
-                        color: red;
-                    }
-                }
-
-
-                &__img {
-                    width: 100%;
-                    height: 100%;
-                }
-
-                &__title {
-                    font-size: $font-size-md;
-                    font-weight: $font-weight-medium;
-                }
-
-                &__price {
-                    font-size: $font-size-md;
-                    font-weight: $font-weight-medium;
-                }
-            }
+        &__title {
+            font-weight: $font-weight-bold;
+            margin-bottom: 2rem;
         }
     }
 }

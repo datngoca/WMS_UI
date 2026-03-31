@@ -8,8 +8,14 @@ import { IoWatchOutline } from "react-icons/io5";
 import { HiOutlineDesktopComputer } from "react-icons/hi";
 import { SiYoutubegaming } from "react-icons/si";
 import productIphone from "@/assets/img/product_iphone.svg";
-import { CiHeart } from "react-icons/ci";
+import ProductCard from "../../../../components/user/ProductCard/ProductCard";
 
+const product = {
+    id: "1",
+    name: "IPhone 14 Pro",
+    price: 999,
+    image: productIphone,
+}
 
 const cx = classNames.bind(styles);
 
@@ -61,26 +67,28 @@ const HomePage = () => {
             </div>
             <div className={cx("page-user__products")}>
                 <div className={cx("page-user__products__tags")}>
-                    <div className={cx("page-user__products__tags__item")}>New Arrival</div>
+                    <div className={cx("page-user__products__tags__item", "page-user__products__tags__item--active")}>New Arrival</div>
                     <div className={cx("page-user__products__tags__item")}>Best Seller</div>
                     <div className={cx("page-user__products__tags__item")}>Featured Products</div>
                 </div>
                 <div className={cx("page-user__products__list")}>
-                    <div className={cx("page-user__products__list__item")}>
-                        <img src={productIphone} alt="user_banner" className={cx("page-user__products__list__item__img")} />
-                        <h4 className={cx("page-user__products__list__item__title")}>IPhone 14 Pro</h4>
-                        <p className={cx("page-user__products__list__item__price")}>$999</p>
-                        <Button variant="solid" backgroundColor="#000000" textColor="#ffffff">Buy Now</Button>
-                        <CiHeart className={cx("page-user__products__list__item__favorite")} />
-                    </div>
-                    <div className={cx("page-user__products__list__item")}>
-                        <img src={productIphone} alt="user_banner" className={cx("page-user__products__list__item__img")} />
-                        <h4 className={cx("page-user__products__list__item__title")}>IPhone 14 Pro</h4>
-                        <p className={cx("page-user__products__list__item__price")}>$999</p>
-                        <Button variant="solid" backgroundColor="#000000" textColor="#ffffff">Buy Now</Button>
-                        <FaHeart className={cx("page-user__products__list__item__favorite", "page-user__products__list__item__favorite--active")} />
-
-                    </div>
+                    <ProductCard product={product} />
+                    <ProductCard product={product} />
+                    <ProductCard product={product} />
+                    <ProductCard product={product} />
+                    <ProductCard product={product} />
+                    <ProductCard product={product} />
+                    <ProductCard product={product} />
+                    <ProductCard product={product} />
+                </div>
+            </div>
+            <div className={cx("page-user__discounts")}>
+                <div className={cx("page-user__discounts__title")}>Discounts up to 50%</div>
+                <div className={cx("page-user__products__list")}>
+                    <ProductCard product={product} />
+                    <ProductCard product={product} />
+                    <ProductCard product={product} />
+                    <ProductCard product={product} />
                 </div>
             </div>
         </div>

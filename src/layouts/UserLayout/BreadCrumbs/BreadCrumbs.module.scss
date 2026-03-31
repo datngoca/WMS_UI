@@ -1,0 +1,30 @@
+.breadcrumbs {
+    display: flex;
+    gap: $spacing-sm;
+    align-items: center;
+    padding: $spacing-md $spacing-xl;
+
+    &__link {
+        display: flex;
+        align-items: center;
+        gap: $spacing-xs;
+        font-size: $font-size-md;
+        font-weight: $font-weight-semibold;
+        color: var(--color-text-muted);
+        text-decoration: none;
+        cursor: pointer;
+
+        &:hover {
+            color: var(--color-text-primary);
+        }
+
+        &:last-child {
+            color: var(--color-text-primary);
+        }
+
+        &__icon {
+            color: var(--color-text-muted);
+            line-height: 1;
+        }
+    }
+}

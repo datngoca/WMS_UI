@@ -1,9 +1,11 @@
 .input {
   width: 100%;
+  background-color: inherit;
 
   &__outline {
     position: relative;
     display: flex;
+    background-color: inherit;
 
     &__field {
       position: relative;
@@ -153,7 +155,7 @@
       top: 50%;
       left: $spacing-sm;
       transform: translateY(-50%);
-      background-color: var(--color-surface);
+      background-color: inherit;
       padding: 0 4px;
       pointer-events: none;
       transition: all 0.2s ease;

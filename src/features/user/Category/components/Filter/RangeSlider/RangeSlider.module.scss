@@ -1,0 +1,70 @@
+.range-slider {
+    position: relative;
+    width: 100%;
+    min-height: 24px;
+    display: flex;
+    align-items: center;
+
+    &__track {
+        position: absolute;
+        width: 100%;
+        height: $spacing-sm;
+        background-color: #ccc;
+        border-radius: $radius-sm;
+        background: linear-gradient(to right,
+                #ccc 0%,
+                #ccc var(--min),
+                black var(--min),
+                black var(--max),
+                #ccc var(--max),
+                #ccc 100%);
+        z-index: 1;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+
+    &__input {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 100%;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        background: transparent;
+        pointer-events: none;
+        z-index: 2;
+        margin: 0;
+
+        &::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            height: 20px;
+            width: 20px;
+            border-radius: 50%;
+            background: black;
+            border: 2px solid #fff;
+            cursor: pointer;
+            pointer-events: auto;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            position: relative;
+        }
+
+        &::-moz-range-thumb {
+            appearance: none;
+            height: 20px;
+            width: 20px;
+            border-radius: 50%;
+            background: #007bff;
+            border: 2px solid #fff;
+            cursor: pointer;
+            pointer-events: auto;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            position: relative;
+        }
+
+        &--right {
+            z-index: 3;
+        }
+    }
+
+}

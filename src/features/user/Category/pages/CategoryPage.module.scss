@@ -1,0 +1,13 @@
+.category-page {
+    display: flex;
+    gap: $spacing-xl;
+    padding: $spacing-xl 10%;
+
+    &__filter {
+        flex: 1;
+    }
+
+    &__products {
+        flex: 3;
+    }
+}

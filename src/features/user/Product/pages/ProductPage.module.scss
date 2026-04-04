@@ -3,4 +3,74 @@
     flex-direction: column;
     gap: $spacing-xl;
     padding: $spacing-xl 10%;
+
+    &__main-info {
+        display: flex;
+        gap: $spacing-xl;
+    }
+
+    &__details {
+        margin-top: 40px;
+        background: #fafafa;
+        padding: 40px;
+        border-radius: 12px;
+
+        &__title {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+
+        &__description {
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 40px;
+        }
+
+        &__specs {
+            display: flex;
+            flex-direction: column;
+            gap: 32px;
+
+            &__group {
+                &__title {
+                    font-size: 18px;
+                    font-weight: 600;
+                    margin-bottom: 16px;
+                    padding-bottom: 8px;
+                    border-bottom: 1px solid #eaeaea;
+                }
+
+                &__content {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 12px;
+
+                    &__item {
+                        display: flex;
+                        justify-content: space-between;
+                        font-size: 14px;
+
+                        &__label {
+                            color: #666;
+                            flex: 1;
+                        }
+
+                        &__value {
+                            font-weight: 500;
+                            flex: 1;
+                            text-align: right;
+
+                            & > div {
+                                margin-bottom: 4px;
+                                &:last-child {
+                                    margin-bottom: 0;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
 }

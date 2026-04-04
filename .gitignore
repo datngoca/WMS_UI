@@ -23,3 +23,11 @@ dist-ssr
 *.sln
 *.sw?
 .gitnexus
+
+AGENTS.md
+CLAUDE.md
+GEMINI.md
+
+GEMINI.md.*
+
+.claude

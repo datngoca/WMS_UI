@@ -6,11 +6,11 @@ import { Outlet } from "react-router-dom";
 
 const cx = classNames.bind(styles);
 
-const AdminLayout = () => {
+const AdminLayout = ({ sidebarMenu }: any) => {
   return (
     <>
       <div className={cx("wrapper")}>
-        <Sidebar className={cx("sidebar")} />
+        <Sidebar className={cx("sidebar")} sidebarMenu={sidebarMenu} />
         <div className={cx("container")}>
           <Header className={cx("header")} />
           <main className={cx("content")}>

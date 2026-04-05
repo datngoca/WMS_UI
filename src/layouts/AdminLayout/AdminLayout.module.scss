@@ -2,21 +2,24 @@
   display: flex;
   height: 100vh;
   overflow: hidden;
+
   .sidebar {
     width: 240px;
     height: 100%;
     background-color: var(--color-surface);
     color: var(--color-text-main);
   }
+
   .container {
     flex: 1;
+
     .header {
       height: 70px;
     }
 
     .content {
-      position: relative;
       padding: 30px 30px 0 30px;
+      height: 100vh;
     }
   }
 }

@@ -1,0 +1,17 @@
+.product-page {
+    display: flex;
+    flex: 1;
+    height: 100%;
+    overflow: hidden;
+    /* Giữ scroll bên trong phần content, không cuộn cả trang */
+    gap: $spacing-md;
+
+    &__content {
+        flex: 1;
+    }
+
+    &__product-details {
+        width: 300px;
+        background-color: var(--color-surface);
+    }
+}

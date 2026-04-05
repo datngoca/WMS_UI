@@ -20,6 +20,14 @@
     background-color: var(--color-surface);
     &__row {
       border-top: 1px solid var(--color-border);
+      transition: background-color 0.2s ease;
+
+      &--clickable {
+        cursor: pointer;
+        &:hover {
+          background-color: var(--color-background-hover, #f8f9fa);
+        }
+      }
     }
   }
   &__data {

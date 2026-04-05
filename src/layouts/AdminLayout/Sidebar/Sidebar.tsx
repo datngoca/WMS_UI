@@ -7,26 +7,10 @@ const cx = classNames.bind(styles);
 
 interface SidebarProps {
   className?: string;
+  sidebarMenu?: any[];
 }
-const SIDEBAR_MENU = [
-  {
-    groupName: "Hệ thống",
-    items: [
-      { id: "dashboard", label: "DashBoard", path: "/dashboards" },
-      { id: "users", label: "Users", path: "/users" },
-      { id: "roles", label: "Roles", path: "/roles" },
-      { id: "warehouses", label: "Warehouses", path: "/warehouses" },
-    ],
-  },
-  {
-    groupName: "Settings",
-    items: [
-      { id: "settings", label: "Settings", path: "/products" },
-      { id: "logout", label: "Logout", path: "/inventory" },
-    ],
-  },
-];
-const Sidebar = ({ className }: SidebarProps) => {
+
+const Sidebar = ({ className, sidebarMenu }: SidebarProps) => {
   const location = useLocation(); // Lấy thông tin URL hiện tại
   const currentPath = location.pathname;
   return (
@@ -35,9 +19,9 @@ const Sidebar = ({ className }: SidebarProps) => {
         <img src={logoLight} alt="App Logo" />
       </div>
       <nav className={cx("sidebar__nav")}>
-        {SIDEBAR_MENU.map((group) => (
+        {sidebarMenu?.map((group) => (
           <ul key={group.groupName} className={cx("sidebar__group")}>
-            {group.items.map((item) => {
+            {group.items.map((item: any) => {
               // Kiểm tra nếu đường dẫn của item trùng với đường dẫn hiện tại
               const isActive = currentPath === item.path;
               return (

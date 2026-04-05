@@ -13,11 +13,13 @@ interface TableProps<T> {
   columns: TableColumn<T>[];
   data: T[];
   className?: string;
+  onRowClick?: (item: T) => void;
 }
 const Table = <T extends { id: number}>({
   columns,
   data,
   className,
+  onRowClick,
 }: TableProps<T>) => {
   return (
     <div className={cx("table-container", className)}>
@@ -33,7 +35,11 @@ const Table = <T extends { id: number}>({
         </thead>
         <tbody className={cx("table__body")}>
           {data.map((item, rowIndex) => (
-            <tr key={rowIndex} className={cx("table__body__row")}>
+            <tr 
+              key={rowIndex} 
+              className={cx("table__body__row", { "table__body__row--clickable": !!onRowClick })}
+              onClick={() => onRowClick && onRowClick(item)}
+            >
               {columns.map((col, index) => (
                 <td key={index} className={cx("table__data")}>
                   {col.render

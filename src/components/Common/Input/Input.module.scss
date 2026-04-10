@@ -17,6 +17,14 @@
       transition: border-color 0.2s;
       outline: none;
 
+      &__input {
+        width: 100%;
+        height: 100%;
+        background-color: inherit;
+        border: none;
+        outline: none;
+      }
+
       &::placeholder {
         color: transparent; // Ẩn placeholder thật để dùng label thay thế
       }

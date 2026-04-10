@@ -104,6 +104,7 @@ const Input = <T = string | number | boolean,>({
               placeholder={placeholder}
               value={(value as string | number | readonly string[]) ?? ""}
               onChange={(e) => onChange?.(e.target.value as unknown as T)}
+              className={cx("input__outline__field__input")}
             />
           )}
         </div>

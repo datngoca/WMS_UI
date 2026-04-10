@@ -1,5 +1,5 @@
 import classNames from "classnames/bind";
-import styles from "./WarehouseTable.module.scss";
+import styles from "./TableWarehouse.module.scss";
 
 import type {
   Warehouse,

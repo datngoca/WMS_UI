@@ -1,5 +1,5 @@
 import classNames from "classnames/bind";
-import styles from "./DashBoardPage.module.scss";
+import styles from "./DashboardPage.module.scss";
 
 import Card from "../components/Card";
 import imageUser from "@/assets/img/stat-user.png";
@@ -8,7 +8,7 @@ import imageSale from "@/assets/img/stat-sale.png";
 import imagePending from "@/assets/img/stat-pending.png";
 
 const cx = classNames.bind(styles);
-const DashBoardPage = () => {
+const DashboardPage = () => {
   return (
     <div className={cx("dashboard-page")}>
       <h1 className={cx("title")}>DashBoard</h1>
@@ -42,4 +42,4 @@ const DashBoardPage = () => {
     </div>
   );
 };
-export default DashBoardPage;
+export default DashboardPage;

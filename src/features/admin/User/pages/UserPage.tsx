@@ -5,7 +5,7 @@ import { useUsers } from "../hooks/useUsers";
 import Button from "@/components/Common/Button";
 import { useCallback, useState } from "react";
 import ModalUser from "../components/ModalUser";
-import TableUser from "../components/TableUser/TableUser";
+import TableUser from "../components/TableUser";
 import type { ModalAction, User } from "../types/user.interface";
 
 const cx = classNames.bind(styles);

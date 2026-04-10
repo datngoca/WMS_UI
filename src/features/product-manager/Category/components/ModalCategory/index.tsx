@@ -1,5 +1,5 @@
 import classNames from "classnames/bind";
-import styles from "./Modal.module.scss";
+import styles from "./ModalCategory.module.scss";
 
 const cx = classNames.bind(styles);
 

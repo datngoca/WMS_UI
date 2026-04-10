@@ -1,7 +1,7 @@
 import classNames from "classnames/bind";
 import styles from "./WarehousePage.module.scss";
 import Filter from "../components/Filter";
-import WarehouseTable from "../components/Table";
+import WarehouseTable from "../components/TableWarehouse";
 import Button from "@/components/Common/Button";
 
 import { useWarehouse } from "../hooks/useWarehouse";
@@ -10,7 +10,7 @@ import type {
   ModalWarehouseAction,
   Warehouse,
 } from "../types/warehouse.interface";
-import ModalWarehouse from "../components/Modal/ModalWarehouse";
+import ModalWarehouse from "../components/ModalWarehouse";
 
 const cx = classNames.bind(styles);
 

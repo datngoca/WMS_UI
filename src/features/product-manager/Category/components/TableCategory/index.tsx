@@ -1,19 +1,18 @@
 import classNames from "classnames/bind";
 import styles from "./TableCategory.module.scss";
 import Button from "@/components/Common/Button";
-import Table from "@/components/Common/Table";
+import Table, { type TableColumn } from "@/components/Common/Table";
 import type { Category, CategoryTableProps } from "../../types/category.interface";
 const cx = classNames.bind(styles);
 
 const TableCategory = ({ data }: CategoryTableProps) => {
-    const columns = [
+    const columns: TableColumn<Category>[] = [
         {
-            title: "Tên danh mục",
-            dataIndex: "name",
+            header: "Name",
             key: "name",
         },
         {
-            title: "Hành động",
+            header: "Action",
             key: "action",
             render: (record: Category) => (
                 <div className={cx("action")}>

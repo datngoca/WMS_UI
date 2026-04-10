@@ -1,0 +1,6 @@
+.table {
+    &__actions {
+        display: flex;
+        gap: $spacing-sm;
+    }
+}

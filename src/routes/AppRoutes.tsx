@@ -14,10 +14,11 @@ import ProductsPage from "@/features/user/Category/pages/CategoryPage";
 import BreadCrumbs from "@/layouts/UserLayout/BreadCrumbs/BreadCrumbs";
 import ProductPage from "@/features/user/Product/pages/ProductPage";
 
-// Operator
-import OperatorDashBoardPage from "@/features/operator/Dashboard/pages/DashboardPage";
-import OperatorProductsPage from "@/features/operator/Product/pages/ProductsPage";
-import OperatorInventoryPage from "@/features/operator/Inventory/page/InventoryPage";
+// Product Manager
+import ProductManagerDashBoardPage from "@/features/product-manager/Dashboard/pages/DashboardPage";
+import ProductManagerProductsPage from "@/features/product-manager/Product/pages/ProductsPage";
+import ProductManagerInventoryPage from "@/features/product-manager/Inventory/page/InventoryPage";
+import ProductManagerCategoryPage from "@/features/product-manager/Category/pages/CategoryPage";
 
 const SIDEBAR_MENU_ADMIN = [
   {
@@ -38,20 +39,22 @@ const SIDEBAR_MENU_ADMIN = [
   },
 ];
 
-const SIDEBAR_MENU_OPERATOR = [
+const SIDEBAR_MENU_PRODUCT_MANAGER = [
   {
     groupName: "Hệ thống",
     items: [
-      { id: "dashboard", label: "DashBoard", path: "/operator/dashboards" },
-      { id: "products", label: "Products", path: "/operator/products" },
-      { id: "inventory", label: "Inventory", path: "/operator/inventory" },
+      { id: "dashboard", label: "DashBoard", path: "/management/dashboards" },
+      { id: "products", label: "Products", path: "/management/products" },
+      { id: "category", label: "Category", path: "/management/category" },
+      { id: "unit", label: "Unit", path: "/management/unit" },
+      { id: "inventory", label: "Inventory", path: "/management/inventory" },
     ],
   },
   {
     groupName: "Settings",
     items: [
-      { id: "settings", label: "Settings", path: "/operator/settings" },
-      { id: "logout", label: "Logout", path: "/operator/logouts" },
+      { id: "settings", label: "Settings", path: "/management/settings" },
+      { id: "logout", label: "Logout", path: "/management/logouts" },
     ],
   },
 ];
@@ -79,10 +82,11 @@ const AppRoutes = () => {
         </Route>
       </Route>
 
-      <Route element={<MainLayout sidebarMenu={SIDEBAR_MENU_OPERATOR} />}>
-        <Route path="/operator/dashboards" element={<OperatorDashBoardPage />} />
-        <Route path="/operator/products" element={<OperatorProductsPage />} />
-        <Route path="/operator/inventory" element={<OperatorInventoryPage />} />
+      <Route element={<MainLayout sidebarMenu={SIDEBAR_MENU_PRODUCT_MANAGER} />}>
+        <Route path="/management/dashboards" element={<ProductManagerDashBoardPage />} />
+        <Route path="/management/products" element={<ProductManagerProductsPage />} />
+        <Route path="/management/category" element={<ProductManagerCategoryPage />} />
+        <Route path="/management/inventory" element={<ProductManagerInventoryPage />} />
       </Route>
     </Routes >
   );

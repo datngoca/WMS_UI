@@ -7,7 +7,7 @@ const cx = classNames.bind(styles);
 
 
 
-const Modal = ({ isOpen, onClose, title, children, footer }: ModalProps) => {
+const Modal = ({ isOpen, onClose, title, children, footer, size = "md", className, closeOnBackdropClick = false }: ModalProps) => {
   // Đóng modal khi nhấn Esc
   useEffect(() => {
     const handleEsc = (e: KeyboardEvent) => {
@@ -19,9 +19,9 @@ const Modal = ({ isOpen, onClose, title, children, footer }: ModalProps) => {
 
   if (!isOpen) return null;
   return (
-    <div className={cx("modal")} onClick={onClose}>
+    <div className={cx("modal")} onClick={() => closeOnBackdropClick && onClose()}>
       <div
-        className={cx("modal__content")}
+        className={cx("modal__content", `modal__content--${size}`, className)}
         onClick={(e) => e.stopPropagation()}
       >
         <div className={cx("modal__header")}>

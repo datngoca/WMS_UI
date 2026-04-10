@@ -4,10 +4,21 @@ import { useProducts } from "../hooks/useProduct";
 import TableProducts from "../components/TableProducts/TableProducts";
 import Button from "@/components/Common/Button";
 import ProductDetails from "../components/ProductDetails/ProductDetails";
+import { useState } from "react";
+import type { Product } from "../types";
+import ModalProduct from "../components/ModalProduct/ModalProduct";
 const cx = classNames.bind(styles);
 
 const ProductsPage = () => {
     const { data: products } = useProducts();
+    const [open, setOpen] = useState(false);
+    const [openModal, setOpenModal] = useState(false);
+
+    const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+    const handleRowClick = (record: Product) => {
+        setSelectedProduct(record);
+        setOpen(true);
+    };
     return (
         <div className={cx("product-page")}>
             <div className={cx("product-page__content")}>
@@ -17,7 +28,7 @@ const ProductsPage = () => {
                         size="sm"
                         variant="outline"
                         color="secondary"
-                        onClick={() => { }}
+                        onClick={() => { setOpenModal(true) }}
                     >
                         Thêm sản phẩm
                     </Button>
@@ -25,13 +36,20 @@ const ProductsPage = () => {
                 <div className={cx("product-page__content__body")}>
                     <TableProducts
                         data={products?.data || []}
-                        onEdit={(record) => { console.log("Edit", record) }}
-                        onDelete={(record) => { console.log("Delete", record) }}
-                        onRowClick={(record) => { console.log("Row Click", record) }}
+                        onRowClick={handleRowClick}
                     />
                 </div>
             </div>
-            <ProductDetails open={true} onClose={() => { }} product={products?.data[0] || {}} className={cx("product-page__product-details")} />
+            <ProductDetails
+                onClose={() => setOpen(false)}
+                product={selectedProduct as Product}
+                className={cx("product-page__product-details", { "product-page__product-details--closed": !open })}
+            />
+            <ModalProduct
+                isOpen={openModal}
+                onClose={() => setOpenModal(false)}
+                product={selectedProduct as Product}
+            />
         </div>
     );
 }

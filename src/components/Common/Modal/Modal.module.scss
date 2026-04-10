@@ -10,13 +10,35 @@
   &__content {
     background-color: var(--color-surface);
     width: 100%;
-    max-width: 600px;
     border-radius: $radius-lg;
     border: 1px solid var(--color-border);
     display: flex;
     flex-direction: column;
     padding: $spacing-md;
     animation: modalFadeIn 0.3s ease-out;
+    max-height: 95vh;
+    overflow: auto;
+
+    // Size modifiers
+    &--sm {
+      max-width: 400px;
+    }
+
+    &--md {
+      max-width: 600px;
+    }
+
+    &--lg {
+      max-width: 800px;
+    }
+
+    &--xl {
+      max-width: 1140px;
+    }
+
+    &--full {
+      max-width: 95vw;
+    }
   }
 
   &__header {

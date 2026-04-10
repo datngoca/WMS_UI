@@ -1,5 +1,5 @@
 import classNames from "classnames/bind";
-import styles from "./UserTable.module.scss";
+import styles from "./TableUser.module.scss";
 
 import type { User, UserTableProps } from "../../types/user.interface";
 import Table, { type TableColumn } from "@/components/Common/Table";

@@ -1,12 +1,12 @@
 import classNames from "classnames/bind";
-import styles from "./RoleTable.module.scss";
+import styles from "./TableRole.module.scss";
 import type { Role, RoleTableProps } from "../../types/role.interface";
 import Table, { type TableColumn } from "@/components/Common/Table";
 import Button from "@/components/Common/Button";
 
 const cx = classNames.bind(styles);
 
-const RoleTable = ({ data, onEdit, onDelete }: RoleTableProps) => {
+const TableRole = ({ data, onEdit, onDelete }: RoleTableProps) => {
   const columns: TableColumn<Role>[] = [
     {
       header: "Name",
@@ -46,4 +46,4 @@ const RoleTable = ({ data, onEdit, onDelete }: RoleTableProps) => {
   return <Table<Role> columns={data.length > 0 ? columns : []} data={data} />;
 };
 
-export default RoleTable;
+export default TableRole;

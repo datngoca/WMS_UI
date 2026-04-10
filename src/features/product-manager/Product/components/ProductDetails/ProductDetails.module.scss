@@ -1,0 +1,77 @@
+.product-details {
+    border: 1px solid var(--color-border);
+    border-radius: $radius-md;
+    padding: $spacing-md 0 $spacing-md $spacing-md;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+
+    &__header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        &__close {
+            cursor: pointer;
+            padding: $spacing-sm;
+            background-color: transparent;
+        }
+    }
+
+    &__side-bar {
+        display: flex;
+        justify-content: center;
+        padding: $spacing-md 0;
+        gap: $spacing-md;
+
+        &__item {
+            padding: $spacing-md;
+            border-radius: $radius-sm;
+            color: var(--color-text-main);
+            cursor: pointer;
+
+            &--active {
+                color: var(--color-primary);
+                border-bottom: 1px solid var(--color-primary);
+            }
+        }
+    }
+
+    &__content {
+        flex: 1;
+        overflow-y: auto;
+        overflow-x: hidden;
+        scrollbar-gutter: stable;
+
+        &::-webkit-scrollbar {
+            width: 4px;
+            background-color: transparent;
+        }
+
+        &::-webkit-scrollbar-track {
+            background-color: transparent;
+        }
+
+        &::-webkit-scrollbar-thumb {
+            background-color: transparent;
+            border-radius: $radius-sm;
+        }
+
+        &:hover::-webkit-scrollbar-thumb {
+            background-color: var(--color-border, #ccc);
+        }
+
+        &::-webkit-scrollbar-thumb:hover {
+            background-color: var(--color-text-muted, #999);
+        }
+
+        /* Dành cho Firefox */
+        scrollbar-width: thin;
+        scrollbar-color: transparent transparent;
+
+        &:hover {
+            scrollbar-color: var(--color-border, #ccc) transparent;
+        }
+    }
+
+}

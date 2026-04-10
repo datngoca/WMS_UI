@@ -1,7 +1,7 @@
 import classNames from "classnames/bind";
 import styles from "./RolePage.module.scss";
 import Filter from "../components/Filter";
-import TableRole from "../components/Table";
+import TableRole from "../components/TableRole";
 import { Skeleton } from "antd";
 
 import { useRoles } from "../hooks/useRoles";

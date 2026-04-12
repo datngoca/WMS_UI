@@ -9,28 +9,35 @@ import { useState } from "react";
 const cx = classNames.bind(styles);
 
 const CategoryPage = () => {
-  const { data: categories } = useCategory();
-  const [selectedCategory, setSelectedCategory] = useState<Category | null>(
-    null,
-  );
-  const handleSelectCategory = (category: Category) => {
-    setSelectedCategory(category);
-  };
-  return (
-    <div className={cx("category")}>
-      <h1 className={cx("category__title")}>Category</h1>
-      <div className={cx("category__content")}>
-        <div className={cx("category__content__left")}>
-          <TreeCategory
-            data={categories || []}
-            onSelectCategory={handleSelectCategory}
-          />
+    const { data: categories } = useCategory();
+    const [selectedCategory, setSelectedCategory] = useState<Category | null>(
+        null,
+    );
+    const handleSelectCategory = (category: Category) => {
+        setSelectedCategory(category);
+    };
+    return (
+        <div className={cx("category")}>
+            <h1 className={cx("category__title")}>Category</h1>
+            <div className={cx("category__content")}>
+                <div className={cx("category__content__left")}>
+                    <TreeCategory
+                        data={categories || []}
+                        onSelectCategory={handleSelectCategory}
+                    />
+                </div>
+                <div
+                    className={cx("category__content__right", {
+                        "category__content__right--hide": !selectedCategory,
+                    })}
+                >
+                    <FormCategory
+                        category={selectedCategory}
+                        onClose={() => setSelectedCategory(null)}
+                    />
+                </div>
+            </div>
         </div>
-        <div className={cx("category__content__right")}>
-          <FormCategory category={selectedCategory} />
-        </div>
-      </div>
-    </div>
-  );
+    );
 };
 export default CategoryPage;

@@ -6,13 +6,24 @@
   &__content {
     display: flex;
     gap: 30px;
+    height: 70vh;
+
 
     &__left {
       flex: 1;
+      overflow-y: scroll;
+      background-color: var(--color-surface);
+      border-radius: $radius-md;
     }
 
     &__right {
       flex: 2;
+      background-color: var(--color-surface);
+      border-radius: $radius-md;
+
+      &--hide {
+        display: none;
+      }
     }
   }
 }

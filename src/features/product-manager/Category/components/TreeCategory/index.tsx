@@ -1,7 +1,7 @@
 import classNames from "classnames";
 import styles from "./TreeCategory.module.scss";
 import type { Category } from "../../types/category.interface";
-import CategoryItem from "../CategoryItem";
+import CategoryItem from "./CategoryItem";
 
 const cx = classNames.bind(styles);
 
@@ -14,13 +14,11 @@ const TreeCategory = ({ data, onSelectCategory }: TreeCategoryProps) => {
   return (
     <div className={cx("tree")}>
       {data.map((category) => (
-        <div
+        <CategoryItem
           key={category.id}
-          className={cx("tree__item")}
-          onClick={() => onSelectCategory(category)}
-        >
-          <CategoryItem category={category} />
-        </div>
+          category={category}
+          onSelectCategory={onSelectCategory}
+        />
       ))}
     </div>
   );

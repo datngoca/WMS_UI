@@ -23,6 +23,11 @@
         background-color: inherit;
         border: none;
         outline: none;
+
+        &--readonly {
+          cursor: default;
+          color: var(--color-text-muted);
+        }
       }
 
       &::placeholder {
@@ -36,6 +41,18 @@
 
       &--error {
         border-color: var(--color-destructive);
+      }
+      
+      &--readonly {
+        cursor: default;
+        background-color: var(--color-bg-muted);
+        border-color: var(--color-border);
+        color: var(--color-text-muted);
+
+        &:focus {
+           border-color: var(--color-border);
+           border-width: 1px;
+        }
       }
 
       &__select {
@@ -61,6 +78,15 @@
 
           &--active {
             transform: rotate(180deg);
+          }
+
+          &--readonly {
+            cursor: default;
+            opacity: 0.6;
+
+            &:hover {
+              color: var(--color-text-muted);
+            }
           }
         }
 
@@ -90,6 +116,15 @@
 
             &:hover {
               color: var(--color-text-muted);
+            }
+
+            &--readonly {
+              cursor: default;
+              opacity: 0.5;
+
+              &:hover {
+                color: var(--color-destructive);
+              }
             }
           }
         }

@@ -16,6 +16,7 @@ interface InputProps<T = string | number | boolean> {
   className?: string;
   options?: { label: string; value: T }[];
   isMultiple?: boolean;
+  readOnly?: boolean;
 }
 
 const Input = <T = string | number | boolean,>({
@@ -29,6 +30,7 @@ const Input = <T = string | number | boolean,>({
   className,
   options,
   isMultiple = false,
+  readOnly = false,
 }: InputProps<T>) => {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -60,6 +62,7 @@ const Input = <T = string | number | boolean,>({
         <div
           className={cx("input__outline__field", {
             "input__outline__field--error": errorMessage,
+            "input__outline__field--readonly": readOnly,
           })}
         >
           {type === "select" ? (
@@ -74,9 +77,10 @@ const Input = <T = string | number | boolean,>({
                       >
                         {String(val)}
                         <FaWindowClose
-                          onClick={() => handleRemoveValue(val)}
+                          onClick={() => !readOnly && handleRemoveValue(val)}
                           className={cx(
                             "input__outline__field__select__tag__icon",
+                            { "input__outline__field__select__tag__icon--readonly": readOnly }
                           )}
                         />
                       </div>
@@ -91,10 +95,11 @@ const Input = <T = string | number | boolean,>({
               )}
               <FaAngleDown
                 onClick={() => {
-                  setIsOpen(!isOpen);
+                  if (!readOnly) setIsOpen(!isOpen);
                 }}
                 className={cx("input__outline__field__select__icon-down", {
                   "input__outline__field__select__icon-down--active": isOpen,
+                  "input__outline__field__select__icon-down--readonly": readOnly,
                 })}
               />
             </div>
@@ -104,7 +109,10 @@ const Input = <T = string | number | boolean,>({
               placeholder={placeholder}
               value={(value as string | number | readonly string[]) ?? ""}
               onChange={(e) => onChange?.(e.target.value as unknown as T)}
-              className={cx("input__outline__field__input")}
+              readOnly={readOnly}
+              className={cx("input__outline__field__input", {
+                "input__outline__field__input--readonly": readOnly,
+              })}
             />
           )}
         </div>

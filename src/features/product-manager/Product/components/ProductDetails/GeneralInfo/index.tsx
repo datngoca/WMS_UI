@@ -1,6 +1,6 @@
 import classNames from "classnames/bind";
 import styles from "./GeneralInfo.module.scss";
-import type { Product } from "../../types";
+import type { Product } from "../../../types";
 
 const cx = classNames.bind(styles);
 
@@ -21,7 +21,7 @@ const GeneralInfo = ({ product }: GeneralInfoProps) => {
             </div>
             <div className={cx("general-info__item")}>
                 <div className={cx("general-info__item__label")}>Category</div>
-                <div className={cx("general-info__item__value")}>{product.category}</div>
+                <div className={cx("general-info__item__value")}>{product.categories}</div>
             </div>
             <div className={cx("general-info__item")}>
                 <div className={cx("general-info__item__label")}>Base Price</div>

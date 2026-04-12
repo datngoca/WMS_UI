@@ -1,12 +1,18 @@
 .category {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+
+  &__content {
     display: flex;
-    flex-direction: column;
     gap: 30px;
 
-    &__features {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        height: fit-content;
+    &__left {
+      flex: 1;
     }
+
+    &__right {
+      flex: 2;
+    }
+  }
 }

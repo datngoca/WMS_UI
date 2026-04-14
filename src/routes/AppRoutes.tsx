@@ -15,10 +15,11 @@ import BreadCrumbs from "@/layouts/UserLayout/BreadCrumbs/BreadCrumbs";
 import { ProductPage } from "@/features/user/Product";
 
 // Product Manager
-import { DashboardPage as ProductManagerDashboardPage } from "@/features/product-manager/Dashboard";
-import { ProductsPage as ProductManagerProductsPage } from "@/features/product-manager/Product";
-import { InventoryPage as ProductManagerInventoryPage } from "@/features/product-manager/Inventory";
-import { CategoryPage as ProductManagerCategoryPage } from "@/features/product-manager/Category";
+import { ProductManagerDashboardPage } from "@/features/product-manager/Dashboard";
+import { ProductManagerProductsPage } from "@/features/product-manager/Product";
+import { ProductManagerInventoryPage } from "@/features/product-manager/Inventory";
+import { ProductManagerCategoryPage } from "@/features/product-manager/Category";
+import { ProductManagerUnitPage } from "@/features/product-manager/Unit";
 
 const SIDEBAR_MENU_ADMIN = [
   {
@@ -86,6 +87,7 @@ const AppRoutes = () => {
         <Route path="/management/dashboards" element={<ProductManagerDashboardPage />} />
         <Route path="/management/products" element={<ProductManagerProductsPage />} />
         <Route path="/management/category" element={<ProductManagerCategoryPage />} />
+        <Route path="/management/unit" element={<ProductManagerUnitPage />} />
         <Route path="/management/inventory" element={<ProductManagerInventoryPage />} />
       </Route>
     </Routes >

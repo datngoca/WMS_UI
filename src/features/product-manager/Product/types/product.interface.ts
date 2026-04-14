@@ -1,6 +1,6 @@
 import type { Editor } from "@tiptap/react";
-import type { Category } from "@/type/Category.interface";
-import type { ProductUnit } from "@/type/ProductUnit.interface";
+import type { Category } from "@/features/product-manager/Category/types/category.interface";
+import type { Unit } from "@/features/product-manager/Unit/types/unit.interface";
 export interface ProductSpec {
     label: string;
     value: string | number;
@@ -28,7 +28,7 @@ export interface Product {
     specs: ProductSpec[];
     detailedSpecs: ProductDetailedSpec[];
     options: ProductOption[];
-    productUnits: ProductUnit[];
+    productUnits: Unit[];
 }
 
 export interface ProductTableProps {

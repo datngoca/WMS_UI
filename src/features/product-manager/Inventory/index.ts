@@ -1,1 +1,1 @@
-export { default as InventoryPage } from './pages/InventoryPage';
+export { default as ProductManagerInventoryPage } from './pages/InventoryPage';

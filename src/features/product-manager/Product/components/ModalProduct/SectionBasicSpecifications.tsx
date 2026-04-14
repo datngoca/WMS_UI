@@ -1,6 +1,6 @@
 import classNames from "classnames/bind";
 import styles from "./ModalProduct.module.scss";
-import type { Product } from "../../types";
+import type { Product } from "../../types/product.interface";
 import Input from "@/components/Common/Input";
 import Button from "@/components/Common/Button";
 import { Fragment } from "react";

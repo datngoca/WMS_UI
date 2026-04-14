@@ -1,5 +1,5 @@
 import axiosInstance from "@/api/axiosInstance";
-import type { Product } from "../types";
+import type { Product } from "../types/product.interface";
 import type { ApiResponse } from "@/types/apiResponse.interface";
 
 export const fetchProducts = async (): Promise<ApiResponse<Product[]>> => {

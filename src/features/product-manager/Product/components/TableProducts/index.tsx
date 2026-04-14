@@ -1,6 +1,6 @@
 import classNames from "classnames/bind";
 import styles from "./TableProducts.module.scss";
-import type { Product, ProductTableProps } from "../../types";
+import type { Product, ProductTableProps } from "../../types/product.interface";
 import type { TableColumn } from "@/components/Common/Table";
 import Button from "@/components/Common/Button";
 import Table from "@/components/Common/Table";

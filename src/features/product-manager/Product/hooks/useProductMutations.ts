@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import type { Product } from "../types";
+import type { Product } from "../types/product.interface";
 import { createProduct, deleteProduct, updateProduct } from "../services/productService";
 import { useToast } from "@/hooks/ToastContext/useToast";
 

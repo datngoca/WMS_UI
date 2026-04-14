@@ -1,6 +1,6 @@
 import classNames from "classnames/bind";
 import styles from "./ProductDetails.module.scss";
-import type { Product } from "../../types";
+import type { Product } from "../../types/product.interface";
 import GeneralInfo from "./GeneralInfo";
 import Specification from "./Specification";
 import { useState } from "react";

@@ -1,6 +1,6 @@
 import classNames from "classnames/bind";
 import styles from "./GeneralInfo.module.scss";
-import type { Product } from "../../../types";
+import type { Product } from "../../../types/product.interface";
 
 const cx = classNames.bind(styles);
 

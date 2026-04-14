@@ -1,6 +1,6 @@
 import classNames from "classnames/bind";
 import styles from "./ModalProduct.module.scss";
-import type { Product } from "../../types";
+import type { Product } from "../../types/product.interface";
 import Modal from "@/components/Common/Modal";
 import { useState } from "react";
 import TiptapEditor from "../TiptapEditor";
@@ -20,7 +20,7 @@ const ENTRY_FORM: Product = {
     id: 0,
     name: "",
     sku: "",
-    category: "",
+    categories: [],
     originalPrice: 0,
     basePrice: 0,
     description: "",
@@ -28,6 +28,7 @@ const ENTRY_FORM: Product = {
     detailedSpecs: [
         { groupName: "", items: [{ label: "", value: "" }] }
     ],
+    productUnits: [],
     options: [],
 };
 

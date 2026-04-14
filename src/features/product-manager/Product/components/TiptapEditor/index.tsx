@@ -1,4 +1,4 @@
-import type { TipTapEditorProps } from "../../types";
+import type { TipTapEditorProps } from "../../types/product.interface";
 import { useEditor, EditorContent } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 import MenuBar from './MenuBar';

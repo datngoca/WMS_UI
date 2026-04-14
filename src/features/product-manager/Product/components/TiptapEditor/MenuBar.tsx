@@ -1,6 +1,6 @@
 import { Button, Space } from "antd";
 import { BoldOutlined, ItalicOutlined, UnorderedListOutlined } from "@ant-design/icons";
-import type { MenuBarProps } from "../../types";
+import type { MenuBarProps } from "../../types/product.interface";
 
 
 const MenuBar = ({ editor }: MenuBarProps) => {

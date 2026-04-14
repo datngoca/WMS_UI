@@ -1,6 +1,6 @@
 import classNames from "classnames/bind";
 import styles from "./ModalProduct.module.scss";
-import type { Product } from "../../types";
+import type { Product } from "../../types/product.interface";
 import Input from "@/components/Common/Input";
 import { FaTrash } from "react-icons/fa";
 import Button from "@/components/Common/Button";
@@ -30,18 +30,18 @@ const SectionDetailSpecification = ({ detailedSpecs, onChange }: SectionDetailSp
 
     const handleAddItem = (groupIndex: number) => {
         const newSpecs = [...detailedSpecs];
-        newSpecs[groupIndex] = { 
-            ...newSpecs[groupIndex], 
-            items: [...newSpecs[groupIndex].items, { label: "", value: "" }] 
+        newSpecs[groupIndex] = {
+            ...newSpecs[groupIndex],
+            items: [...newSpecs[groupIndex].items, { label: "", value: "" }]
         };
         onChange(newSpecs);
     };
 
     const handleRemoveItem = (groupIndex: number, itemIndex: number) => {
         const newSpecs = [...detailedSpecs];
-        newSpecs[groupIndex] = { 
-            ...newSpecs[groupIndex], 
-            items: newSpecs[groupIndex].items.filter((_, i) => i !== itemIndex) 
+        newSpecs[groupIndex] = {
+            ...newSpecs[groupIndex],
+            items: newSpecs[groupIndex].items.filter((_, i) => i !== itemIndex)
         };
         onChange(newSpecs);
     };

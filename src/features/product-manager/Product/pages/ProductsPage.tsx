@@ -5,7 +5,7 @@ import TableProducts from "../components/TableProducts";
 import Button from "@/components/Common/Button";
 import ProductDetails from "../components/ProductDetails";
 import { useState } from "react";
-import type { Product } from "../types";
+import type { Product } from "../types/product.interface";
 import ModalProduct from "../components/ModalProduct";
 const cx = classNames.bind(styles);
 

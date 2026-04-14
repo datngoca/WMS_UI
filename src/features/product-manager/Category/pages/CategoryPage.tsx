@@ -33,6 +33,7 @@ const CategoryPage = () => {
                 >
                     <FormCategory
                         category={selectedCategory}
+                        categories={categories || []}
                         onClose={() => setSelectedCategory(null)}
                     />
                 </div>

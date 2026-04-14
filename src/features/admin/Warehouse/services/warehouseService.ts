@@ -4,8 +4,8 @@ import type {
   WarehouseRequest,
   WarehouseRequestUpdate,
 } from "../types/warehouse.interface";
-import type { ApiResponse } from "@/type/apiResponse.interface";
-import { omitData } from "@/utils/helperData";
+import type { ApiResponse } from "@/types/apiResponse.interface";
+import { omitData } from "@/utils/formatData";
 
 export const fetchWarehouses = async (): Promise<ApiResponse<Warehouse[]>> => {
   const response = await axiosInstance.get("/warehouses");

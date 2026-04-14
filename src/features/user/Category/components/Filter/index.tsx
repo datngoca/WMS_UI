@@ -4,7 +4,7 @@ import { FaAngleDown } from "react-icons/fa";
 import Input from "@/components/Common/Input";
 import { useState } from "react";
 import RangeSlider from "./RangeSlider";
-import { formatCompactNumber } from "@/utils/helperMoneny";
+import { formatCompactNumber } from "@/utils/formatData";
 const cx = classNames.bind(styles);
 
 const Filter = () => {

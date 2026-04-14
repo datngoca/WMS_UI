@@ -1,6 +1,6 @@
 import axiosInstance from "@/api/axiosInstance";
 import type { Role, RoleRequest } from "../types/role.interface";
-import type { ApiResponse } from "@/type/apiResponse.interface";
+import type { ApiResponse } from "@/types/apiResponse.interface";
 
 export const fetchRoles = async (): Promise<ApiResponse<Role[]>> => {
   const response = await axiosInstance.get("/roles");

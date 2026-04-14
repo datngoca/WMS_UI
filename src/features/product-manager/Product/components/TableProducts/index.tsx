@@ -4,7 +4,7 @@ import type { Product, ProductTableProps } from "../../types";
 import type { TableColumn } from "@/components/Common/Table";
 import Button from "@/components/Common/Button";
 import Table from "@/components/Common/Table";
-import { formatCompactNumber } from "@/utils/helperMoneny";
+import { formatCompactNumber } from "@/utils/formatData";
 
 const cx = classNames.bind(styles);
 

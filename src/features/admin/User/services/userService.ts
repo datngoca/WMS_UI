@@ -1,6 +1,6 @@
 import axiosInstance from "@/api/axiosInstance";
 import type { User, UserRequest } from "../types/user.interface";
-import type { ApiResponse } from "@/type/apiResponse.interface";
+import type { ApiResponse } from "@/types/apiResponse.interface";
 
 export const fetchUsers = async (): Promise<ApiResponse<User[]>> => {
   const response = await axiosInstance.get("/users");

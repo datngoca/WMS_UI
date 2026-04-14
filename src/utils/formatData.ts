@@ -1,4 +1,4 @@
-import type { Category, CategoryOption } from "@/features/product-manager/Category/types/category.interface";
+import type { Category, CategoryFormValues, CategoryOption, CategoryRequest } from "@/features/product-manager/Category/types/category.interface";
 
 /**
  * @param object Đối tượng dữ liệu gốc (formData)
@@ -54,4 +54,24 @@ export const getParentOptions = (
                 ? getParentOptions(cat.children, currentId)
                 : [],
         }));
+};
+
+export const CategoryMapper = {
+    toCategoryForm: (category: Category): CategoryFormValues => {
+        return {
+            name: category.name,
+            description: category.description,
+            parent: {
+                id: category.parent?.id || null,
+                name: category.parent?.name || "",
+            },
+        };
+    },
+    toCategoryRequest: (category: CategoryFormValues): CategoryRequest => {
+        return {
+            name: category.name,
+            description: category.description,
+            parentId: category.parent?.id || null,
+        };
+    },
 };

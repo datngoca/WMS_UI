@@ -11,9 +11,13 @@ const cx = classNames.bind(styles);
 interface CategoryItemProps {
   category: Category;
   onSelectCategory: (category: Category) => void;
+  activeCategory: Category | null;
+  className?: string;
+  onDelete: (category: Category) => void;
+  onOpenForm: () => void;
 }
 
-const CategoryItem = ({ category, onSelectCategory }: CategoryItemProps) => {
+const CategoryItem = ({ category, onSelectCategory, activeCategory, className, onDelete, onOpenForm }: CategoryItemProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const hasChildren = category.children && category.children.length > 0;
 
@@ -23,12 +27,19 @@ const CategoryItem = ({ category, onSelectCategory }: CategoryItemProps) => {
   };
 
   const handleSelect = () => {
+    onOpenForm();
     onSelectCategory(category);
   };
 
+  const handleDelete = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    onDelete(category);
+  };
 
   return (
-    <div className={cx("category-item")}>
+    <div className={cx("category-item", className, {
+      "category-item--active": activeCategory?.id === category.id,
+    })}>
       <div className={cx("category-item__content")} onClick={handleSelect}>
         <div className={cx("category-item__content__toggle")} onClick={handleToggle}>
           {hasChildren && (
@@ -53,7 +64,7 @@ const CategoryItem = ({ category, onSelectCategory }: CategoryItemProps) => {
             variant="ghost"
             color="destructive"
             size="sm"
-            onClick={(e) => e.stopPropagation()}
+            onClick={handleDelete}
           >
             <FaTrash />
           </Button>
@@ -65,7 +76,10 @@ const CategoryItem = ({ category, onSelectCategory }: CategoryItemProps) => {
             <CategoryItem
               key={child.id}
               category={child}
+              activeCategory={activeCategory}
               onSelectCategory={onSelectCategory}
+              onDelete={onDelete}
+              onOpenForm={onOpenForm}
             />
           ))}
         </div>

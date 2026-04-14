@@ -1,6 +1,6 @@
 import classNames from "classnames/bind";
 import styles from "./FormCategory.module.scss";
-import type { Category, CategoryOption, CategoryRequest } from "../../types/category.interface";
+import type { Category, CategoryFormProps, CategoryFormValues, CategoryOption } from "../../types/category.interface";
 import Input from "@/components/Common/Input";
 import { useEffect, useState } from "react";
 import { FaXmark } from "react-icons/fa6";
@@ -8,25 +8,18 @@ import Button from "@/components/Common/Button";
 import { FaAngleDown, FaPencilAlt, FaSave } from "react-icons/fa";
 import CascadingCategorySelect from "../CascadingCategorySelect";
 import { getParentOptions } from "@/utils/formatData";
-
+import { CategoryMapper } from "@/utils/formatData";
 const cx = classNames.bind(styles);
 
-interface FormCategoryProps {
-  categories: Category[];
-  category: Category | null;
-  onClose: () => void;
-}
 
-const ENTRY_FORM: CategoryRequest = {
+
+const ENTRY_FORM: CategoryFormValues = {
   name: "",
   description: "",
-  parent: {
-    id: null,
-    name: "",
-  },
+  parent: null,
 }
 
-const getFormDataFromCategory = (category: Category | null): CategoryRequest => {
+const getFormDataFromCategory = (category: Category | null): CategoryFormValues => {
   if (!category) return ENTRY_FORM;
   return {
     name: category.name,
@@ -38,17 +31,17 @@ const getFormDataFromCategory = (category: Category | null): CategoryRequest => 
   };
 };
 
-const FormCategory = ({ categories, category, onClose }: FormCategoryProps) => {
+const FormCategory = ({ categories, category, onClose, onCreate, onUpdate }: CategoryFormProps) => {
   const [isEdit, setIsEdit] = useState(false);
   const [showCascading, setShowCascading] = useState(false);
 
   const initialFormData = getFormDataFromCategory(category);
-  const [formState, setFormState] = useState<CategoryRequest>(initialFormData);
+  const [formState, setFormState] = useState<CategoryFormValues>(initialFormData);
 
 
-  const handleFormChange = <K extends keyof Category>(
+  const handleFormChange = <K extends keyof CategoryFormValues>(
     field: K,
-    value: Category[K],
+    value: CategoryFormValues[K],
   ) => {
     setFormState((prev) => ({ ...prev, [field]: value }));
   };
@@ -58,15 +51,38 @@ const FormCategory = ({ categories, category, onClose }: FormCategoryProps) => {
     setShowCascading(false);
   };
 
+  const handleCloseForm = () => {
+    onClose();
+    setIsEdit(false);
+    setShowCascading(false);
+  };
+
+  const isCreateMode = !category;
+
   useEffect(() => {
+    // Nếu tạo mới -> tự động bật isEdit. Nếu view -> khóa isEdit chờ bấm Edit.
+    setIsEdit(isCreateMode);
+    setShowCascading(false);
     setFormState(getFormDataFromCategory(category));
-  }, [category]);
+  }, [category, isCreateMode]);
+
+  const handleSubmit = () => {
+    const categoryRequest = CategoryMapper.toCategoryRequest(formState);
+    if (category) {
+      onUpdate(category.id, categoryRequest);
+    } else {
+      onCreate(categoryRequest);
+    }
+    setIsEdit(false);
+  };
 
   return (
     <div className={cx("form-category")}>
       <div className={cx("form-category__header")}>
-        <h1>Category Information</h1>
-        <button onClick={onClose} className={cx("form-category__header__close")}>
+        <h1 className={cx("form-category__title")}>
+          {isCreateMode ? "Add New Category" : "Category Information"}
+        </h1>
+        <button onClick={handleCloseForm} className={cx("form-category__header__close")}>
           <FaXmark />
         </button>
       </div>
@@ -100,9 +116,24 @@ const FormCategory = ({ categories, category, onClose }: FormCategoryProps) => {
       </div>
       <div className={cx("form-category__footer")}>
         {isEdit ? (
-          <Button variant="outline" onClick={() => setIsEdit(!isEdit)} leftIcon={<FaSave />}>Save</Button>
+          <>
+            {!isCreateMode && (
+              <Button variant="outline" onClick={() => {
+                setIsEdit(false);
+                setFormState(getFormDataFromCategory(category));
+                setShowCascading(false);
+              }}>
+                Cancel
+              </Button>
+            )}
+            <Button variant="outline" onClick={handleSubmit} leftIcon={<FaSave />}>
+              Save
+            </Button>
+          </>
         ) : (
-          <Button variant="outline" onClick={() => setIsEdit(!isEdit)} rightIcon={<FaPencilAlt />}>Edit</Button>
+          <Button variant="outline" onClick={() => setIsEdit(true)} rightIcon={<FaPencilAlt />}>
+            Edit
+          </Button>
         )}
       </div>
     </div>

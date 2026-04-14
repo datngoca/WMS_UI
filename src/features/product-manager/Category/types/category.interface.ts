@@ -11,18 +11,19 @@ export interface Category {
   depth: number;
   children: Category[];
 }
+export interface CategoryFormProps {
+  categories: Category[];
+  category: Category | null;
+  onClose: () => void;
+  onCreate: (category: CategoryRequest) => void;
+  onUpdate: (id: number, category: CategoryRequest) => void;
 
-export interface CategoryTableProps {
-  data: Category[];
-  onEdit?: (category: Category) => void;
-  onDelete?: (category: Category) => void;
 }
 
-export interface CategoryModalProps {
-  open: boolean;
-  onClose: () => void;
-  onSubmit: (category: Category) => void;
-  initialData?: Category;
+export interface CategoryFormValues {
+  name: string;
+  description: string;
+  parent: CategoryOption | null;
 }
 
 export interface CategoryOption {
@@ -31,8 +32,9 @@ export interface CategoryOption {
   children?: CategoryOption[];
 }
 
+
 export interface CategoryRequest {
   name: string;
   description: string;
-  parent: ParentCategory | null;
+  parentId: number | null;
 }

@@ -1,5 +1,5 @@
 import axiosInstance from "@/api/axiosInstance";
-import type { Category } from "../types/category.interface";
+import type { Category, CategoryRequest } from "../types/category.interface";
 import type { ApiResponse } from "@/types/apiResponse.interface";
 
 export const getAllCategories = async (): Promise<ApiResponse<Category[]>> => {
@@ -15,7 +15,7 @@ export const getCategoryById = async (
 };
 
 export const createCategory = async (
-  category: Category,
+  category: CategoryRequest,
 ): Promise<ApiResponse<Category>> => {
   const response = await axiosInstance.post("/categories", category);
   return response;
@@ -23,7 +23,7 @@ export const createCategory = async (
 
 export const updateCategory = async (
   id: number,
-  category: Category,
+  category: CategoryRequest,
 ): Promise<ApiResponse<Category>> => {
   const response = await axiosInstance.put(`/categories/${id}`, category);
   return response;

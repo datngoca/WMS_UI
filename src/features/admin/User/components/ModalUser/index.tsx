@@ -129,18 +129,14 @@ const ModalUser = ({ action, isOpen, onClose }: ModalUserProps) => {
                 type="text"
                 placeholder="Full Name"
                 required
-                onChange={(value) =>
-                  handleFormChange("fullName", value)
-                }
+                onChange={(value) => handleFormChange("fullName", value)}
               />
               <InputTest
                 label="User Name"
                 value={formData.username}
                 type="text"
                 placeholder="Username"
-                onChange={(value) =>
-                  handleFormChange("username", value)
-                }
+                onChange={(value) => handleFormChange("username", value)}
               />
               <InputTest
                 label="Email"
@@ -157,7 +153,7 @@ const ModalUser = ({ action, isOpen, onClose }: ModalUserProps) => {
                   placeholder="Password"
                   onChange={(value) => {
                     console.log(value);
-                    handleFormChange("password", value as string)
+                    handleFormChange("password", value as string);
                   }}
                 />
               )}
@@ -169,10 +165,12 @@ const ModalUser = ({ action, isOpen, onClose }: ModalUserProps) => {
                   id: role.id,
                   label: role.name,
                 }))}
-                options={roles?.map((role) => ({
-                  id: role.id,
-                  label: role.name,
-                }))}
+                options={
+                  roles?.map((role) => ({
+                    id: role.id,
+                    label: role.name,
+                  })) || []
+                }
                 label="Roles"
                 placeholder="Roles"
                 onChange={handleSelectChange}

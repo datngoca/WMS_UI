@@ -1,8 +1,8 @@
 import classNames from "classnames/bind";
 import styles from "./TableRole.module.scss";
 import type { Role, RoleTableProps } from "../../types/role.interface";
-import Table, { type TableColumn } from "@/components/Common/Table";
-import Button from "@/components/Common/Button";
+import Table, { type TableColumn } from "@/components/common/Table";
+import Button from "@/components/common/Button";
 
 const cx = classNames.bind(styles);
 

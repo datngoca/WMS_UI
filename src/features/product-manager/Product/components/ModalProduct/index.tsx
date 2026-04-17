@@ -1,7 +1,7 @@
 import classNames from "classnames/bind";
 import styles from "./ModalProduct.module.scss";
 import type { Product } from "../../types/product.interface";
-import Modal from "@/components/Common/Modal";
+import Modal from "@/components/common/Modal";
 import { useState } from "react";
 import TiptapEditor from "../TiptapEditor";
 import SectionBasicInfo from "./SectionBasicInfo";

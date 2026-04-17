@@ -1,9 +1,9 @@
 import classNames from "classnames/bind";
 import styles from "./ModalProduct.module.scss";
 import type { Product } from "../../types/product.interface";
-import Input from "@/components/Common/Input";
+import Input from "@/components/common/Input";
 import { FaTrash } from "react-icons/fa";
-import Button from "@/components/Common/Button";
+import Button from "@/components/common/Button";
 
 const cx = classNames.bind(styles);
 

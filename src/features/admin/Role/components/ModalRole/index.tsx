@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import classNames from "classnames/bind";
 import styles from "./RoleModal.module.scss";
-import Modal from "@/components/Common/Modal/Modal";
+import Modal from "@/components/common/Modal/Modal";
 import type { ModalRoleProps, RoleRequest } from "../../types/role.interface";
-import Input from "@/components/Common/Input/Input";
-import Button from "@/components/Common/Button";
+import Input from "@/components/common/Input";
+import Button from "@/components/common/Button";
 import { useRoleMutations } from "../../hooks/useRoleMutations";
 import { normalizeFormValues, hasFormChanged } from "@/utils/form";
 

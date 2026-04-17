@@ -4,7 +4,7 @@ import { DatePicker, type DatePickerProps } from "antd";
 import { FaFilter, FaAngleDown } from "react-icons/fa";
 import { FaArrowRotateLeft } from "react-icons/fa6";
 import { useState } from "react";
-import Tag from "@/components/Common/Tag";
+import Tag from "@/components/common/Tag";
 import { FaDeleteLeft } from "react-icons/fa6";
 
 const cx = classNames.bind(styles);

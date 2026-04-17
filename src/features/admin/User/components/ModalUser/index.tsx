@@ -1,18 +1,20 @@
 import classNames from "classnames/bind";
 import styles from "./ModalUser.module.scss";
-import Modal from "@/components/Common/Modal/Modal";
+import Modal from "@/components/common/Modal/Modal";
 import type {
   ModalAction,
   ModalUserProps,
   UserRequest,
 } from "../../types/user.interface";
-import Input from "@/components/Common/Input/Input";
-import Button from "@/components/Common/Button";
+import Input from "@/components/common/Input";
+import InputTest from "@/components/common/Input/Input";
+import Button from "@/components/common/Button";
 import { FaUser } from "react-icons/fa";
 import { useRoles } from "@/features/admin/Role/hooks/useRoles";
 import { useEffect, useState } from "react";
 import { useUserMutations } from "../../hooks/useUserMutations";
 import { hasFormChanged, normalizeFormValues } from "@/utils/form";
+import type { Option } from "@/components/common/Input/input.interface";
 
 const cx = classNames.bind(styles);
 
@@ -80,6 +82,13 @@ const ModalUser = ({ action, isOpen, onClose }: ModalUserProps) => {
     handlers[action.type]?.();
   };
 
+  const handleSelectChange = (selected: Option[]) => {
+    const selectedRoles = roles?.filter((role) =>
+      selected.map((item) => item.id).includes(role.id),
+    );
+    handleFormChange("roles", selectedRoles || []);
+  };
+
   const isDeleteMode = action?.type === "delete";
   const hasChanged = hasFormChanged(formData, initialFormData);
   const isSubmitDisabled = !isDeleteMode && (!hasChanged || isMutating);
@@ -114,61 +123,59 @@ const ModalUser = ({ action, isOpen, onClose }: ModalUserProps) => {
             </p>
           ) : (
             <>
-              <Input
-                icon={<FaUser />}
+              <InputTest
                 label="Full Name"
                 value={formData.fullName}
                 type="text"
                 placeholder="Full Name"
+                required
                 onChange={(value) =>
-                  handleFormChange("fullName", value as string)
+                  handleFormChange("fullName", value)
                 }
               />
-              <Input
-                icon={<FaUser />}
+              <InputTest
                 label="User Name"
                 value={formData.username}
                 type="text"
                 placeholder="Username"
                 onChange={(value) =>
-                  handleFormChange("username", value as string)
+                  handleFormChange("username", value)
                 }
               />
-              <Input
+              <InputTest
                 label="Email"
                 value={formData.email}
                 type="email"
                 placeholder="Email"
-                onChange={(value) => handleFormChange("email", value as string)}
+                onChange={(value) => handleFormChange("email", value)}
               />
 
               {action?.type === "add" && (
-                <Input
+                <InputTest
                   label="Password"
                   type="password"
                   placeholder="Password"
-                  onChange={(value) =>
+                  onChange={(value) => {
+                    console.log(value);
                     handleFormChange("password", value as string)
-                  }
+                  }}
                 />
               )}
 
-              <Input
+              <InputTest
                 type="select"
-                isMultiple={true}
-                value={formData.roles.map((role) => role.name)}
-                options={roles?.map((role) => ({
+                multiple={true}
+                value={formData.roles?.map((role) => ({
+                  id: role.id,
                   label: role.name,
-                  value: role.name,
+                }))}
+                options={roles?.map((role) => ({
+                  id: role.id,
+                  label: role.name,
                 }))}
                 label="Roles"
                 placeholder="Roles"
-                onChange={(selectedRoleNames) => {
-                  const selectedRoles = roles?.filter((role) =>
-                    selectedRoleNames.includes(role.name),
-                  );
-                  handleFormChange("roles", selectedRoles || []);
-                }}
+                onChange={handleSelectChange}
                 className={cx("modal-user__content--full-width")}
               />
             </>

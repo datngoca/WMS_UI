@@ -2,7 +2,7 @@ import classNames from "classnames/bind";
 import styles from "./UserPage.module.scss";
 import Filter from "../components/Filter";
 import { useUsers } from "../hooks/useUsers";
-import Button from "@/components/Common/Button";
+import Button from "@/components/common/Button";
 import { useCallback, useState } from "react";
 import ModalUser from "../components/ModalUser";
 import TableUser from "../components/TableUser";

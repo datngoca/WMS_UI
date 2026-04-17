@@ -1,7 +1,7 @@
 import classNames from "classnames/bind";
 import styles from "./HomePage.module.scss";
 import userBanner from "@/assets/img/user_banner.svg";
-import Button from "@/components/Common/Button";
+import Button from "@/components/common/Button";
 import { FaArrowLeft, FaArrowRight, FaHeart } from "react-icons/fa";
 import { MdOutlinePhoneAndroid, MdOutlinePhotoCamera, MdOutlineHeadphones } from "react-icons/md";
 import { IoWatchOutline } from "react-icons/io5";

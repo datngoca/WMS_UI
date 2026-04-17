@@ -1,6 +1,6 @@
 import classNames from "classnames/bind";
 import styles from "./ProductCard.module.scss";
-import Button from "@/components/Common/Button";
+import Button from "@/components/common/Button";
 import { FaHeart } from "react-icons/fa";
 import { FaRegHeart } from "react-icons/fa";
 

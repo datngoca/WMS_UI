@@ -1,7 +1,7 @@
 import classNames from "classnames/bind";
 import styles from "./ModalProduct.module.scss";
 import type { Product } from "../../types/product.interface";
-import Input from "@/components/Common/Input";
+import Input from "@/components/common/Input";
 import { useState } from "react";
 import { FaAngleDown } from "react-icons/fa6";
 import CascadingCategorySelect from "@/features/product-manager/Category/components/CascadingCategorySelect";

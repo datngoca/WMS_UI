@@ -1,8 +1,8 @@
 import classNames from "classnames/bind";
 import styles from "./ModalProduct.module.scss";
 import type { Product } from "../../types/product.interface";
-import Input from "@/components/Common/Input";
-import Button from "@/components/Common/Button";
+import Input from "@/components/common/Input";
+import Button from "@/components/common/Button";
 import { Fragment } from "react";
 import { FaTrash } from "react-icons/fa";
 

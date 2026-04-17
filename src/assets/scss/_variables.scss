@@ -36,6 +36,7 @@
 
   /* 5. Border */
   --color-border: #d5d5d5;
+  --color-border-hover: #9ca3af;
 
   /* 6. Feedback - Trạng thái hệ thống */
   --color-success: #47f764;
@@ -76,6 +77,7 @@ $radius-md: 8px;
 $radius-lg: 12px;
 $radius-full: 9999px;
 
+$spacing-2xs: 2px;
 $spacing-xs: 4px;
 $spacing-sm: 8px;
 $spacing-md: 16px;

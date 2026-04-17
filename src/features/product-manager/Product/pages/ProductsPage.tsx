@@ -2,7 +2,7 @@ import classNames from "classnames/bind";
 import styles from "./ProductsPage.module.scss";
 import { useProducts } from "../hooks/useProduct";
 import TableProducts from "../components/TableProducts";
-import Button from "@/components/Common/Button";
+import Button from "@/components/common/Button";
 import ProductDetails from "../components/ProductDetails";
 import { useState } from "react";
 import type { Product } from "../types/product.interface";

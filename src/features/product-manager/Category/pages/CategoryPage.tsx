@@ -7,7 +7,7 @@ import type { Category, CategoryRequest } from "../types/category.interface";
 import { useState } from "react";
 import { useCategoryMutations } from "../hooks/useCategoryMutations";
 import { FaPlus } from "react-icons/fa";
-import Button from "@/components/Common/Button";
+import Button from "@/components/common/Button";
 const cx = classNames.bind(styles);
 
 const CategoryPage = () => {

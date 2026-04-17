@@ -1,15 +1,25 @@
 import classNames from "classnames/bind";
 import styles from "./FormCategory.module.scss";
 import type { Category, CategoryFormProps, CategoryFormValues, CategoryOption } from "../../types/category.interface";
-import Input from "@/components/Common/Input";
+import Input from "@/components/common/Input";
+import InputTest from "@/components/common/Input/Input";
 import { useEffect, useState } from "react";
 import { FaXmark } from "react-icons/fa6";
-import Button from "@/components/Common/Button";
+import Button from "@/components/common/Button";
 import { FaAngleDown, FaPencilAlt, FaSave } from "react-icons/fa";
 import CascadingCategorySelect from "../CascadingCategorySelect";
 import { getParentOptions } from "@/utils/formatData";
 import { CategoryMapper } from "@/utils/formatData";
 const cx = classNames.bind(styles);
+import type { TreeOption } from "@/components/common/Input/input.interface";
+
+const mapToTreeOptions = (options: CategoryOption[]): TreeOption[] => {
+  return options.map((opt) => ({
+    id: opt.id as number,
+    label: opt.name,
+    children: opt.children ? mapToTreeOptions(opt.children) : [],
+  }));
+};
 
 
 
@@ -88,29 +98,37 @@ const FormCategory = ({ categories, category, onClose, onCreate, onUpdate }: Cat
       </div>
       <div className={cx("form-category__content")}>
         <div className={cx("form-category__content__item")}>
-          <label htmlFor="name">Name</label>
-          <Input type="text" value={formState.name} readOnly={!isEdit} onChange={(value) => handleFormChange("name", value as string)} />
+          <InputTest type="text" label="Name" value={formState.name} readOnly={!isEdit} onChange={(value) => handleFormChange("name", value as string)} />
         </div>
         <div className={cx("form-category__content__item")}>
-          <label htmlFor="description">Description</label>
-          <Input type="text" value={formState.description} readOnly={!isEdit} onChange={(value) => handleFormChange("description", value as string)} />
+          <InputTest type="text" label="Description" value={formState.description} readOnly={!isEdit} onChange={(value) => handleFormChange("description", value as string)} />
         </div>
         {category?.depth !== 0 && (
           <div className={cx("form-category__content__item")} onClick={() => setShowCascading(!showCascading)}>
-            <label htmlFor="parent_id">Parent Category</label>
-            <div className={cx("form-category__content__item__input", {
+            {/* <label htmlFor="parent_id">Parent Category</label> */}
+            {/* <div className={cx("form-category__content__item__input", {
               "form-category__content__item__input--readOnly": !isEdit
             })}>
               {formState?.parent?.name}
               <FaAngleDown />
-            </div>
-            {isEdit && showCascading && (
+            </div> */}
+            <InputTest
+              required
+              label="Parent Category"
+              readOnly={!isEdit}
+              type="tree"
+              value={formState.parent?.name}
+              placeholder="Select parent category"
+              options={mapToTreeOptions(getParentOptions(categories, category?.id ?? null))}
+              onChange={(value) => handleSelectParentCategory(value as CategoryOption)}
+            />
+            {/* {isEdit && showCascading && (
               <CascadingCategorySelect
                 categories={getParentOptions(categories, category?.id ?? null)}
                 onSelectCategory={handleSelectParentCategory}
                 className={cx("form-category__content__item__cascading")}
               />
-            )}
+            )} */}
           </div>
         )}
       </div>

@@ -2,7 +2,7 @@ import classNames from "classnames/bind";
 import styles from "./WarehousePage.module.scss";
 import Filter from "../components/Filter";
 import WarehouseTable from "../components/TableWarehouse";
-import Button from "@/components/Common/Button";
+import Button from "@/components/common/Button";
 
 import { useWarehouse } from "../hooks/useWarehouse";
 import { useCallback, useState } from "react";

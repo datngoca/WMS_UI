@@ -1,4 +1,4 @@
-import type { ToastType } from "@/components/Common/Toast";
+import type { ToastType } from "@/components/common/Toast";
 import { createContext, useContext } from "react";
 
 interface ToastContextProps {

@@ -1,12 +1,12 @@
 import classNames from "classnames/bind";
 import styles from "./ModalWarehouse.module.scss";
 import type { ModalWarehouseProps } from "../../types/warehouse.interface";
-import Modal from "@/components/Common/Modal/Modal";
+import Modal from "@/components/common/Modal/Modal";
 import { useWarehouseMutations } from "../../hooks/useWarehouseMutations";
 import { type WarehouseRequest } from "../../types/warehouse.interface";
 import { useEffect, useState } from "react";
-import Input from "@/components/Common/Input/Input";
-import Button from "@/components/Common/Button";
+import Input from "@/components/common/Input";
+import Button from "@/components/common/Button";
 import { normalizeFormValues, hasFormChanged } from "@/utils/form";
 
 const cx = classNames.bind(styles);

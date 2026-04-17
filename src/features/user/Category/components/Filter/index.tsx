@@ -1,7 +1,7 @@
 import classNames from "classnames/bind";
 import styles from "./Filter.module.scss";
 import { FaAngleDown } from "react-icons/fa";
-import Input from "@/components/Common/Input";
+import Input from "@/components/common/Input";
 import { useState } from "react";
 import RangeSlider from "./RangeSlider";
 import { formatCompactNumber } from "@/utils/formatData";

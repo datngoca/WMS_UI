@@ -8,7 +8,7 @@ import avatar from "@/assets/img/avatar.png";
 
 
 import { useState } from "react";
-import DropDown from "@/components/Common/DropDown";
+import DropDown from "@/components/common/DropDown";
 import Notification from "@/components/admin/Notification";
 import Language from "@/components/admin/Language";
 import Profile from "@/components/admin/Profile";

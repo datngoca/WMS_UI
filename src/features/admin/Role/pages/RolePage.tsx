@@ -5,7 +5,7 @@ import TableRole from "../components/TableRole";
 import { Skeleton } from "antd";
 
 import { useRoles } from "../hooks/useRoles";
-import Button from "@/components/Common/Button";
+import Button from "@/components/common/Button";
 import type { ModalRoleAction, Role } from "../types/role.interface";
 import ModalRole from "../components/ModalRole";
 import { useState } from "react";

@@ -3,7 +3,7 @@ import styles from "./ToastContext.module.scss";
 import Toast, {
   type ToastType,
   type ToastItem,
-} from "@/components/Common/Toast";
+} from "@/components/common/Toast";
 import { useCallback, useEffect, useState } from "react";
 import { ToastContext } from "@/hooks/ToastContext/useToast";
 

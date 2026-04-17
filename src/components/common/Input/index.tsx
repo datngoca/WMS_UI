@@ -1,5 +1,5 @@
 import classNames from "classnames/bind";
-import styles from "./Input.module.scss";
+import styles from "./Input2.module.scss";
 import { useMemo, useState } from "react";
 import { FaWindowClose, FaCheck, FaAngleDown } from "react-icons/fa";
 

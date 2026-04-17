@@ -1,9 +1,9 @@
 import classNames from "classnames/bind";
 import styles from "./TableProducts.module.scss";
 import type { Product, ProductTableProps } from "../../types/product.interface";
-import type { TableColumn } from "@/components/Common/Table";
-import Button from "@/components/Common/Button";
-import Table from "@/components/Common/Table";
+import type { TableColumn } from "@/components/common/Table";
+import Button from "@/components/common/Button";
+import Table from "@/components/common/Table";
 import { formatCompactNumber } from "@/utils/formatData";
 
 const cx = classNames.bind(styles);

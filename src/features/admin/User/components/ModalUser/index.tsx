@@ -7,7 +7,7 @@ import type {
   UserRequest,
 } from "../../types/user.interface";
 import Input from "@/components/common/Input";
-import InputTest from "@/components/common/Input/Input";
+import InputTest from "@/components/common/Input";
 import Button from "@/components/common/Button";
 import { FaUser } from "react-icons/fa";
 import { useRoles } from "@/features/admin/Role/hooks/useRoles";

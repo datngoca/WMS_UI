@@ -1,13 +1,20 @@
-import { Controller, type Control, type FieldValues, type Path } from "react-hook-form";
-import Input from "./Input";
-import type { InputProps } from "./input.interface";
+import {
+  Controller,
+  type Control,
+  type FieldValues,
+  type Path,
+} from "react-hook-form";
+import Input from "../components/common/Input";
+import type { InputProps } from "../components/common/Input/input.interface";
 
 /**
  * Phân phối Omit qua từng thành viên của union type.
  * Omit<A | B, K> → chỉ giữ props chung → MẤT props riêng (options, prefixIcon...)
  * DistributiveOmit<A | B, K> → Omit<A, K> | Omit<B, K> → GIỮ props riêng
  */
-type DistributiveOmit<T, K extends keyof any> = T extends any ? Omit<T, K> : never;
+type DistributiveOmit<T, K extends keyof any> = T extends any
+  ? Omit<T, K>
+  : never;
 
 /**
  * FormInput — Wrapper tích hợp Input component với React Hook Form.
@@ -18,7 +25,10 @@ type DistributiveOmit<T, K extends keyof any> = T extends any ? Omit<T, K> : nev
  * - transformToForm: chuyển đổi value từ Input → form state (lưu trữ)
  * - Các props còn lại truyền thẳng xuống Input
  */
-type FormInputProps<T extends FieldValues> = DistributiveOmit<InputProps, "name" | "value" | "onChange"> & {
+type FormInputProps<T extends FieldValues> = DistributiveOmit<
+  InputProps,
+  "name" | "value" | "onChange"
+> & {
   name: Path<T>;
   control: Control<T>;
   transformToInput?: (formValue: any) => any;

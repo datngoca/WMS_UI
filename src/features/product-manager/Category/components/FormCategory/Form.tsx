@@ -1,7 +1,10 @@
 import { useForm } from "react-hook-form";
 import type { Category, CategoryRequest } from "../../types/category.interface";
-import FormInput from "@/components/common/Input/FormInput";
-import type { TreeOption, Value } from "@/components/common/Input/input.interface";
+import FormInput from "@/utils/FormInput";
+import type {
+  TreeOption,
+  Value,
+} from "@/components/common/Input/input.interface";
 
 interface FormProps {
   formState: CategoryRequest;
@@ -48,9 +51,7 @@ const Form = ({ formState, categories }: FormProps) => {
         label="Parent"
         options={mapToTreeOptions(categories)}
         transformToInput={(formValue) =>
-          formValue
-            ? { id: formValue.id, label: formValue.name }
-            : undefined
+          formValue ? { id: formValue.id, label: formValue.name } : undefined
         }
         transformToForm={(inputValue: Value) => ({
           id: inputValue.id,

@@ -5,16 +5,13 @@ import type {
   CategoryFormProps,
   CategoryRequest,
 } from "../../types/category.interface";
-import InputTest from "@/components/common/Input/Input";
+import InputTest from "@/components/common/Input";
 import { useEffect, useState } from "react";
 import { FaXmark } from "react-icons/fa6";
 import Button from "@/components/common/Button";
 import { FaAngleDown, FaPencilAlt, FaSave } from "react-icons/fa";
 const cx = classNames.bind(styles);
 import Form from "./Form";
-
-
-
 
 const FormCategory = ({
   categories,
@@ -25,9 +22,6 @@ const FormCategory = ({
 }: CategoryFormProps) => {
   const [isEdit, setIsEdit] = useState(false);
   const [showCascading, setShowCascading] = useState(false);
-
-
-
 
   const handleCloseForm = () => {
     onClose();
@@ -78,10 +72,7 @@ const FormCategory = ({
                 Cancel
               </Button>
             )}
-            <Button
-              variant="outline"
-              leftIcon={<FaSave />}
-            >
+            <Button variant="outline" leftIcon={<FaSave />}>
               Save
             </Button>
           </>

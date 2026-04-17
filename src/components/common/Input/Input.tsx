@@ -1,3 +1,4 @@
+import { forwardRef } from "react";
 import type { InputProps } from "./input.interface";
 import InputLayout from "./Layout/InputLayout";
 
@@ -5,7 +6,7 @@ import TextField from "./Variants/TextField";
 import SelectField from "./Variants/SelectField";
 import TreeField from "./Variants/TreeField";
 
-const Input = (props: InputProps) => {
+const Input = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
   const { type, label, error, required, className, readOnly } = props;
 
   const renderContent = () => {
@@ -15,7 +16,7 @@ const Input = (props: InputProps) => {
       case "tree":
         return <TreeField {...props} />;
       default:
-        return <TextField {...props} />;
+        return <TextField ref={ref} {...props} />;
     }
   };
 
@@ -30,6 +31,8 @@ const Input = (props: InputProps) => {
       {renderContent()}
     </InputLayout>
   );
-};
+});
+
+Input.displayName = "Input";
 
 export default Input;

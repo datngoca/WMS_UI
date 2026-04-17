@@ -3,48 +3,18 @@ import styles from "./FormCategory.module.scss";
 import type {
   Category,
   CategoryFormProps,
-  CategoryFormValues,
-  CategoryOption,
+  CategoryRequest,
 } from "../../types/category.interface";
 import InputTest from "@/components/common/Input/Input";
 import { useEffect, useState } from "react";
 import { FaXmark } from "react-icons/fa6";
 import Button from "@/components/common/Button";
 import { FaAngleDown, FaPencilAlt, FaSave } from "react-icons/fa";
-import CascadingCategorySelect from "../CascadingCategorySelect";
-import { getParentOptions } from "@/utils/formatData";
-import { CategoryMapper } from "@/utils/formatData";
 const cx = classNames.bind(styles);
-import type { TreeOption } from "@/components/common/Input/input.interface";
 import Form from "./Form";
 
-const mapToTreeOptions = (options: CategoryOption[]): TreeOption[] => {
-  return options.map((opt) => ({
-    id: opt.id as number,
-    label: opt.name,
-    children: opt.children ? mapToTreeOptions(opt.children) : [],
-  }));
-};
 
-const ENTRY_FORM: CategoryFormValues = {
-  name: "",
-  description: "",
-  parent: null,
-};
 
-const getFormDataFromCategory = (
-  category: Category | null,
-): CategoryFormValues => {
-  if (!category) return ENTRY_FORM;
-  return {
-    name: category.name,
-    description: category.description,
-    parent: {
-      id: category.parent?.id || null,
-      name: category.parent?.name || "",
-    },
-  };
-};
 
 const FormCategory = ({
   categories,
@@ -56,24 +26,8 @@ const FormCategory = ({
   const [isEdit, setIsEdit] = useState(false);
   const [showCascading, setShowCascading] = useState(false);
 
-  const initialFormData = getFormDataFromCategory(category);
-  const [formState, setFormState] =
-    useState<CategoryFormValues>(initialFormData);
 
-  const handleFormChange = <K extends keyof CategoryFormValues>(
-    field: K,
-    value: CategoryFormValues[K],
-  ) => {
-    setFormState((prev) => ({ ...prev, [field]: value }));
-  };
 
-  const handleSelectParentCategory = (selectedCategory: CategoryOption) => {
-    setFormState((prev) => ({
-      ...prev,
-      parent: { id: selectedCategory.id, name: selectedCategory.name },
-    }));
-    setShowCascading(false);
-  };
 
   const handleCloseForm = () => {
     onClose();
@@ -87,17 +41,12 @@ const FormCategory = ({
     // Nếu tạo mới -> tự động bật isEdit. Nếu view -> khóa isEdit chờ bấm Edit.
     setIsEdit(isCreateMode);
     setShowCascading(false);
-    setFormState(getFormDataFromCategory(category));
   }, [category, isCreateMode]);
 
-  const handleSubmit = () => {
-    const categoryRequest = CategoryMapper.toCategoryRequest(formState);
-    if (category) {
-      onUpdate(category.id, categoryRequest);
-    } else {
-      onCreate(categoryRequest);
-    }
-    setIsEdit(false);
+  const formState: CategoryRequest = {
+    name: category?.name || "",
+    description: category?.description || "",
+    parent: category?.parent || null,
   };
 
   return (
@@ -113,72 +62,8 @@ const FormCategory = ({
           <FaXmark />
         </button>
       </div>
-      <Form name={formState.name} description={formState.description} />
-      <div className={cx("form-category__content")}>
-        <div className={cx("form-category__content__item")}>
-          <InputTest
-            type="text"
-            label="Name"
-            value={formState.name}
-            readOnly={!isEdit}
-            onChange={(value) => handleFormChange("name", value as string)}
-          />
-        </div>
-        <div className={cx("form-category__content__item")}>
-          <InputTest
-            type="text"
-            label="Description"
-            value={formState.description}
-            readOnly={!isEdit}
-            onChange={(value) =>
-              handleFormChange("description", value as string)
-            }
-          />
-        </div>
-        {category?.depth !== 0 && (
-          <div
-            className={cx("form-category__content__item")}
-            onClick={() => setShowCascading(!showCascading)}
-          >
-            {/* <label htmlFor="parent_id">Parent Category</label> */}
-            {/* <div className={cx("form-category__content__item__input", {
-              "form-category__content__item__input--readOnly": !isEdit
-            })}>
-              {formState?.parent?.name}
-              <FaAngleDown />
-            </div> */}
-            <InputTest
-              required
-              label="Parent Category"
-              multiple={false}
-              cascade={false}
-              readOnly={!isEdit}
-              type="tree"
-              value={
-                {
-                  id: formState.parent?.id,
-                  label: formState.parent?.name,
-                } as TreeOption
-              }
-              placeholder="Select parent category"
-              options={mapToTreeOptions(
-                getParentOptions(categories, category?.id ?? null),
-              )}
-              onChange={(value) => {
-                console.log(value);
-                handleSelectParentCategory(value as CategoryOption);
-              }}
-            />
-            {/* {isEdit && showCascading && (
-              <CascadingCategorySelect
-                categories={getParentOptions(categories, category?.id ?? null)}
-                onSelectCategory={handleSelectParentCategory}
-                className={cx("form-category__content__item__cascading")}
-              />
-            )} */}
-          </div>
-        )}
-      </div>
+      <Form formState={formState} categories={categories} />
+
       <div className={cx("form-category__footer")}>
         {isEdit ? (
           <>
@@ -187,7 +72,6 @@ const FormCategory = ({
                 variant="outline"
                 onClick={() => {
                   setIsEdit(false);
-                  setFormState(getFormDataFromCategory(category));
                   setShowCascading(false);
                 }}
               >
@@ -196,7 +80,6 @@ const FormCategory = ({
             )}
             <Button
               variant="outline"
-              onClick={handleSubmit}
               leftIcon={<FaSave />}
             >
               Save

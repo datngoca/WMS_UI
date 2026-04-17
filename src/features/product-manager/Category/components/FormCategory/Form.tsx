@@ -1,37 +1,61 @@
 import { useForm } from "react-hook-form";
-import type { CategoryRequest } from "../../types/category.interface";
-import InputTest from "@/components/common/Input/Input";
+import type { Category, CategoryRequest } from "../../types/category.interface";
+import FormInput from "@/components/common/Input/FormInput";
+import type { TreeOption, Value } from "@/components/common/Input/input.interface";
 
 interface FormProps {
-  name: string;
-  description: string;
+  formState: CategoryRequest;
+  categories: Category[];
 }
 
-const Form = (formState: FormProps) => {
-  const { setValue, handleSubmit, watch } = useForm<FormProps>({
-    defaultValues: {
-      name: formState.name,
-      description: formState.description,
-    },
+const Form = ({ formState, categories }: FormProps) => {
+  const { control, handleSubmit } = useForm<CategoryRequest>({
+    values: formState,
   });
 
-  const onSubmit = (data: FormProps) => {
-    console.log(data);
+  const mapToTreeOptions = (options: Category[]): TreeOption[] => {
+    return options.map((opt) => ({
+      id: opt.id as number,
+      label: opt.name,
+      children: opt.children ? mapToTreeOptions(opt.children) : [],
+    }));
+  };
+
+  const onSubmit = (data: CategoryRequest) => {
+    console.log("Dữ liệu gửi đi:", data);
   };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <InputTest
+      <FormInput<CategoryRequest>
+        name="name"
+        control={control}
         type="text"
         label="Name"
-        value={watch("name")}
-        onChange={(value) => setValue("name", value)}
       />
-      <InputTest
+
+      <FormInput<CategoryRequest>
+        name="description"
+        control={control}
         type="text"
         label="Description"
-        value={watch("description")}
-        onChange={(value) => setValue("description", value)}
+      />
+
+      <FormInput<CategoryRequest>
+        name="parent"
+        control={control}
+        type="tree"
+        label="Parent"
+        options={mapToTreeOptions(categories)}
+        transformToInput={(formValue) =>
+          formValue
+            ? { id: formValue.id, label: formValue.name }
+            : undefined
+        }
+        transformToForm={(inputValue: Value) => ({
+          id: inputValue.id,
+          name: inputValue.label,
+        })}
       />
 
       <button type="submit">Submit</button>

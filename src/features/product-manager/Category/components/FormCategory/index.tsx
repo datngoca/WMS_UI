@@ -1,15 +1,13 @@
 import classNames from "classnames/bind";
 import styles from "./FormCategory.module.scss";
 import type {
-  Category,
   CategoryFormProps,
   CategoryRequest,
 } from "../../types/category.interface";
-import InputTest from "@/components/common/Input";
 import { useEffect, useState } from "react";
 import { FaXmark } from "react-icons/fa6";
 import Button from "@/components/common/Button";
-import { FaAngleDown, FaPencilAlt, FaSave } from "react-icons/fa";
+import { FaPencilAlt, FaSave } from "react-icons/fa";
 const cx = classNames.bind(styles);
 import Form from "./Form";
 
@@ -21,12 +19,10 @@ const FormCategory = ({
   onUpdate,
 }: CategoryFormProps) => {
   const [isEdit, setIsEdit] = useState(false);
-  const [showCascading, setShowCascading] = useState(false);
 
   const handleCloseForm = () => {
     onClose();
     setIsEdit(false);
-    setShowCascading(false);
   };
 
   const isCreateMode = !category;
@@ -34,7 +30,6 @@ const FormCategory = ({
   useEffect(() => {
     // Nếu tạo mới -> tự động bật isEdit. Nếu view -> khóa isEdit chờ bấm Edit.
     setIsEdit(isCreateMode);
-    setShowCascading(false);
   }, [category, isCreateMode]);
 
   const formState: CategoryRequest = {
@@ -56,7 +51,19 @@ const FormCategory = ({
           <FaXmark />
         </button>
       </div>
-      <Form formState={formState} categories={categories} />
+      <Form
+        id={category?.id}
+        formState={formState}
+        categories={categories}
+        readOnly={!isEdit}
+        onSubmit={(data) => {
+          if (isCreateMode) {
+            onCreate(data);
+          } else if (category) {
+            onUpdate(category.id, data);
+          }
+        }}
+      />
 
       <div className={cx("form-category__footer")}>
         {isEdit ? (
@@ -66,13 +73,17 @@ const FormCategory = ({
                 variant="outline"
                 onClick={() => {
                   setIsEdit(false);
-                  setShowCascading(false);
                 }}
               >
                 Cancel
               </Button>
             )}
-            <Button variant="outline" leftIcon={<FaSave />}>
+            <Button
+              variant="outline"
+              leftIcon={<FaSave />}
+              type="submit"
+              form="category-form"
+            >
               Save
             </Button>
           </>

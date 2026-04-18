@@ -1,40 +1,34 @@
 import { useForm } from "react-hook-form";
 import type { Category, CategoryRequest } from "../../types/category.interface";
 import FormInput from "@/utils/FormInput";
-import type {
-  TreeOption,
-  Value,
-} from "@/components/common/Input/input.interface";
+import type { Value } from "@/components/common/Input";
+import { getParentOptions } from "@/utils/formatData";
 
 interface FormProps {
+  id?: number;
   formState: CategoryRequest;
   categories: Category[];
+  readOnly?: boolean;
+  onSubmit: (data: CategoryRequest) => void;
 }
 
-const Form = ({ formState, categories }: FormProps) => {
+const Form = ({ id, formState, categories, readOnly, onSubmit }: FormProps) => {
   const { control, handleSubmit } = useForm<CategoryRequest>({
     values: formState,
   });
 
-  const mapToTreeOptions = (options: Category[]): TreeOption[] => {
-    return options.map((opt) => ({
-      id: opt.id as number,
-      label: opt.name,
-      children: opt.children ? mapToTreeOptions(opt.children) : [],
-    }));
-  };
-
-  const onSubmit = (data: CategoryRequest) => {
-    console.log("Dữ liệu gửi đi:", data);
+  const handleSubmitForm = (data: CategoryRequest) => {
+    onSubmit(data);
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form id="category-form" onSubmit={handleSubmit(handleSubmitForm)}>
       <FormInput<CategoryRequest>
         name="name"
         control={control}
         type="text"
         label="Name"
+        readOnly={readOnly}
       />
 
       <FormInput<CategoryRequest>
@@ -42,14 +36,17 @@ const Form = ({ formState, categories }: FormProps) => {
         control={control}
         type="text"
         label="Description"
+        readOnly={readOnly}
       />
 
       <FormInput<CategoryRequest>
         name="parent"
         control={control}
         type="tree"
+        readOnly={readOnly}
         label="Parent"
-        options={mapToTreeOptions(categories)}
+        placeholder="Select parent"
+        options={getParentOptions(categories, id || null)}
         transformToInput={(formValue) =>
           formValue ? { id: formValue.id, label: formValue.name } : undefined
         }
@@ -58,8 +55,6 @@ const Form = ({ formState, categories }: FormProps) => {
           name: inputValue.label,
         })}
       />
-
-      <button type="submit">Submit</button>
     </form>
   );
 };

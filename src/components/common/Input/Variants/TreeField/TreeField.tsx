@@ -20,6 +20,13 @@ const TreeField = (props: TreeFieldProps) => {
   } = props;
   const [isOpen, setIsOpen] = useState(false);
 
+  const handleRemove = (id: number) => {
+    if (multiple) {
+      const currentValues = Array.isArray(value) ? value : [];
+      const nextValues = currentValues.filter((item: Value) => item.id !== id);
+      onChange?.(nextValues);
+    }
+  };
   return (
     <div
       className={cx("tree-field", "field")}
@@ -31,7 +38,7 @@ const TreeField = (props: TreeFieldProps) => {
               <Tag
                 key={item.id}
                 tag={item.label}
-                onRemove={() => onChange?.(item.id)}
+                onRemove={() => handleRemove(item.id)}
                 className={cx("tree-field__value__tag")}
               />
             ))

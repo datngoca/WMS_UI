@@ -11,6 +11,7 @@ export interface Category {
   depth: number;
   children: Category[];
 }
+
 export interface CategoryFormProps {
   categories: Category[];
   category: Category | null;
@@ -20,21 +21,8 @@ export interface CategoryFormProps {
 
 }
 
-export interface CategoryFormValues {
-  name: string;
-  description: string;
-  parent: CategoryOption | null;
-}
-
-export interface CategoryOption {
-  id: number | null;
-  name: string;
-  children?: CategoryOption[];
-}
-
-
 export interface CategoryRequest {
   name: string;
   description: string;
-  parentId: number | null;
+  parent: ParentCategory | null;
 }

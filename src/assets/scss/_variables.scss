@@ -9,6 +9,8 @@
   --color-surface: #ffffff;
   /* Màu trắng cho Header, Sidebar */
   --color-surface-variant: #f9f9fb;
+
+  --color-surface-hover: #f5f6fa;
   /* Màu nền cho các item bên trong content */
 
   /* 3. Text - Màu chữ */
@@ -43,7 +45,6 @@
   /* Xanh lá - Hoàn thành, nhập kho xong */
   --color-success-soft: #d9f7f1;
 
-
   --color-warning: #ff9f43;
   /* Cam - Cảnh báo sắp hết hàng */
   --color-warning-soft: #fff3e8;
@@ -58,10 +59,9 @@
   /* 8. Modal */
   --color-modal-overplay: rgba(0, 0, 0, 0.7);
 
-
   // ------------------ User Page ----------------
-  --user-color-bg-main: #FAFAFA;
-  --user-color-bg-secondary: #F6F6F6;
+  --user-color-bg-main: #fafafa;
+  --user-color-bg-secondary: #f6f6f6;
 }
 
 [data-theme="dark"] {
@@ -92,7 +92,6 @@ $spacing-7xl: 80px;
 $spacing-8xl: 88px;
 $spacing-9xl: 96px;
 $spacing-10xl: 104px;
-
 
 $font-size-xs: 0.75rem; // 12px
 $font-size-sm: 0.875rem; // 14px

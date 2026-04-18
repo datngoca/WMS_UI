@@ -4,68 +4,41 @@ import type { ModalWarehouseProps } from "../../types/warehouse.interface";
 import Modal from "@/components/common/Modal/Modal";
 import { useWarehouseMutations } from "../../hooks/useWarehouseMutations";
 import { type WarehouseRequest } from "../../types/warehouse.interface";
-import { useEffect, useState } from "react";
-import Input from "@/components/common/Input";
 import Button from "@/components/common/Button";
-import { normalizeFormValues, hasFormChanged } from "@/utils/form";
+import Form from "./Form";
 
 const cx = classNames.bind(styles);
 
-const ENTRY_FORM: WarehouseRequest = {
+const DEFAULT_FORM: WarehouseRequest = {
   name: "",
   address: "",
   capacity: 0,
 };
-const getFormDataFromAction = (action: ModalWarehouseProps["action"]) => {
-  if (action?.type === "edit") {
-    return structuredClone(action.warehouse);
-  }
-  return ENTRY_FORM;
+
+const getInitialData = (action: ModalWarehouseProps["action"]): WarehouseRequest => {
+  if (action?.type === "edit") return structuredClone(action.warehouse);
+  return DEFAULT_FORM;
 };
 
 const ModalWarehouse = ({ isOpen, action, onClose }: ModalWarehouseProps) => {
   const { createWarehouse, updateWarehouse, deleteWarehouse, isMutating } =
     useWarehouseMutations();
-  const initialFormData = getFormDataFromAction(action);
-  const [formData, setFormData] = useState<WarehouseRequest>(initialFormData);
 
-  const handleFormChange = (
-    field: keyof WarehouseRequest,
-    value: string | number,
-  ) => {
-    setFormData((prev) => ({ ...prev, [field]: value }));
-  };
+  const isDeleteMode = action?.type === "delete";
+  const formState = getInitialData(action);
 
-  useEffect(() => {
-    setFormData(getFormDataFromAction(action));
-  }, [action]);
-
-  const resetForm = () => {
-    setFormData(ENTRY_FORM);
-  };
-
-  const handleSubmit = () => {
+  const handleSubmit = (payload: WarehouseRequest) => {
     if (!action) return;
 
-    const payload = normalizeFormValues(formData);
+    const options = { onSuccess: onClose };
 
-    const options = {
-      onSuccess: () => {
-        onClose();
-        resetForm();
-      },
-    };
-
-    const handlers = {
-      add: () => createWarehouse(payload, options),
-      edit: () =>
-        action.type === "edit" &&
-        updateWarehouse({ id: action.warehouse.id, ...payload }, options),
-      delete: () =>
-        action.type === "delete" && deleteWarehouse(action.warehouse, options),
-    };
-
-    handlers[action.type]?.();
+    if (action.type === "add") {
+      createWarehouse(payload, options);
+    } else if (action.type === "edit") {
+      updateWarehouse({ id: action.warehouse.id, ...payload }, options);
+    } else if (action.type === "delete") {
+      deleteWarehouse(action.warehouse, options);
+    }
   };
 
   const TITLES = {
@@ -74,59 +47,18 @@ const ModalWarehouse = ({ isOpen, action, onClose }: ModalWarehouseProps) => {
     delete: "Confirm Delete",
   };
 
-  const isDeleteMode = action?.type === "delete";
-  const hasChanged = hasFormChanged(formData, initialFormData);
-  const isSubmitDisabled = !isDeleteMode && (!hasChanged || isMutating);
-
   return (
-    <div className={cx("modal-warehouse")}>
-      <Modal
-        title={action ? TITLES[action.type] : ""}
-        isOpen={isOpen}
-        onClose={onClose}
-      >
-        <div className={cx("modal-warehouse__content")}>
-          {isDeleteMode ? (
-            <p className={cx("modal-warehouse__content--full-width")}>
-              Are you sure you want to delete warehouse:{" "}
-              <b>{action.warehouse.name}</b>? This action cannot be undone.
-            </p>
-          ) : (
-            <>
-              <Input
-                label="Name"
-                type="text"
-                value={formData.name}
-                placeholder="Enter warehouse name"
-                onChange={(value) => handleFormChange("name", value as string)}
-              />
-              <Input
-                label="Address"
-                type="text"
-                value={formData.address}
-                placeholder="Enter address"
-                onChange={(value) =>
-                  handleFormChange("address", value as string)
-                }
-              />
-              <Input
-                label="Capacity"
-                type="number"
-                value={formData.capacity}
-                placeholder="Enter capacity"
-                onChange={(value) =>
-                  handleFormChange("capacity", value as number)
-                }
-              />
-            </>
-          )}
-        </div>
+    <Modal
+      title={action ? TITLES[action.type] : ""}
+      isOpen={isOpen}
+      onClose={onClose}
+      footer={
         <div className={cx("modal-warehouse__actions")}>
           <Button
-            onClick={handleSubmit}
             isLoading={isMutating}
-            disabled={isSubmitDisabled}
             color={isDeleteMode ? "destructive" : "primary"}
+            form="warehouse-form"
+            onClick={isDeleteMode ? () => handleSubmit(formState) : undefined}
           >
             {isDeleteMode ? "Delete" : "Save Changes"}
           </Button>
@@ -134,8 +66,20 @@ const ModalWarehouse = ({ isOpen, action, onClose }: ModalWarehouseProps) => {
             Cancel
           </Button>
         </div>
-      </Modal>
-    </div>
+      }
+    >
+      <div className={cx("modal-warehouse__content")}>
+        {action && (isDeleteMode ? (
+          <p className={cx("modal-warehouse--full-width")}>
+            Are you sure you want to delete warehouse: <b>{action.warehouse.name}</b>?
+            This action cannot be undone.
+          </p>
+        ) : (
+          <Form formState={formState} onSubmit={handleSubmit} />
+        ))}
+      </div>
+    </Modal>
   );
 };
+
 export default ModalWarehouse;

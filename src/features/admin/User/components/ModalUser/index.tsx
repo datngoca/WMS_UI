@@ -1,48 +1,42 @@
 import classNames from "classnames/bind";
 import styles from "./ModalUser.module.scss";
 import Modal from "@/components/common/Modal/Modal";
-import type {
-  ModalAction,
-  ModalUserProps,
-  UserRequest,
-} from "../../types/user.interface";
-import Input from "@/components/common/Input";
-import InputTest from "@/components/common/Input/Input";
+import type { ModalAction, ModalUserProps, UserRequest } from "../../types/user.interface";
 import Button from "@/components/common/Button";
-import { FaUser } from "react-icons/fa";
-import { useRoles } from "@/features/admin/Role/hooks/useRoles";
-import { useEffect, useState } from "react";
 import { useUserMutations } from "../../hooks/useUserMutations";
-import { hasFormChanged, normalizeFormValues } from "@/utils/form";
-import type { Option } from "@/components/common/Input/input.interface";
+import Form from "./Form";
 
 const cx = classNames.bind(styles);
 
-const EMPTY_FORM: UserRequest = {
-  fullName: "",
-  username: "",
-  password: "",
-  email: "",
-  roles: [],
-};
-
-const getFormDataFromAction = (action?: ModalAction): UserRequest => {
-  if (action?.type === "edit") {
-    return structuredClone(action.user);
-  }
-  return EMPTY_FORM;
+const getInitialData = (action?: ModalAction): UserRequest => {
+  if (action?.type === "edit") return structuredClone(action.user);
+  return {
+    fullName: "",
+    username: "",
+    password: "",
+    email: "",
+    roles: [],
+  };
 };
 
 const ModalUser = ({ action, isOpen, onClose }: ModalUserProps) => {
   const { createUser, updateUser, deleteUser, isMutating } = useUserMutations();
-  const initialFormData = getFormDataFromAction(action);
-  const [formData, setFormData] = useState<UserRequest>(() => initialFormData);
-  const { data: roles } = useRoles();
-  const handleFormChange = <K extends keyof UserRequest>(
-    field: K,
-    value: UserRequest[K],
-  ) => {
-    setFormData((prev) => ({ ...prev, [field]: value }));
+
+  const isDeleteMode = action?.type === "delete";
+  const formState = getInitialData(action);
+
+  const handleSubmit = (payload: UserRequest) => {
+    if (!action) return;
+
+    const options = { onSuccess: onClose };
+
+    if (action.type === "add") {
+      createUser(payload, options);
+    } else if (action.type === "edit") {
+      updateUser({ id: action.user.id, data: payload }, options);
+    } else if (action.type === "delete") {
+      deleteUser(action.user.id, options);
+    }
   };
 
   const TITLES = {
@@ -51,138 +45,43 @@ const ModalUser = ({ action, isOpen, onClose }: ModalUserProps) => {
     delete: "Confirm Delete",
   };
 
-  useEffect(() => {
-    setFormData(getFormDataFromAction(action));
-  }, [action]);
-
-  const resetForm = () => {
-    setFormData(EMPTY_FORM);
-  };
-
-  const handleSubmit = () => {
-    if (!action) return;
-    const payload = normalizeFormValues(formData);
-
-    const options = {
-      onSuccess: () => {
-        onClose();
-        resetForm();
-      },
-    };
-
-    const handlers = {
-      add: () => createUser(payload, options),
-      edit: () =>
-        action?.type === "edit" &&
-        updateUser({ id: action.user?.id, data: payload }, options),
-      delete: () =>
-        action?.type === "delete" && deleteUser(action.user.id, options),
-    };
-
-    handlers[action.type]?.();
-  };
-
-  const handleSelectChange = (selected: Option[]) => {
-    const selectedRoles = roles?.filter((role) =>
-      selected.map((item) => item.id).includes(role.id),
-    );
-    handleFormChange("roles", selectedRoles || []);
-  };
-
-  const isDeleteMode = action?.type === "delete";
-  const hasChanged = hasFormChanged(formData, initialFormData);
-  const isSubmitDisabled = !isDeleteMode && (!hasChanged || isMutating);
-
   return (
-    <div className={cx("modal-user")}>
-      <Modal
-        title={action ? TITLES[action.type] : ""}
-        isOpen={isOpen}
-        onClose={onClose}
-        footer={
-          <div className={cx("modal-user__actions")}>
-            <Button
-              onClick={handleSubmit}
-              isLoading={isMutating}
-              disabled={isSubmitDisabled}
-              color={isDeleteMode ? "destructive" : "primary"}
-            >
-              {isDeleteMode ? "Delete" : "Save Changes"}
-            </Button>
-            <Button onClick={onClose} disabled={isMutating}>
-              Cancel
-            </Button>
-          </div>
-        }
-      >
-        <div className={cx("modal-user__content")}>
-          {isDeleteMode ? (
-            <p className={cx("modal-role__content--full-width")}>
-              Are you sure you want to delete user:
-              <b>{action?.user?.fullName}</b>? This action cannot be undone.
-            </p>
-          ) : (
-            <>
-              <InputTest
-                label="Full Name"
-                value={formData.fullName}
-                type="text"
-                placeholder="Full Name"
-                required
-                onChange={(value) =>
-                  handleFormChange("fullName", value)
-                }
-              />
-              <InputTest
-                label="User Name"
-                value={formData.username}
-                type="text"
-                placeholder="Username"
-                onChange={(value) =>
-                  handleFormChange("username", value)
-                }
-              />
-              <InputTest
-                label="Email"
-                value={formData.email}
-                type="email"
-                placeholder="Email"
-                onChange={(value) => handleFormChange("email", value)}
-              />
-
-              {action?.type === "add" && (
-                <InputTest
-                  label="Password"
-                  type="password"
-                  placeholder="Password"
-                  onChange={(value) => {
-                    console.log(value);
-                    handleFormChange("password", value as string)
-                  }}
-                />
-              )}
-
-              <InputTest
-                type="select"
-                multiple={true}
-                value={formData.roles?.map((role) => ({
-                  id: role.id,
-                  label: role.name,
-                }))}
-                options={roles?.map((role) => ({
-                  id: role.id,
-                  label: role.name,
-                }))}
-                label="Roles"
-                placeholder="Roles"
-                onChange={handleSelectChange}
-                className={cx("modal-user__content--full-width")}
-              />
-            </>
-          )}
+    <Modal
+      title={action ? TITLES[action.type] : ""}
+      isOpen={isOpen}
+      onClose={onClose}
+      footer={
+        <div className={cx("modal-user__actions")}>
+          <Button
+            isLoading={isMutating}
+            color={isDeleteMode ? "destructive" : "primary"}
+            form="user-form"
+            onClick={isDeleteMode ? () => handleSubmit(formState) : undefined}
+          >
+            {isDeleteMode ? "Delete" : "Save Changes"}
+          </Button>
+          <Button onClick={onClose} disabled={isMutating}>
+            Cancel
+          </Button>
         </div>
-      </Modal>
-    </div>
+      }
+    >
+      <div className={cx("modal-user__content")}>
+        {action && (isDeleteMode ? (
+          <p className={cx("form-user--full-width")}>
+            Are you sure you want to delete user: <b>{action.user.username}</b>?
+            This action cannot be undone.
+          </p>
+        ) : (
+          <Form
+            formState={formState}
+            readOnly={isDeleteMode}
+            action={action}
+            onSubmit={handleSubmit}
+          />
+        ))}
+      </div>
+    </Modal>
   );
 };
 

@@ -6,8 +6,7 @@ export type ButtonSize = "sm" | "md" | "lg";
 
 export type ButtonType = "button" | "submit" | "reset";
 
-export interface ButtonProps {
-  children: React.ReactNode;
+export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: ButtonVariant;
   color?: ButtonColor;
   size?: ButtonSize;
@@ -16,8 +15,4 @@ export interface ButtonProps {
   isLoading?: boolean;
   leftIcon?: React.ReactNode;
   rightIcon?: React.ReactNode;
-  className?: string;
-  type?: ButtonType;
-  disabled?: boolean;
-  onClick?: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
 }

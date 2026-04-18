@@ -50,7 +50,7 @@ const TreeList = ({ options, multiple, cascade, checked }: TreeListProps) => {
     return (
         <div className={cx("tree-list")}>
             {options?.map((node: TreeOption) => (
-               <TreeItem key={node.id} node={node} multiple={multiple} cascade={cascade} checked={checked} />
+                <TreeItem key={node.id} node={node} multiple={multiple} cascade={cascade} checked={checked} />
             ))}
         </div>
     )

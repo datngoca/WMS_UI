@@ -1,61 +1,72 @@
 import classNames from "classnames/bind";
 import styles from "./ModalProduct.module.scss";
 import type { Product } from "../../types/product.interface";
-import Input from "@/components/common/Input";
+import FormInput from "@/utils/FormInput";
 import Button from "@/components/common/Button";
 import { Fragment } from "react";
 import { FaTrash } from "react-icons/fa";
+import { useFieldArray, type Control } from "react-hook-form";
 
 const cx = classNames.bind(styles);
 
 interface SectionBasicSpecificationsProps {
-    specs: Product["specs"];
-    onChange: (specs: Product["specs"]) => void;
+  control: Control<Product>;
 }
 
-const SectionBasicSpecifications = ({ specs, onChange }: SectionBasicSpecificationsProps) => {
+const SectionBasicSpecifications = ({
+  control,
+}: SectionBasicSpecificationsProps) => {
+  const { fields, append, remove } = useFieldArray({
+    control,
+    name: "specs",
+  });
 
-    const handleSpecChange = (index: number, key: keyof Product["specs"][number], newValue: string) => {
-        const newSpecs = [...specs];
-        newSpecs[index] = { ...newSpecs[index], [key]: newValue };
-        onChange(newSpecs);
-    };
+  return (
+    <div className={cx("modal-product__card")}>
+      <div className={cx("modal-product__card__title")}>
+        Basic Specifications
+      </div>
 
-    const handleAddSpec = () => {
-        onChange([...specs, { label: "", value: "" }]);
-    };
+      <div
+        className={cx(
+          "modal-product__card__content",
+          "modal-product__card__content--specs",
+        )}
+      >
+        {fields.map((field, index) => (
+          <Fragment key={field.id}>
+            <FormInput<Product>
+              name={`specs.${index}.label` as any}
+              control={control}
+              type="text"
+              placeholder="Enter specification label"
+            />
+            <FormInput<Product>
+              name={`specs.${index}.value` as any}
+              control={control}
+              type="text"
+              placeholder="Enter specification value"
+            />
+            <Button
+              variant="ghost"
+              color="destructive"
+              onClick={() => remove(index)}
+            >
+              <FaTrash />
+            </Button>
+          </Fragment>
+        ))}
+      </div>
 
-    const handleRemoveSpec = (index: number) => {
-        onChange(specs.filter((_, i) => i !== index));
-    };
-
-    return (
-        <div className={cx("modal-product__card")}>
-            <div className={cx("modal-product__card__title")}>Basic Specifications</div>
-
-            <div className={cx("modal-product__card__content", "modal-product__card__content--specs")}>
-                {specs.map((spec, index) => (
-                    <Fragment key={index}>
-                        <Input type="text"
-                            value={spec.label}
-                            placeholder="Enter specification label"
-                            onChange={(value) => handleSpecChange(index, "label", value as string)} />
-                        <Input
-                            type="text"
-                            value={spec.value}
-                            placeholder="Enter specification value"
-                            onChange={(value) => handleSpecChange(index, "value", value as string)}
-                        />
-                        <Button variant="ghost" color="destructive" onClick={() => handleRemoveSpec(index)} >
-                            <FaTrash />
-                        </Button>
-                    </Fragment>
-                ))}
-            </div>
-
-            <Button variant="outline" onClick={handleAddSpec} className={cx("modal-product__card__action")}>Add Specification</Button>
-        </div>
-    );
+      <Button
+        variant="outline"
+        onClick={() => append({ label: "", value: "" })}
+        className={cx("modal-product__card__action")}
+      >
+        Add Specification
+      </Button>
+    </div>
+  );
 };
 
 export default SectionBasicSpecifications;

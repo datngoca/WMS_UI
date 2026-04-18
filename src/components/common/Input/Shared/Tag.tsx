@@ -5,25 +5,18 @@ import { FaXmark } from "react-icons/fa6";
 const cx = classNames.bind(styles);
 
 interface TagProps {
-    tag: string;
-    onRemove?: (tag: string) => void;
+  tag: string;
+  onRemove?: () => void;
+  className?: string;
 }
 
-const Tag = ({ tag, onRemove }: TagProps) => {
-    const handleRemove = (e: React.MouseEvent) => {
-        e.stopPropagation();
-        onRemove?.(tag);
-    }
-    return (
-        <div className={cx("tag")}>
-            <span className={cx("tag__text")}>
-                {tag}
-            </span>
-            {onRemove && (
-                <FaXmark onClick={handleRemove} className={cx("tag__remove")} />
-            )}
-        </div>
-    )
-}
+const Tag = ({ tag, onRemove, className }: TagProps) => {
+  return (
+    <div className={cx("tag", className)}>
+      <span className={cx("tag__text")}>{tag}</span>
+      {onRemove && <FaXmark onClick={onRemove} className={cx("tag__remove")} />}
+    </div>
+  );
+};
 
-export default Tag
+export default Tag;

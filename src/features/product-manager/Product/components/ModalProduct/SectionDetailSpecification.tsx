@@ -1,91 +1,118 @@
 import classNames from "classnames/bind";
 import styles from "./ModalProduct.module.scss";
 import type { Product } from "../../types/product.interface";
-import Input from "@/components/common/Input";
+import FormInput from "@/utils/FormInput";
 import { FaTrash } from "react-icons/fa";
 import Button from "@/components/common/Button";
+import { useFieldArray, type Control } from "react-hook-form";
 
 const cx = classNames.bind(styles);
 
 interface SectionDetailSpecificationProps {
-    detailedSpecs: Product["detailedSpecs"];
-    onChange: (detailedSpecs: Product["detailedSpecs"]) => void;
+  control: Control<Product>;
 }
 
-const SectionDetailSpecification = ({ detailedSpecs, onChange }: SectionDetailSpecificationProps) => {
+const SectionDetailSpecification = ({
+  control,
+}: SectionDetailSpecificationProps) => {
+  const { fields, append, remove } = useFieldArray({
+    control,
+    name: "detailedSpecs",
+  });
 
-    const handleAddGroup = () => {
-        onChange([...detailedSpecs, { groupName: "", items: [{ label: "", value: "" }] }]);
-    };
+  return (
+    <div className={cx("modal-product__card")}>
+      <div className={cx("modal-product__card__title")}>
+        Detail Specification
+      </div>
+      {fields.map((field, index) => (
+        <DetailGroup
+          key={field.id}
+          groupIndex={index}
+          control={control}
+          onRemove={() => remove(index)}
+        />
+      ))}
+      <Button
+        variant="ghost"
+        className={cx("modal-product__card__action")}
+        onClick={() => append({ groupName: "", items: [{ label: "", value: "" }] })}
+      >
+        Add Specification Group
+      </Button>
+    </div>
+  );
+};
 
-    const handleRemoveGroup = (index: number) => {
-        onChange(detailedSpecs.filter((_, i) => i !== index));
-    };
+const DetailGroup = ({ groupIndex, control, onRemove }: any) => {
+  const { fields, append, remove } = useFieldArray({
+    control,
+    name: `detailedSpecs.${groupIndex}.items`,
+  });
 
-    const handleGroupNameChange = (groupIndex: number, value: string) => {
-        const newSpecs = [...detailedSpecs];
-        newSpecs[groupIndex] = { ...newSpecs[groupIndex], groupName: value };
-        onChange(newSpecs);
-    };
+  return (
+    <div className={cx("modal-product__card__group")}>
+      <div
+        className={cx(
+          "modal-product__card__content",
+          "modal-product__card__content--specs",
+        )}
+      >
+        <FormInput<Product>
+          name={`detailedSpecs.${groupIndex}.groupName` as any}
+          control={control}
+          type="text"
+          placeholder="Group name (e.g., Display, Performance)"
+          className={cx(
+            "modal-product__card__content__item",
+            "modal-product__card__content__item--full-width",
+          )}
+        />
+        <Button variant="ghost" color="destructive" onClick={onRemove}>
+          <FaTrash />
+        </Button>
+      </div>
 
-    const handleAddItem = (groupIndex: number) => {
-        const newSpecs = [...detailedSpecs];
-        newSpecs[groupIndex] = {
-            ...newSpecs[groupIndex],
-            items: [...newSpecs[groupIndex].items, { label: "", value: "" }]
-        };
-        onChange(newSpecs);
-    };
-
-    const handleRemoveItem = (groupIndex: number, itemIndex: number) => {
-        const newSpecs = [...detailedSpecs];
-        newSpecs[groupIndex] = {
-            ...newSpecs[groupIndex],
-            items: newSpecs[groupIndex].items.filter((_, i) => i !== itemIndex)
-        };
-        onChange(newSpecs);
-    };
-
-    const handleItemChange = (groupIndex: number, itemIndex: number, key: "label" | "value", value: string) => {
-        const newSpecs = [...detailedSpecs];
-        const newItems = [...newSpecs[groupIndex].items];
-        newItems[itemIndex] = { ...newItems[itemIndex], [key]: value };
-        newSpecs[groupIndex] = { ...newSpecs[groupIndex], items: newItems };
-        onChange(newSpecs);
-    };
-
-    return (
-        <div className={cx("modal-product__card")}>
-            <div className={cx("modal-product__card__title")}>Detail Specification</div>
-            {detailedSpecs.map((detailsSpec, index) => (
-                <div key={index} className={cx("modal-product__card__group")}>
-                    <div className={cx("modal-product__card__content", "modal-product__card__content--specs")}>
-                        <Input type="text"
-                            value={detailsSpec.groupName}
-                            placeholder="Group name (e.g., Display, Performance)"
-                            className={cx("modal-product__card__content__item", "modal-product__card__content__item--full-width")}
-                            onChange={(value) => handleGroupNameChange(index, value as string)}
-                        />
-                        <Button variant="ghost" color="destructive" onClick={() => handleRemoveGroup(index)} >
-                            <FaTrash />
-                        </Button>
-                    </div>
-
-                    {detailsSpec.items.map((spec, specIndex) => (
-                        <div key={specIndex} className={cx("modal-product__card__content", "modal-product__card__content--specs")}>
-                            <Input type="text" placeholder="Label" value={spec.label} className={cx("modal-product__card__content__item")} onChange={(value) => handleItemChange(index, specIndex, "label", value as string)} />
-                            <Input type="text" placeholder="Value" value={spec.value} className={cx("modal-product__card__content__item")} onChange={(value) => handleItemChange(index, specIndex, "value", value as string)} />
-                            <Button variant="ghost" color="destructive" onClick={() => handleRemoveItem(index, specIndex)}>
-                                <FaTrash />
-                            </Button>
-                        </div>
-                    ))}
-                    <Button variant="ghost" className={cx("modal-product__card__content__action")} onClick={() => handleAddItem(index)}>Add row</Button>
-                </div>
-            ))}
-            <Button variant="ghost" className={cx("modal-product__card__action")} onClick={handleAddGroup}>Add Specification Group</Button>
+      {fields.map((item, itemIndex) => (
+        <div
+          key={item.id}
+          className={cx(
+            "modal-product__card__content",
+            "modal-product__card__content--specs",
+          )}
+        >
+          <FormInput<Product>
+            name={`detailedSpecs.${groupIndex}.items.${itemIndex}.label` as any}
+            control={control}
+            type="text"
+            placeholder="Label"
+            className={cx("modal-product__card__content__item")}
+          />
+          <FormInput<Product>
+            name={`detailedSpecs.${groupIndex}.items.${itemIndex}.value` as any}
+            control={control}
+            type="text"
+            placeholder="Value"
+            className={cx("modal-product__card__content__item")}
+          />
+          <Button
+            variant="ghost"
+            color="destructive"
+            onClick={() => remove(itemIndex)}
+          >
+            <FaTrash />
+          </Button>
         </div>
-    );
+      ))}
+      <Button
+        variant="ghost"
+        className={cx("modal-product__card__content__action")}
+        onClick={() => append({ label: "", value: "" })}
+      >
+        Add row
+      </Button>
+    </div>
+  );
 };
 
 export default SectionDetailSpecification;

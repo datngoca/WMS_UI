@@ -1,69 +1,36 @@
-import { useEffect, useState } from "react";
 import classNames from "classnames/bind";
 import styles from "./RoleModal.module.scss";
 import Modal from "@/components/common/Modal/Modal";
 import type { ModalRoleProps, RoleRequest } from "../../types/role.interface";
-import Input from "@/components/common/Input";
 import Button from "@/components/common/Button";
 import { useRoleMutations } from "../../hooks/useRoleMutations";
-import { normalizeFormValues, hasFormChanged } from "@/utils/form";
+import Form from "./Form";
 
 const cx = classNames.bind(styles);
 
-const EMPTY_FORM: RoleRequest = {
-  name: "",
-  description: "",
-};
-
-const getFormDataFromAction = (
-  action: ModalRoleProps["action"],
-): RoleRequest => {
-  if (action?.type === "edit") {
-    return structuredClone(action.role);
-  }
-
-  return EMPTY_FORM;
+const getInitialData = (action: ModalRoleProps["action"]): RoleRequest => {
+  if (action?.type === "edit") return structuredClone(action.role);
+  return { name: "", description: "" };
 };
 
 const ModalRole = ({ action, isOpen, onClose }: ModalRoleProps) => {
   const { addRole, updateRole, deleteRole, isMutating } = useRoleMutations();
-  const initialFormData = getFormDataFromAction(action);
-  const [formData, setFormData] = useState<RoleRequest>(() => initialFormData);
 
-  const handleFormChange = (field: keyof RoleRequest, value: string) => {
-    setFormData((prev) => ({ ...prev, [field]: value }));
-  };
+  const isDeleteMode = action?.type === "delete";
+  const formState = getInitialData(action);
 
-  useEffect(() => {
-    setFormData(getFormDataFromAction(action));
-  }, [action]);
-
-  const resetForm = () => {
-    setFormData(EMPTY_FORM);
-  };
-
-  const handleSubmit = () => {
+  const handleSubmit = (payload: RoleRequest) => {
     if (!action) return;
 
-    const payload = normalizeFormValues(formData);
+    const options = { onSuccess: onClose };
 
-    // Callback dùng chung cho tất cả action thành công
-    const options = {
-      onSuccess: () => {
-        onClose();
-        resetForm();
-      },
-    };
-
-    const handlers = {
-      add: () => addRole(payload, options),
-      edit: () =>
-        action.role &&
-        updateRole({ id: action.role.id, data: payload }, options),
-      delete: () => action.role && deleteRole(action.role.id, options),
-    };
-
-    handlers[action.type]?.();
+    if (action.type === "add") {
+      addRole(payload, options);
+    } else if (action.type === "edit") {
+      updateRole({ id: action.role.id, data: payload }, options);
+    } else if (action.type === "delete") {
+      deleteRole(action.role.id, options);
+    }
   };
 
   const TITLES = {
@@ -72,51 +39,18 @@ const ModalRole = ({ action, isOpen, onClose }: ModalRoleProps) => {
     delete: "Confirm Delete",
   };
 
-  const isDeleteMode = action?.type === "delete";
-  const hasChanged = hasFormChanged(formData, initialFormData);
-  const isSubmitDisabled = !isDeleteMode && (!hasChanged || isMutating);
-
   return (
-    <div className={cx("modal-role")}>
-      <Modal
-        title={action ? TITLES[action.type] : ""}
-        isOpen={isOpen}
-        onClose={onClose}
-      >
-        <div className={cx("modal-role__content")}>
-          {isDeleteMode ? (
-            <p className={cx("modal-role__content--full-width")}>
-              Are you sure you want to delete role: <b>{action.role.name}</b>?
-              This action cannot be undone.
-            </p>
-          ) : (
-            <>
-              <Input
-                label="Name"
-                type="text"
-                value={formData.name}
-                placeholder="Enter role name"
-                onChange={(value) => handleFormChange("name", value as string)}
-              />
-              <Input
-                label="Description"
-                type="text"
-                value={formData.description}
-                placeholder="Enter description"
-                onChange={(value) =>
-                  handleFormChange("description", value as string)
-                }
-              />
-            </>
-          )}
-        </div>
-
+    <Modal
+      title={action ? TITLES[action.type] : ""}
+      isOpen={isOpen}
+      onClose={onClose}
+      footer={
         <div className={cx("modal-role__actions")}>
           <Button
-            onClick={handleSubmit}
             isLoading={isMutating}
-            disabled={isSubmitDisabled}
             color={isDeleteMode ? "destructive" : "primary"}
+            form="role-form"
+            onClick={isDeleteMode ? () => handleSubmit(formState) : undefined}
           >
             {isDeleteMode ? "Delete" : "Save Changes"}
           </Button>
@@ -124,8 +58,19 @@ const ModalRole = ({ action, isOpen, onClose }: ModalRoleProps) => {
             Cancel
           </Button>
         </div>
-      </Modal>
-    </div>
+      }
+    >
+      <div className={cx("modal-role__content")}>
+        {action && (isDeleteMode ? (
+          <p className={cx("form-role--full-width")}>
+            Are you sure you want to delete role: <b>{action.role.name}</b>?
+            This action cannot be undone.
+          </p>
+        ) : (
+          <Form formState={formState} onSubmit={handleSubmit} />
+        ))}
+      </div>
+    </Modal>
   );
 };
 

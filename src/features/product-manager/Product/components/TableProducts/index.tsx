@@ -20,7 +20,10 @@ const TableProducts = ({ data, onEdit, onDelete, onRowClick }: ProductTableProps
         },
         {
             header: "Category",
-            key: "category",
+            key: "categories",
+            render: (record) => (
+                <span>{record.categories?.map(c => c.name).join(', ')}</span>
+            )
         },
         {
             header: "Base Price",

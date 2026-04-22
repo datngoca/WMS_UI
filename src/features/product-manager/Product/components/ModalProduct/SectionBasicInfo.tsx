@@ -14,7 +14,6 @@ interface SectionBasicInfoProps {
 
 const SectionBasicInfo = ({ control }: SectionBasicInfoProps) => {
   const { data: categories = [] } = useCategory();
-  console.log(categories);
   return (
     <div className={cx("modal-product__card")}>
       <div className={cx("modal-product__card__title")}>Basic Information</div>
@@ -47,16 +46,6 @@ const SectionBasicInfo = ({ control }: SectionBasicInfoProps) => {
             type="number"
             label="Base Price"
             placeholder="Enter base price"
-            required
-          />
-        </div>
-        <div className={cx("modal-product__card__content__item")}>
-          <FormInput<Product>
-            name="originalPrice"
-            control={control}
-            type="number"
-            label="Original Price"
-            placeholder="Enter original price"
             required
           />
         </div>

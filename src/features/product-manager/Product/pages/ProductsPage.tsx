@@ -37,6 +37,10 @@ const ProductsPage = () => {
                     <TableProducts
                         data={products?.data || []}
                         onRowClick={handleRowClick}
+                        onEdit={(record) => {
+                            setSelectedProduct(record);
+                            setOpenModal(true);
+                        }}
                     />
                 </div>
             </div>

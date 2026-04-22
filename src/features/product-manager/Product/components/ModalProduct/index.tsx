@@ -4,6 +4,7 @@ import type { Product } from "../../types/product.interface";
 import Modal from "@/components/common/Modal";
 import Button from "@/components/common/Button";
 import Form from "./Form";
+import { useProductMutations } from "../../hooks/useProductMutations";
 
 const cx = classNames.bind(styles);
 
@@ -28,18 +29,24 @@ const EMPTY_PRODUCT: Product = {
 };
 
 const ModalProduct = ({ isOpen, onClose, product }: ModalProductProps) => {
+  const { createProduct, updateProduct } = useProductMutations();
   const formState: Product = product
     ? {
-        ...product,
-        specs: product.specs?.length > 0 ? product.specs : [{ label: "", value: "" }],
-        detailedSpecs: product.detailedSpecs?.length > 0 ? product.detailedSpecs : [{ groupName: "", items: [{ label: "", value: "" }] }],
-      }
+      ...product,
+      specs: product.specs?.length > 0 ? product.specs : [{ label: "", value: "" }],
+      detailedSpecs: product.detailedSpecs?.length > 0 ? product.detailedSpecs : [{ groupName: "", items: [{ label: "", value: "" }] }],
+    }
     : EMPTY_PRODUCT;
 
   const handleSubmit = (data: Product) => {
-    console.log("Submit product:", data);
+    if (!product) {
+      createProduct(data);
+    } else {
+      updateProduct(data);
+    }
     onClose();
   };
+
 
   return (
     <Modal

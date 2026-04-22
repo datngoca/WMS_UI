@@ -48,6 +48,7 @@ const SectionBasicSpecifications = ({
               placeholder="Enter specification value"
             />
             <Button
+              type="button"
               variant="ghost"
               color="destructive"
               onClick={() => remove(index)}
@@ -59,6 +60,7 @@ const SectionBasicSpecifications = ({
       </div>
 
       <Button
+        type="button"
         variant="outline"
         onClick={() => append({ label: "", value: "" })}
         className={cx("modal-product__card__action")}

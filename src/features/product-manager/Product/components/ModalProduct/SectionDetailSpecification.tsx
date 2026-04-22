@@ -3,6 +3,7 @@ import styles from "./ModalProduct.module.scss";
 import type { Product } from "../../types/product.interface";
 import FormInput from "@/utils/FormInput";
 import { FaTrash } from "react-icons/fa";
+import { Fragment } from "react";
 import Button from "@/components/common/Button";
 import { useFieldArray, type Control } from "react-hook-form";
 
@@ -34,6 +35,7 @@ const SectionDetailSpecification = ({
         />
       ))}
       <Button
+        type="button"
         variant="ghost"
         className={cx("modal-product__card__action")}
         onClick={() => append({ groupName: "", items: [{ label: "", value: "" }] })}
@@ -72,39 +74,39 @@ const DetailGroup = ({ groupIndex, control, onRemove }: any) => {
           <FaTrash />
         </Button>
       </div>
-
-      {fields.map((item, itemIndex) => (
-        <div
-          key={item.id}
-          className={cx(
-            "modal-product__card__content",
-            "modal-product__card__content--specs",
-          )}
-        >
-          <FormInput<Product>
-            name={`detailedSpecs.${groupIndex}.items.${itemIndex}.label` as any}
-            control={control}
-            type="text"
-            placeholder="Label"
-            className={cx("modal-product__card__content__item")}
-          />
-          <FormInput<Product>
-            name={`detailedSpecs.${groupIndex}.items.${itemIndex}.value` as any}
-            control={control}
-            type="text"
-            placeholder="Value"
-            className={cx("modal-product__card__content__item")}
-          />
-          <Button
-            variant="ghost"
-            color="destructive"
-            onClick={() => remove(itemIndex)}
-          >
-            <FaTrash />
-          </Button>
-        </div>
-      ))}
+      <div
+        className={cx(
+          "modal-product__card__content",
+          "modal-product__card__content--specs",
+        )}
+      >
+        {fields.map((item, itemIndex) => (
+          <Fragment key={item.id}>
+            <FormInput<Product>
+              name={`detailedSpecs.${groupIndex}.items.${itemIndex}.label` as any}
+              control={control}
+              type="text"
+              placeholder="Label"
+            />
+            <FormInput<Product>
+              name={`detailedSpecs.${groupIndex}.items.${itemIndex}.value` as any}
+              control={control}
+              type="text"
+              placeholder="Value"
+            />
+            <Button
+              type="button"
+              variant="ghost"
+              color="destructive"
+              onClick={() => remove(itemIndex)}
+            >
+              <FaTrash />
+            </Button>
+          </Fragment>
+        ))}
+      </div>
       <Button
+        type="button"
         variant="ghost"
         className={cx("modal-product__card__content__action")}
         onClick={() => append({ label: "", value: "" })}

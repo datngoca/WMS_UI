@@ -53,6 +53,10 @@ const TreeNode = ({
     }
   };
 
+  const isChecked = multiple
+    ? Array.isArray(value) && value.some((v) => v.id === node.id)
+    : !Array.isArray(value) && value?.id === node.id;
+  console.log(isChecked);
   return (
     <div
       className={cx("tree-node", {
@@ -79,11 +83,7 @@ const TreeNode = ({
         </div>
         <div
           className={cx("tree-node__item__suffix", {
-            "tree-node__item__suffix--checked":
-              (multiple &&
-                Array.isArray(value) &&
-                value.some((v) => v.id === node.id)) ||
-              (!multiple && !Array.isArray(value) && value?.id === node.id),
+            "tree-node__item__suffix--checked": isChecked,
           })}
         >
           <FaCheck />

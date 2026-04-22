@@ -21,7 +21,7 @@ const GeneralInfo = ({ product }: GeneralInfoProps) => {
             </div>
             <div className={cx("general-info__item")}>
                 <div className={cx("general-info__item__label")}>Category</div>
-                <div className={cx("general-info__item__value")}>{product.categories}</div>
+                <div className={cx("general-info__item__value")}>{product.categories?.map(c => c.name).join(", ")}</div>
             </div>
             <div className={cx("general-info__item")}>
                 <div className={cx("general-info__item__label")}>Base Price</div>

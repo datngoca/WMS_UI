@@ -18,21 +18,11 @@ const Dropdown = ({ isOpen, onClose, children }: DropdownProps) => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") onClose();
     };
-    // Đóng khi click bên ngoài (Nếu bạn không dùng stopPropagation ở cha)
-    const handleClickOutside = (e: MouseEvent) => {
-      if (
-        dropdownRef.current &&
-        !dropdownRef.current.contains(e.target as Node)
-      ) {
-        onClose();
-      }
-    };
+
     window.addEventListener("keydown", handleKeyDown);
-    window.addEventListener("mousedown", handleClickOutside);
 
     return () => {
       window.removeEventListener("keydown", handleKeyDown);
-      window.removeEventListener("mousedown", handleClickOutside);
     };
   }, [isOpen, onClose]);
   if (!isOpen) return null;

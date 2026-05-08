@@ -1,1 +1,1 @@
-export { default as CategoryPage } from './pages/CategoryPage';
+export { default as UserCategoryPage } from './pages/CategoryPage';

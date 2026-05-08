@@ -35,18 +35,24 @@ const TreeField = (props: TreeFieldProps) => {
       <div className={cx(`tree-field__${value ? "value" : "placeholder"}`)}>
         {multiple && Array.isArray(value)
           ? value.map((item: Value) => (
-              <Tag
-                key={item.id}
-                tag={item.label}
-                onRemove={() => handleRemove(item.id)}
-                className={cx("tree-field__value__tag")}
-              />
-            ))
+            <Tag
+              key={item.id}
+              tag={item.label}
+              onRemove={() => handleRemove(item.id)}
+              className={cx("tree-field__value__tag")}
+            />
+          ))
           : !Array.isArray(value) && value?.label
             ? value.label
             : placeholder}
       </div>
-      <FaAngleDown />
+      <div
+        className={cx("field__suffix", {
+          "field__suffix--expanded": isOpen,
+        })}
+      >
+        <FaAngleDown />
+      </div>
       <Dropdown isOpen={isOpen} onClose={() => setIsOpen(false)}>
         {options?.map((option: TreeOption) => (
           <TreeNode

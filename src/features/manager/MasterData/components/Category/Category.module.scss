@@ -1,0 +1,35 @@
+.table {
+    &__item {
+        display: flex;
+        align-items: center;
+
+    }
+
+    &__icon {
+        margin-right: $spacing-sm;
+        transition: all 0.2s ease;
+
+        &--expanded {
+            transform: rotate(90deg);
+        }
+    }
+
+    &__name {
+        display: flex;
+        flex-direction: column;
+
+        &--title {
+            font-weight: $font-weight-medium;
+        }
+
+        &--slug {
+            font-size: $font-size-sm;
+            color: var(--color-text-muted);
+        }
+    }
+
+    &__actions {
+        display: flex;
+        gap: 8px;
+    }
+}

@@ -1,1 +1,2 @@
-export { default as ProductPage } from './pages/ProductPage';
+export { default as UserProductPage } from './pages/ProductPage';
+export * from './hooks/useProduct';

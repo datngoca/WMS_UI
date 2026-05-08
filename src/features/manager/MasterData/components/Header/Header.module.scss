@@ -1,0 +1,39 @@
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 24px;
+    height: 60px;
+    background-color: white;
+    border-bottom: 1px solid #e0e0e0;
+
+    &__left {
+        display: flex;
+        align-items: center;
+        gap: 24px;
+
+        &__tab {
+            font-weight: $font-weight-medium;
+            cursor: pointer;
+            padding: $spacing-sm 0;
+            border-bottom: 2px solid transparent;
+            color: var(--color-text-muted);
+            transition: all 0.2s;
+
+            &:hover {
+                color: var(--color-text-main);
+            }
+
+            &.active {
+                color: var(--color-primary);
+                border-bottom: 2px solid var(--color-primary);
+            }
+        }
+    }
+
+    &__right {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+}

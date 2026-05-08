@@ -9,6 +9,8 @@ import { HiOutlineDesktopComputer } from "react-icons/hi";
 import { SiYoutubegaming } from "react-icons/si";
 import productIphone from "@/assets/img/product_iphone.svg";
 import ProductCard from "../../../../components/user/ProductCard/ProductCard";
+import { useCategory } from "@/features/manager/MasterData";
+import { Link } from "react-router-dom";
 
 const product = {
     id: "1",
@@ -20,6 +22,8 @@ const product = {
 const cx = classNames.bind(styles);
 
 const HomePage = () => {
+    const { data: categories } = useCategory();
+
     return (
         <div className={cx("page-user")}>
             <div className={cx("page-user__banner")}>
@@ -39,6 +43,14 @@ const HomePage = () => {
                     </div>
                 </div>
                 <div className={cx("page-user__category__bottom")}>
+                    {categories?.map((category) => (
+                        <Link to={`/catalog/${category?.slug}`} key={category.id} className={cx("page-user__category__bottom__item")}>
+                            <MdOutlinePhoneAndroid className={cx("page-user__category__bottom__item__icon")} />
+                            <h4 className={cx("page-user__category__bottom__item__title")}>{category.name}</h4>
+                        </Link>
+                    ))}
+                </div>
+                {/* <div className={cx("page-user__category__bottom")}>
                     <div className={cx("page-user__category__bottom__item")}>
                         <MdOutlinePhoneAndroid className={cx("page-user__category__bottom__item__icon")} />
                         <h4 className={cx("page-user__category__bottom__item__title")}>Phone</h4>
@@ -63,7 +75,7 @@ const HomePage = () => {
                         <SiYoutubegaming className={cx("page-user__category__bottom__item__icon")} />
                         <h4 className={cx("page-user__category__bottom__item__title")}>Gaming</h4>
                     </div>
-                </div>
+                </div> */}
             </div>
             <div className={cx("page-user__products")}>
                 <div className={cx("page-user__products__tags")}>

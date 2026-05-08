@@ -40,17 +40,19 @@ const SelectField = (props: SelectFieldProps) => {
       <div className={cx("select-field__value")}>
         {multiple && Array.isArray(value)
           ? value.map((item: Value) => (
-              <Tag
-                key={item.id}
-                tag={item.label}
-                onRemove={() => handleRemove(item.id)}
-              />
-            ))
+            <Tag
+              key={item.id}
+              tag={item.label}
+              onRemove={() => handleRemove(item.id)}
+            />
+          ))
           : value
             ? !Array.isArray(value) && value.label
             : placeholder}
       </div>
-      <div className={cx("select-field__suffix")}>
+      <div className={cx("field__suffix", {
+        "field__suffix--expanded": isOpen,
+      })}>
         <FaChevronDown />
       </div>
       <Dropdown isOpen={isOpen} onClose={() => setIsOpen(false)}>
@@ -59,6 +61,7 @@ const SelectField = (props: SelectFieldProps) => {
             <div
               className={cx("select-field__options__item")}
               onClick={() => handleSelect(option)}
+              key={option.id}
             >
               {option.label}
               {multiple &&

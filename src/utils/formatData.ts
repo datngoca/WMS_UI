@@ -1,4 +1,4 @@
-import type { Category } from "@/features/product-manager/Category/types/category.interface";
+import type { Category } from "@/features/manager/MasterData/components/Category/types/category.interface";
 
 /**
  * @param object Đối tượng dữ liệu gốc (formData)

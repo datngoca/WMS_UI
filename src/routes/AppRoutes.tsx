@@ -8,18 +8,17 @@ import { RolePage } from "@/features/admin/Role";
 import { WarehousePage } from "@/features/admin/Warehouse";
 
 // User
-import UserLayout from "@/layouts/UserLayout/UserLayout";
-import { HomePage } from "@/features/user/Home";
-import { CategoryPage as UserCategoryPage } from "@/features/user/Category";
 import BreadCrumbs from "@/layouts/UserLayout/BreadCrumbs/BreadCrumbs";
-import { ProductPage } from "@/features/user/Product";
+import UserLayout from "@/layouts/UserLayout/UserLayout";
+import { UserHomePage } from "@/features/user/Home";
+import { UserCategoryPage } from "@/features/user/Category";
+import { UserProductPage } from "@/features/user/Product";
 
 // Product Manager
-import { ProductManagerDashboardPage } from "@/features/product-manager/Dashboard";
-import { ProductManagerProductsPage } from "@/features/product-manager/Product";
-import { ProductManagerInventoryPage } from "@/features/product-manager/Inventory";
-import { ProductManagerCategoryPage } from "@/features/product-manager/Category";
-import { ProductManagerUnitPage } from "@/features/product-manager/Unit";
+import { ProductManagerDashboardPage } from "@/features/manager/Dashboard";
+import { ProductManagerProductsPage } from "@/features/manager/Product";
+import { ProductManagerInventoryPage } from "@/features/manager/Inventory";
+import { ProductManagerMasterDataPage } from "@/features/manager/MasterData";
 
 const SIDEBAR_MENU_ADMIN = [
   {
@@ -46,9 +45,8 @@ const SIDEBAR_MENU_PRODUCT_MANAGER = [
     items: [
       { id: "dashboard", label: "DashBoard", path: "/management/dashboards" },
       { id: "products", label: "Products", path: "/management/products" },
-      { id: "category", label: "Category", path: "/management/category" },
-      { id: "unit", label: "Unit", path: "/management/unit" },
       { id: "inventory", label: "Inventory", path: "/management/inventory" },
+      { id: "master-data", label: "Master Data", path: "/management/master-data" },
     ],
   },
   {
@@ -76,19 +74,20 @@ const AppRoutes = () => {
       </Route>
 
       <Route element={<UserLayout />}>
-        <Route path="/home" element={<HomePage />} />
+        <Route path="/home" element={<UserHomePage />} />
+
         <Route element={<BreadCrumbs />} >
+          <Route path="/catalog" element={<UserCategoryPage />} />
           <Route path="/catalog/:category" element={<UserCategoryPage />} />
-          <Route path="/catalog/:category/:product" element={<ProductPage />} />
+          <Route path="/catalog/:category/:product" element={<UserProductPage />} />
         </Route>
       </Route>
 
       <Route element={<MainLayout sidebarMenu={SIDEBAR_MENU_PRODUCT_MANAGER} />}>
         <Route path="/management/dashboards" element={<ProductManagerDashboardPage />} />
         <Route path="/management/products" element={<ProductManagerProductsPage />} />
-        <Route path="/management/category" element={<ProductManagerCategoryPage />} />
-        <Route path="/management/unit" element={<ProductManagerUnitPage />} />
         <Route path="/management/inventory" element={<ProductManagerInventoryPage />} />
+        <Route path="/management/master-data" element={<ProductManagerMasterDataPage />} />
       </Route>
     </Routes >
   );

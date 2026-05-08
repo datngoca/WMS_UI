@@ -13,7 +13,7 @@ const BreadCrumbs = () => {
             <nav className={cx("breadcrumbs")}>
                 <Link to="/home" className={cx("breadcrumbs__link")}>Home</Link>
                 {pathnames.map((pathname, index) => (
-                    <Link to={`/${pathnames.slice(0, index + 1).join("/")}`} className={cx("breadcrumbs__link")}>
+                    <Link key={index} to={`/${pathnames.slice(0, index + 1).join("/")}`} className={cx("breadcrumbs__link")}>
                         <FaAngleRight className={cx("breadcrumbs__link__icon")} />
                         {pathname}
                     </Link>

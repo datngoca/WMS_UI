@@ -66,6 +66,14 @@
     border-color: var(color-primary);
     box-shadow: var(--shadow-sm);
   }
+
+  &__suffix {
+    transition: transform 0.2s ease-in-out;
+
+    &--expanded {
+      transform: rotate(180deg);
+    }
+  }
 }
 
 .text-field {
@@ -127,6 +135,8 @@
       }
     }
   }
+
+
 }
 
 .tree-field {
